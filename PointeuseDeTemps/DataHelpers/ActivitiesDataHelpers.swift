@@ -16,6 +16,8 @@ class ActivitiesDataHelpers {
     func getAllActivities() -> [Activities] {
         var activities = [Activities]()
         let query: NSFetchRequest<Activities> = Activities.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "activityName", ascending: true)
+        query.sortDescriptors?.append(sortDescriptor)
         do {
             activities = try context.fetch(query)
         } catch {
@@ -48,6 +50,14 @@ class ActivitiesDataHelpers {
                 print(error.localizedDescription)
                 return false
             }
+        } else {
+            return false
+        }
+    }
+    
+    func setActivity(activity: Activities!) -> Bool {
+        if activity != nil {
+            return true
         } else {
             return false
         }

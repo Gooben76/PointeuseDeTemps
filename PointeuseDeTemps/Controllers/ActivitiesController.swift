@@ -47,6 +47,7 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         switch editingStyle {
         case .delete:
             if ActivitiesDataHelpers.getFunc.delActivity(activity: activities[indexPath.row]) {
+                activities.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
             }
         default:
@@ -59,8 +60,8 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func addButtonAction(_ sender: Any) {
-        let alert = UIAlertController(title: "Gestion de activités", message: "Ajout", preferredStyle: .alert)
-        let add = UIAlertAction(title: "OK", style: .default) { (action) in
+        let alert = UIAlertController(title: RSC_ACTIVITIES_MANAGEMENT, message: RSC_ADD, preferredStyle: .alert)
+        let add = UIAlertAction(title: RSC_OK, style: .default) { (action) in
             let textFieldAlert = alert.textFields![0] as UITextField
             if let text = textFieldAlert.text, text != "" {
                 if ActivitiesDataHelpers.getFunc.setNewActivity(activityName: text) {
@@ -70,9 +71,9 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         alert.addTextField { (tf) in
-            tf.placeholder = "Nom de l'activité"
+            tf.placeholder = RSC_ACTIVITYNAME
         }
-        let cancel = UIAlertAction(title: "Annuler", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: RSC_CANCEL, style: .cancel, handler: nil)
         alert.addAction(add)
         alert.addAction(cancel)
         

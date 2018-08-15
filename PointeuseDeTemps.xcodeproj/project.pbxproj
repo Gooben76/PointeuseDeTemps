@@ -15,6 +15,7 @@
 		1774E8842124222C00A65415 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E8832124222C00A65415 /* Constants.swift */; };
 		1774E887212424D900A65415 /* ActivitiesDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E886212424D900A65415 /* ActivitiesDataHelpers.swift */; };
 		1774E88921244A3500A65415 /* TextFieldTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E88821244A3500A65415 /* TextFieldTS.swift */; };
+		1774E88B212486C200A65415 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E88A212486C200A65415 /* Resources.swift */; };
 		17CFDF8721235A6200EC4F1A /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CFDF8521235A6200EC4F1A /* HistoryController.swift */; };
 		17CFDF8821235A6200EC4F1A /* HistoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17CFDF8621235A6200EC4F1A /* HistoryController.xib */; };
 		17CFDF8B21235B3800EC4F1A /* DaysController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CFDF8921235B3800EC4F1A /* DaysController.swift */; };
@@ -41,6 +42,7 @@
 		1774E8832124222C00A65415 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1774E886212424D900A65415 /* ActivitiesDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesDataHelpers.swift; sourceTree = "<group>"; };
 		1774E88821244A3500A65415 /* TextFieldTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTS.swift; sourceTree = "<group>"; };
+		1774E88A212486C200A65415 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		17CFDF8521235A6200EC4F1A /* HistoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
 		17CFDF8621235A6200EC4F1A /* HistoryController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryController.xib; sourceTree = "<group>"; };
 		17CFDF8921235B3800EC4F1A /* DaysController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysController.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				1774E8832124222C00A65415 /* Constants.swift */,
+				1774E88A212486C200A65415 /* Resources.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				17CFDF8721235A6200EC4F1A /* HistoryController.swift in Sources */,
 				17CFDF8F212363C200EC4F1A /* ActivityTableCell.swift in Sources */,
 				17CFDF8B21235B3800EC4F1A /* DaysController.swift in Sources */,
+				1774E88B212486C200A65415 /* Resources.swift in Sources */,
 				175FC091211782B500B6A3E5 /* AppDelegate.swift in Sources */,
 				17E0F7352121FD6200F5DD1E /* TabBarController.swift in Sources */,
 				1774E8812124108900A65415 /* ImageViewTS.swift in Sources */,
