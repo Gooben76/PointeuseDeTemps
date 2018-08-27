@@ -44,7 +44,6 @@ class ActivitiesDataHelpers {
             context.delete(activity)
             do {
                 try context.save()
-                print("Delete ok")
                 return true
             } catch {
                 print(error.localizedDescription)
@@ -57,9 +56,39 @@ class ActivitiesDataHelpers {
     
     func setActivity(activity: Activities!) -> Bool {
         if activity != nil {
-            return true
+            let act = searchActivityByName(activityName: activity.activityName!)
+            guard act != nil else {return false}
+            act!.setValue(activity.order, forKey: "order")
+            act!.setValue(activity.image, forKey: "image")
+            act!.setValue(activity.activityName, forKey: "activityName")
+            act!.setValue(activity.gpsPosition, forKey: "gpsPosition")
+            do {
+                try context.save()
+                print("updated")
+                return true
+            } catch {
+                print(error.localizedDescription)
+                return false
+            }
         } else {
             return false
+        }
+    }
+    
+    func searchActivityByName(activityName : String) -> Activities? {
+        let query: NSFetchRequest<Activities> = Activities.fetchRequest()
+        query.predicate = NSPredicate(format: "activityName like %@", activityName)
+        do {
+            var foundRecordsArray = [Activities]()
+            try foundRecordsArray = context.fetch(query)
+            if foundRecordsArray.count > 0 {
+                return foundRecordsArray[0]
+            } else {
+                return nil
+            }
+        } catch {
+            print(error.localizedDescription)
+            return nil
         }
     }
 }

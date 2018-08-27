@@ -25,5 +25,6 @@ class ImageViewTS : UIImageView {
         self.clipsToBounds = false
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = 1
+        self.image = #imageLiteral(resourceName: "camera-50")
     }
 }

@@ -30,6 +30,7 @@ class ActivityTableCell: UITableViewCell, UITextFieldDelegate {
         
         activityTextField.text = activity.activityName
         positionSwitch.isOn = activity.gpsPosition
+        orderTextField.text = String(activity.order)
         if activity.image != nil, let image = activity.image as? UIImage {
             imageActivity.image = image
         } else {
@@ -40,20 +41,26 @@ class ActivityTableCell: UITableViewCell, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == activityTextField {
             if let text = textField.text {
-                print("Activité : " + text)
+                activity.activityName = text
             }
         } else {
-            if let text = textField.text {
-                print("Ordre : " + text)
+            if let text = textField.text, let order = Int32(text) {
+                activity.order = order
             }
+        }
+        if !ActivitiesDataHelpers.getFunc.setActivity(activity: activity) {
+            print("Erreur de sauvegarde de l'activité")
         }
     }
     
     @objc func switchValueDidChange(sender: UISwitch!) {
         if sender.isOn {
-            print("GPS position : Oui")
+            activity.gpsPosition = true
         } else {
-            print("GPS position : Non")
+            activity.gpsPosition = false
+        }
+        if !ActivitiesDataHelpers.getFunc.setActivity(activity: activity) {
+            print("Erreur de sauvegarde de l'activité")
         }
     }
     

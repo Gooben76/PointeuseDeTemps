@@ -15,5 +15,9 @@ let RSC_ACTIVITIES_MANAGEMENT = "Gestion des activités"
 let RSC_ADD = "Ajout"
 let RSC_OK = "Ok"
 let RSC_CANCEL = "Annuler"
+let RSC_SELECTPICTURE = "Sélection d'une image"
+let RSC_SELECTMEDIA = "Choisirle média :"
+let RSC_PHOTOLIBRARY = "Librairie de photos"
+let RSC_CAMERA = "Appareil photo"
 
 

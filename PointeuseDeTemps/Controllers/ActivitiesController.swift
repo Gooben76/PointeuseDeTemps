@@ -14,6 +14,9 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     
     var activities = [Activities]()
+    var imagePicker: UIImagePickerController?
+    var currentTapIndex: Int = -1
+    
     let cellID = "ActivityTableCell"
     
     override func viewDidLoad() {
@@ -25,6 +28,10 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.register(nib, forCellReuseIdentifier: cellID)
         
         activities = ActivitiesDataHelpers.getFunc.getAllActivities()
+        
+        imagePicker = UIImagePickerController()
+        imagePicker?.delegate = self
+        imagePicker?.allowsEditing = true
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,6 +41,11 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellID) as? ActivityTableCell {
             cell.initCell(activity: activities[indexPath.row])
+            if cell.imageActivity.gestureRecognizers?.count ?? 0 == 0 {
+                let tap = UITapGestureRecognizer(target: self, action: #selector(self.imageClick(sender: )))
+                cell.imageActivity.addGestureRecognizer(tap)
+                cell.imageActivity.isUserInteractionEnabled = true
+            }
             return cell
         }
         return UITableViewCell()
@@ -53,10 +65,6 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         default:
             break
         }
-    }
-    
-    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-        print("Edit")
     }
     
     @IBAction func addButtonAction(_ sender: Any) {
@@ -79,4 +87,5 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.present(alert, animated: true, completion: nil)
     }
+    
 }

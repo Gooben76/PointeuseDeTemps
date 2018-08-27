@@ -11,6 +11,9 @@
 		175FC099211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 175FC097211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodeld */; };
 		175FC09B211782B600B6A3E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 175FC09A211782B600B6A3E5 /* Assets.xcassets */; };
 		175FC09E211782B600B6A3E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 175FC09C211782B600B6A3E5 /* LaunchScreen.storyboard */; };
+		1767F35C213404C100BF17DA /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767F35B213404C100BF17DA /* UIViewExtension.swift */; };
+		1767F35E2134490500BF17DA /* ActivitiesControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767F35D2134490500BF17DA /* ActivitiesControllerExtension.swift */; };
+		1767F36021347E0700BF17DA /* ButtonTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767F35F21347E0700BF17DA /* ButtonTS.swift */; };
 		1774E8812124108900A65415 /* ImageViewTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E8802124108900A65415 /* ImageViewTS.swift */; };
 		1774E8842124222C00A65415 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E8832124222C00A65415 /* Constants.swift */; };
 		1774E887212424D900A65415 /* ActivitiesDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E886212424D900A65415 /* ActivitiesDataHelpers.swift */; };
@@ -38,6 +41,9 @@
 		175FC09A211782B600B6A3E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		175FC09D211782B600B6A3E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		175FC09F211782B600B6A3E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1767F35B213404C100BF17DA /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		1767F35D2134490500BF17DA /* ActivitiesControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesControllerExtension.swift; sourceTree = "<group>"; };
+		1767F35F21347E0700BF17DA /* ButtonTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTS.swift; sourceTree = "<group>"; };
 		1774E8802124108900A65415 /* ImageViewTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewTS.swift; sourceTree = "<group>"; };
 		1774E8832124222C00A65415 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1774E886212424D900A65415 /* ActivitiesDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesDataHelpers.swift; sourceTree = "<group>"; };
@@ -124,6 +130,7 @@
 			children = (
 				17E0F72C2121FCBC00F5DD1E /* ActivitiesController.swift */,
 				17E0F72D2121FCBC00F5DD1E /* ActivitiesController.xib */,
+				1767F35D2134490500BF17DA /* ActivitiesControllerExtension.swift */,
 				17E0F7302121FD3D00F5DD1E /* ParametersController.swift */,
 				17E0F7312121FD3D00F5DD1E /* ParametersController.xib */,
 				17E0F7342121FD6200F5DD1E /* TabBarController.swift */,
@@ -144,6 +151,8 @@
 				17CFDF8E212363C200EC4F1A /* ActivityTableCell.xib */,
 				1774E8802124108900A65415 /* ImageViewTS.swift */,
 				1774E88821244A3500A65415 /* TextFieldTS.swift */,
+				1767F35B213404C100BF17DA /* UIViewExtension.swift */,
+				1767F35F21347E0700BF17DA /* ButtonTS.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -239,9 +248,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1767F35C213404C100BF17DA /* UIViewExtension.swift in Sources */,
 				1774E887212424D900A65415 /* ActivitiesDataHelpers.swift in Sources */,
 				1774E88921244A3500A65415 /* TextFieldTS.swift in Sources */,
 				175FC099211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodeld in Sources */,
+				1767F35E2134490500BF17DA /* ActivitiesControllerExtension.swift in Sources */,
+				1767F36021347E0700BF17DA /* ButtonTS.swift in Sources */,
 				1774E8842124222C00A65415 /* Constants.swift in Sources */,
 				17F8C5B821221AAE00CB312E /* TimeScoresController.swift in Sources */,
 				17E0F7322121FD3D00F5DD1E /* ParametersController.swift in Sources */,

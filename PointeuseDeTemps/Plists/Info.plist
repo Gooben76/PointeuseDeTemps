@@ -39,5 +39,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Souhaitez-vous sélectionner des images pour vos activités ?</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Souhaitez-vous sélectionner des images pour vos activités ?</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Souhaitez-vous sélectionner des images pour vos activités ?</string>
 </dict>
 </plist>
