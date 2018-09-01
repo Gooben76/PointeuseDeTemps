@@ -28,6 +28,8 @@ class ActivitiesDataHelpers {
     
     func setNewActivity(activityName: String) -> Bool {
         if activityName != "" {
+            let elm = searchActivityByName(activityName: activityName)
+            guard elm == nil else {return false}
             let newActivity = Activities(context: context)
             newActivity.activityName = activityName
             newActivity.gpsPosition = false

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		172AC028213B26C8007E254F /* ConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172AC026213B26C8007E254F /* ConnectionController.swift */; };
+		172AC029213B26C8007E254F /* ConnectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172AC027213B26C8007E254F /* ConnectionController.xib */; };
+		172BF550213AAD08007CB7A7 /* UsersDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172BF54F213AAD08007CB7A7 /* UsersDataHelpers.swift */; };
+		172BF552213AC75A007CB7A7 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172BF551213AC75A007CB7A7 /* Alert.swift */; };
 		175FC091211782B500B6A3E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175FC090211782B500B6A3E5 /* AppDelegate.swift */; };
 		175FC099211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 175FC097211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodeld */; };
 		175FC09B211782B600B6A3E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 175FC09A211782B600B6A3E5 /* Assets.xcassets */; };
@@ -35,6 +39,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		172AC026213B26C8007E254F /* ConnectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionController.swift; sourceTree = "<group>"; };
+		172AC027213B26C8007E254F /* ConnectionController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConnectionController.xib; sourceTree = "<group>"; };
+		172BF54F213AAD08007CB7A7 /* UsersDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDataHelpers.swift; sourceTree = "<group>"; };
+		172BF551213AC75A007CB7A7 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		175FC08D211782B500B6A3E5 /* PointeuseDeTemps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointeuseDeTemps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		175FC090211782B500B6A3E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		175FC098211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PointeuseDeTemps.xcdatamodel; sourceTree = "<group>"; };
@@ -94,9 +102,9 @@
 		175FC08F211782B500B6A3E5 /* PointeuseDeTemps */ = {
 			isa = PBXGroup;
 			children = (
+				175FC090211782B500B6A3E5 /* AppDelegate.swift */,
 				1774E8852124249400A65415 /* DataHelpers */,
 				1774E8822124218D00A65415 /* Utilities */,
-				175FC090211782B500B6A3E5 /* AppDelegate.swift */,
 				17BAAC49211C9C760035DF40 /* Models */,
 				17BAAC48211C9C5E0035DF40 /* Views */,
 				17BAAC47211C9C4A0035DF40 /* Controllers */,
@@ -121,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				1774E886212424D900A65415 /* ActivitiesDataHelpers.swift */,
+				172BF54F213AAD08007CB7A7 /* UsersDataHelpers.swift */,
 			);
 			path = DataHelpers;
 			sourceTree = "<group>";
@@ -140,6 +149,8 @@
 				17CFDF8621235A6200EC4F1A /* HistoryController.xib */,
 				17CFDF8921235B3800EC4F1A /* DaysController.swift */,
 				17CFDF8A21235B3800EC4F1A /* DaysController.xib */,
+				172AC026213B26C8007E254F /* ConnectionController.swift */,
+				172AC027213B26C8007E254F /* ConnectionController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -160,6 +171,7 @@
 		17BAAC49211C9C760035DF40 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				172BF551213AC75A007CB7A7 /* Alert.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -236,6 +248,7 @@
 				17E0F7332121FD3D00F5DD1E /* ParametersController.xib in Resources */,
 				175FC09B211782B600B6A3E5 /* Assets.xcassets in Resources */,
 				17E0F72F2121FCBC00F5DD1E /* ActivitiesController.xib in Resources */,
+				172AC029213B26C8007E254F /* ConnectionController.xib in Resources */,
 				17CFDF90212363C200EC4F1A /* ActivityTableCell.xib in Resources */,
 				17F8C5B921221AAE00CB312E /* TimeScoresController.xib in Resources */,
 			);
@@ -250,8 +263,11 @@
 			files = (
 				1767F35C213404C100BF17DA /* UIViewExtension.swift in Sources */,
 				1774E887212424D900A65415 /* ActivitiesDataHelpers.swift in Sources */,
+				172BF550213AAD08007CB7A7 /* UsersDataHelpers.swift in Sources */,
 				1774E88921244A3500A65415 /* TextFieldTS.swift in Sources */,
+				172AC028213B26C8007E254F /* ConnectionController.swift in Sources */,
 				175FC099211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodeld in Sources */,
+				172BF552213AC75A007CB7A7 /* Alert.swift in Sources */,
 				1767F35E2134490500BF17DA /* ActivitiesControllerExtension.swift in Sources */,
 				1767F36021347E0700BF17DA /* ButtonTS.swift in Sources */,
 				1774E8842124222C00A65415 /* Constants.swift in Sources */,

@@ -18,6 +18,7 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var firstNameTF: TextFieldTS!
     
     var imagePicker: UIImagePickerController?
+    var user: Users?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,18 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         let tap = UITapGestureRecognizer(target: self, action: #selector(pictureClick))
         imageView.addGestureRecognizer(tap)
         imageView.isUserInteractionEnabled = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let user = UserDefaults.standard.object(forKey: "connectedUser") as? Users {
+            loginTF.text = user.login
+            nameTF.text = user.lastName
+            firstNameTF.text = user.firstName
+            if user.image != nil, let img = user.image as? UIImage {
+                imageView.image = img
+            }
+        }
     }
 
     @objc func pictureClick() {
@@ -77,5 +90,19 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     
     @IBAction func saveButton_Click(_ sender: Any) {
         view.endEditing(true)
+        if loginTF.text != nil, loginTF.text != "" {
+            if passwordTF.text != nil, passwordTF.text != "" {
+                let mail: String = ""
+                if UsersDataHelpers.getFunc.setNewUser(login: loginTF.text!, password: passwordTF.text!, firstName: firstNameTF.text, lastName: nameTF.text, mail: mail, image: imageView.image) {
+                    Alert.show.error(message: "Création réussie de l'utilisateur " + loginTF.text!, controller: self)
+                } else {
+                    Alert.show.error(message: RSC_ERR_USERCREATIONFAILED, controller: self)
+                }
+            } else {
+                Alert.show.error(message: RSC_PASSWORD_MANDATORY, controller: self)
+            }
+        } else {
+            Alert.show.error(message: RSC_LOGIN_MANDATORY, controller: self)
+        }
     }
 }
