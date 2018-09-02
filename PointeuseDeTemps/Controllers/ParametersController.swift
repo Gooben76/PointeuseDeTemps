@@ -18,7 +18,9 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var firstNameTF: TextFieldTS!
     
     var imagePicker: UIImagePickerController?
-    var user: Users?
+    var userCreation: Bool = false
+    var userConnected: Users?
+    var selectImage: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,18 +36,43 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let user = UserDefaults.standard.object(forKey: "connectedUser") as? Users {
-            loginTF.text = user.login
-            nameTF.text = user.lastName
-            firstNameTF.text = user.firstName
-            if user.image != nil, let img = user.image as? UIImage {
-                imageView.image = img
+        
+        if !selectImage {
+            if !userCreation {
+                let usr = UserDefaults.standard.object(forKey: "connectedUser")
+                if usr != nil, let login = usr as? String {
+                    if let user = UsersDataHelpers.getFunc.searchUserByLogin(login: login), user != nil {
+                        userConnected = user
+                        loginTF.text = userConnected!.login
+                        passwordTF.text = userConnected!.password
+                        nameTF.text = userConnected!.lastName
+                        firstNameTF.text = userConnected!.firstName
+                        if userConnected!.image != nil, let img = userConnected!.image as? UIImage {
+                            imageView.image = img
+                        }
+                    } else {
+                        UserDefaults.standard.removeObject(forKey: "connectedUser")
+                        loginTF.text = ""
+                        passwordTF.text = ""
+                        nameTF.text = ""
+                        firstNameTF.text = ""
+                        imageView.image = nil
+                        userCreation = true
+                    }
+                }
+            } else {
+                loginTF.text = ""
+                passwordTF.text = ""
+                nameTF.text = ""
+                firstNameTF.text = ""
+                imageView.image = nil
             }
         }
     }
 
     @objc func pictureClick() {
         guard imagePicker != nil else {return}
+        selectImage = true
         let alert = UIAlertController(title: RSC_SELECTPICTURE, message: RSC_SELECTMEDIA, preferredStyle: .actionSheet)
         let camera = UIAlertAction(title: RSC_CAMERA, style: .default) { (action) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -93,16 +120,55 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         if loginTF.text != nil, loginTF.text != "" {
             if passwordTF.text != nil, passwordTF.text != "" {
                 let mail: String = ""
-                if UsersDataHelpers.getFunc.setNewUser(login: loginTF.text!, password: passwordTF.text!, firstName: firstNameTF.text, lastName: nameTF.text, mail: mail, image: imageView.image) {
-                    Alert.show.error(message: "Création réussie de l'utilisateur " + loginTF.text!, controller: self)
+                if !userCreation {
+                    if userConnected != nil {
+                        userConnected!.password = passwordTF.text
+                        userConnected!.firstName = firstNameTF.text
+                        userConnected!.lastName = nameTF.text
+                        userConnected!.image = imageView.image
+                        if !UsersDataHelpers.getFunc.setUser(user: userConnected!) {
+                            Alert.show.error(message: RSC_SAVE_ERROR, controller: self)
+                        } else {
+                            Alert.show.success(message: RSC_SAVE_OK, controller: self)
+                        }
+                    }
                 } else {
-                    Alert.show.error(message: RSC_ERR_USERCREATIONFAILED, controller: self)
+                    if UsersDataHelpers.getFunc.setNewUser(login: loginTF.text!, password: passwordTF.text!, firstName: firstNameTF.text, lastName: nameTF.text, mail: mail, image: imageView.image) {
+                        UserDefaults.standard.set(loginTF.text!, forKey: "connectedUser")
+                        userCreation = false
+                        userConnected = UsersDataHelpers.getFunc.searchUserByLogin(login: loginTF.text!)
+                        let controller = TabBarController()
+                        self.present(controller, animated: true, completion: nil)
+                    } else {
+                        Alert.show.error(message: RSC_ERR_USERCREATIONFAILED, controller: self)
+                    }
                 }
             } else {
-                Alert.show.error(message: RSC_PASSWORD_MANDATORY, controller: self)
+                Alert.show.error(message: RSC_PASSWORD_REQUIRED, controller: self)
             }
         } else {
-            Alert.show.error(message: RSC_LOGIN_MANDATORY, controller: self)
+            Alert.show.error(message: RSC_LOGIN_REQUIRED, controller: self)
         }
     }
+    
+    @IBAction func deconnectionButton_Click(_ sender: Any) {
+        view.endEditing(true)
+        UserDefaults.standard.removeObject(forKey: "connectedUser")
+        let controller = ConnectionController()
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    @IBAction func deleteButton_Click(_ sender: Any) {
+        view.endEditing(true)
+        if userConnected != nil {
+            if UsersDataHelpers.getFunc.delUser(user: userConnected!) {
+                UserDefaults.standard.removeObject(forKey: "connectedUser")
+                let controller = ConnectionController()
+                self.present(controller, animated: true, completion: nil)
+            } else {
+                Alert.show.error(message: RSC_DELETE_ERROR, controller: self)
+            }
+        }
+    }
+    
 }

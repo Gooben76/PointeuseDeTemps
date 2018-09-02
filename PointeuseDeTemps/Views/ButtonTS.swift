@@ -24,5 +24,6 @@ class ButtonTS: UIButton {
         layer.cornerRadius = 5
         layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 0.5
+        tintColor = UIColor.lightGray
     }
 }

@@ -76,6 +76,7 @@ class UsersDataHelpers {
             elm!.setValue(user.lastName, forKey: "lastName")
             elm!.setValue(user.mail, forKey: "mail")
             elm!.setValue(user.image, forKey: "image")
+            elm!.setValue(user.modifiedDate, forKey: "modifiedDate")
             do {
                 try context.save()
                 print("updated")
