@@ -10,11 +10,17 @@ import UIKit
 
 class DaysController: UIViewController {
 
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var daysTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        navigationBar.items![0].title = RSC_DAYS
     }
 
-
+    @IBAction func addNavigationBarButton_Click(_ sender: Any) {
+        
+    }
+    
 }

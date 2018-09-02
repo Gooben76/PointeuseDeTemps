@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		171A2264213C193E00A72DCE /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A2263213C193E00A72DCE /* DateHelper.swift */; };
 		172AC028213B26C8007E254F /* ConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172AC026213B26C8007E254F /* ConnectionController.swift */; };
 		172AC029213B26C8007E254F /* ConnectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172AC027213B26C8007E254F /* ConnectionController.xib */; };
 		172BF550213AAD08007CB7A7 /* UsersDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172BF54F213AAD08007CB7A7 /* UsersDataHelpers.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		171A2263213C193E00A72DCE /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		172AC026213B26C8007E254F /* ConnectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionController.swift; sourceTree = "<group>"; };
 		172AC027213B26C8007E254F /* ConnectionController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConnectionController.xib; sourceTree = "<group>"; };
 		172BF54F213AAD08007CB7A7 /* UsersDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDataHelpers.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			children = (
 				1774E8832124222C00A65415 /* Constants.swift */,
 				1774E88A212486C200A65415 /* Resources.swift */,
+				171A2263213C193E00A72DCE /* DateHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				1774E8842124222C00A65415 /* Constants.swift in Sources */,
 				17F8C5B821221AAE00CB312E /* TimeScoresController.swift in Sources */,
 				17E0F7322121FD3D00F5DD1E /* ParametersController.swift in Sources */,
+				171A2264213C193E00A72DCE /* DateHelper.swift in Sources */,
 				17CFDF8721235A6200EC4F1A /* HistoryController.swift in Sources */,
 				17CFDF8F212363C200EC4F1A /* ActivityTableCell.swift in Sources */,
 				17CFDF8B21235B3800EC4F1A /* DaysController.swift in Sources */,

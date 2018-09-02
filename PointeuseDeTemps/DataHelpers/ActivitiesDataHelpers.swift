@@ -34,6 +34,7 @@ class ActivitiesDataHelpers {
             newActivity.activityName = activityName
             newActivity.gpsPosition = false
             newActivity.order = 10
+            newActivity.modifiedDate = Date()
             appDelegate.saveContext()
             return true
         } else {
@@ -64,6 +65,7 @@ class ActivitiesDataHelpers {
             act!.setValue(activity.image, forKey: "image")
             act!.setValue(activity.activityName, forKey: "activityName")
             act!.setValue(activity.gpsPosition, forKey: "gpsPosition")
+            act!.setValue(Date(), forKey: "modifiedDate")
             do {
                 try context.save()
                 print("updated")

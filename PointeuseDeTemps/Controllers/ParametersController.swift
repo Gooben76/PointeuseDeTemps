@@ -16,6 +16,9 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var passwordTF: TextFieldTS!
     @IBOutlet weak var nameTF: TextFieldTS!
     @IBOutlet weak var firstNameTF: TextFieldTS!
+    @IBOutlet weak var saveButton: ButtonTS!
+    @IBOutlet weak var deconnectionButton: ButtonTS!
+    @IBOutlet weak var deleteButton: ButtonTS!
     
     var imagePicker: UIImagePickerController?
     var userCreation: Bool = false
@@ -32,6 +35,15 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         let tap = UITapGestureRecognizer(target: self, action: #selector(pictureClick))
         imageView.addGestureRecognizer(tap)
         imageView.isUserInteractionEnabled = true
+        
+        navigationBar.items![0].title = RSC_USER
+        loginTF.placeholder = RSC_LOGIN
+        passwordTF.placeholder = RSC_PASSWORD
+        nameTF.placeholder = RSC_LASTNAME
+        firstNameTF.placeholder = RSC_FIRSTNAME
+        saveButton.setTitle(RSC_SAVE, for: .normal)
+        deconnectionButton.setTitle(RSC_DECONNECTION, for: .normal)
+        deleteButton.setTitle(RSC_DELETE, for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +63,8 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                             imageView.image = img
                         }
                     } else {
+                        deleteButton.isEnabled = false
+                        deconnectionButton.isEnabled = false
                         UserDefaults.standard.removeObject(forKey: "connectedUser")
                         loginTF.text = ""
                         passwordTF.text = ""
@@ -136,6 +150,8 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                     if UsersDataHelpers.getFunc.setNewUser(login: loginTF.text!, password: passwordTF.text!, firstName: firstNameTF.text, lastName: nameTF.text, mail: mail, image: imageView.image) {
                         UserDefaults.standard.set(loginTF.text!, forKey: "connectedUser")
                         userCreation = false
+                        deleteButton.isEnabled = true
+                        deconnectionButton.isEnabled = true
                         userConnected = UsersDataHelpers.getFunc.searchUserByLogin(login: loginTF.text!)
                         let controller = TabBarController()
                         self.present(controller, animated: true, completion: nil)

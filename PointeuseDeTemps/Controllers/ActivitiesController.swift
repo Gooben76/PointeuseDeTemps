@@ -10,7 +10,7 @@ import UIKit
 
 class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var addButton: UINavigationBar!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var tableView: UITableView!
     
     var activities = [Activities]()
@@ -21,6 +21,9 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationBar.items![0].title = RSC_ACTIVITIES
+        
         tableView.delegate = self
         tableView.dataSource = self
         

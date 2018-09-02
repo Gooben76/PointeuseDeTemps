@@ -12,12 +12,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ParametersController" customModule="PointeuseDeTemps" customModuleProvider="target">
             <connections>
+                <outlet property="deconnectionButton" destination="RyF-sV-FJP" id="tpV-gq-6or"/>
+                <outlet property="deleteButton" destination="h9N-HW-ORl" id="PQk-Gb-7TJ"/>
                 <outlet property="firstNameTF" destination="Mnk-bs-1zB" id="jh8-1U-bvw"/>
                 <outlet property="imageView" destination="UVx-7C-U3j" id="6m1-Cl-ajI"/>
                 <outlet property="loginTF" destination="qDt-oo-4Ck" id="lQY-xY-g2i"/>
                 <outlet property="nameTF" destination="OXO-rv-Mmc" id="eNf-jR-s0U"/>
                 <outlet property="navigationBar" destination="RUi-if-s5I" id="RNP-wf-kx1"/>
                 <outlet property="passwordTF" destination="7fb-iY-tbf" id="bzX-ip-Clc"/>
+                <outlet property="saveButton" destination="4ae-zL-VPs" id="Roc-FM-Krr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

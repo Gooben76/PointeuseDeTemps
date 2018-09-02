@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActivitiesController" customModule="PointeuseDeTemps" customModuleProvider="target">
             <connections>
-                <outlet property="addButton" destination="ghN-h6-Iws" id="1mo-K6-ZCB"/>
+                <outlet property="navigationBar" destination="ghN-h6-Iws" id="k0t-aT-xE4"/>
                 <outlet property="tableView" destination="Rl4-jv-hoK" id="t4p-3f-IRt"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -32,7 +32,7 @@
                         <constraint firstAttribute="height" constant="44" id="obl-Pn-Rzr"/>
                     </constraints>
                     <items>
-                        <navigationItem title="Activités" id="OdZ-XW-pwg">
+                        <navigationItem id="OdZ-XW-pwg">
                             <barButtonItem key="rightBarButtonItem" systemItem="add" id="5ts-x1-8np">
                                 <connections>
                                     <action selector="addButtonAction:" destination="-1" id="sAv-Tr-h1n"/>

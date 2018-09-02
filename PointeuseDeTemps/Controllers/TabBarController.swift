@@ -14,23 +14,23 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         let parameters = ParametersController()
-        parameters.title = "Profil"
+        parameters.title = RSC_USER
         parameters.tabBarItem.image = #imageLiteral(resourceName: "user-30")
         
         let activities = ActivitiesController()
-        activities.title = "Activités"
+        activities.title = RSC_ACTIVITIES
         activities.tabBarItem.image = #imageLiteral(resourceName: "activities-30")
         
         let days = DaysController()
-        days.title = "Jours"
+        days.title = RSC_DAYS
         days.tabBarItem.image = #imageLiteral(resourceName: "days-30")
         
         let timeScores = TimeScoresController()
-        timeScores.title = "Pointage"
+        timeScores.title = RSC_TIMESCORE
         timeScores.tabBarItem.image = #imageLiteral(resourceName: "times-30")
         
         let history = HistoryController()
-        history.title = "Historique"
+        history.title = RSC_HISTORY
         history.tabBarItem.image = #imageLiteral(resourceName: "history-30")
         
         viewControllers = [activities, days, timeScores, history, parameters]

@@ -12,6 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DaysController" customModule="PointeuseDeTemps" customModuleProvider="target">
             <connections>
+                <outlet property="daysTableView" destination="QnZ-nq-RFp" id="aD2-NI-GsH"/>
+                <outlet property="navigationBar" destination="9sm-Gj-hcD" id="xwu-0L-9pc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -27,7 +29,11 @@
                     </constraints>
                     <items>
                         <navigationItem title="Title" id="6mM-AF-gfR">
-                            <barButtonItem key="rightBarButtonItem" systemItem="add" id="Tka-u7-6vO"/>
+                            <barButtonItem key="rightBarButtonItem" systemItem="add" id="Tka-u7-6vO">
+                                <connections>
+                                    <action selector="addNavigationBarButton_Click:" destination="-1" id="NQe-zh-V3z"/>
+                                </connections>
+                            </barButtonItem>
                         </navigationItem>
                     </items>
                 </navigationBar>
