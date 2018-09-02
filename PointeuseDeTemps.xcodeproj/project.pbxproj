@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		171A2264213C193E00A72DCE /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A2263213C193E00A72DCE /* DateHelper.swift */; };
+		171A2266213C7D5200A72DCE /* TypicalDaysDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A2265213C7D5200A72DCE /* TypicalDaysDataHelpers.swift */; };
 		172AC028213B26C8007E254F /* ConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172AC026213B26C8007E254F /* ConnectionController.swift */; };
 		172AC029213B26C8007E254F /* ConnectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172AC027213B26C8007E254F /* ConnectionController.xib */; };
 		172BF550213AAD08007CB7A7 /* UsersDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172BF54F213AAD08007CB7A7 /* UsersDataHelpers.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		171A2263213C193E00A72DCE /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		171A2265213C7D5200A72DCE /* TypicalDaysDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypicalDaysDataHelpers.swift; sourceTree = "<group>"; };
 		172AC026213B26C8007E254F /* ConnectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionController.swift; sourceTree = "<group>"; };
 		172AC027213B26C8007E254F /* ConnectionController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConnectionController.xib; sourceTree = "<group>"; };
 		172BF54F213AAD08007CB7A7 /* UsersDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDataHelpers.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			children = (
 				1774E886212424D900A65415 /* ActivitiesDataHelpers.swift */,
 				172BF54F213AAD08007CB7A7 /* UsersDataHelpers.swift */,
+				171A2265213C7D5200A72DCE /* TypicalDaysDataHelpers.swift */,
 			);
 			path = DataHelpers;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1767F35C213404C100BF17DA /* UIViewExtension.swift in Sources */,
+				171A2266213C7D5200A72DCE /* TypicalDaysDataHelpers.swift in Sources */,
 				1774E887212424D900A65415 /* ActivitiesDataHelpers.swift in Sources */,
 				172BF550213AAD08007CB7A7 /* UsersDataHelpers.swift in Sources */,
 				1774E88921244A3500A65415 /* TextFieldTS.swift in Sources */,
