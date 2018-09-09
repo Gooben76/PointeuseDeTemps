@@ -17,9 +17,11 @@ class ActivityTableCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var gpsPositionLabel: UILabel!
     
     var activity : Activities!
+    var userConnected: Users?
     
-    func initCell(activity: Activities) {
+    func initCell(activity: Activities, userConnected: Users) {
         self.activity = activity
+        self.userConnected = userConnected
         activityTextField.delegate = self
         orderTextField.delegate = self
         positionSwitch.addTarget(self, action: #selector(self.switchValueDidChange), for: .valueChanged)
@@ -48,7 +50,7 @@ class ActivityTableCell: UITableViewCell, UITextFieldDelegate {
                 activity.order = order
             }
         }
-        if !ActivitiesDataHelpers.getFunc.setActivity(activity: activity) {
+        if !ActivitiesDataHelpers.getFunc.setActivity(activity: activity, userConnected: userConnected) {
             print("Erreur de sauvegarde de l'activité")
         }
     }
@@ -59,7 +61,7 @@ class ActivityTableCell: UITableViewCell, UITextFieldDelegate {
         } else {
             activity.gpsPosition = false
         }
-        if !ActivitiesDataHelpers.getFunc.setActivity(activity: activity) {
+        if !ActivitiesDataHelpers.getFunc.setActivity(activity: activity, userConnected: userConnected) {
             print("Erreur de sauvegarde de l'activité")
         }
     }

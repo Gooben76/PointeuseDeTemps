@@ -13,28 +13,31 @@ class TypicalDaysDataHelpers {
     
     static let getFunc = TypicalDaysDataHelpers()
     
-    func getAllTypicalDays(userConnected: Users!) -> [TypicalDays] {
-        var days = [TypicalDays]()
-        let query: NSFetchRequest<TypicalDays> = TypicalDays.fetchRequest()
+    func getAllTypicalDays(userConnected: Users!) -> [TypicalDays]? {
+        if let result = userConnected.typicalDays?.allObjects as? [TypicalDays] {
+            let sortedResult = result.sorted(by: { $0.typicalDayName! < $1.typicalDayName!})
+            return sortedResult
+        }
+        /*let query: NSFetchRequest<TypicalDays> = TypicalDays.fetchRequest()
         query.predicate = NSPredicate(format: "userId like %@", userConnected)
-        let sortDescriptor = NSSortDescriptor(key: "typicalDayName", ascending: true)
+        
         query.sortDescriptors?.append(sortDescriptor)
         do {
             days = try context.fetch(query)
         } catch {
             print(error.localizedDescription)
-        }
-        return days
+        }*/
+        return nil
     }
     
-    func setNewTypicalDay(typicalDayName: String, userConnected: Users!) -> Bool {
+    func setNewTypicalDay(typicalDayName: String, userConnected: Users) -> Bool {
         if typicalDayName != "" {
             let elm = searchTypicalDayByName(typicalDayName: typicalDayName, userConnected: userConnected)
             guard elm == nil else {return false}
             let newDay = TypicalDays(context: context)
             newDay.typicalDayName = typicalDayName
             newDay.modifiedDate = Date()
-            //newDay.userID = userConnected
+            newDay.userID = userConnected
             appDelegate.saveContext()
             return true
         } else {
@@ -63,7 +66,6 @@ class TypicalDaysDataHelpers {
             guard elm != nil else {return false}
             elm!.setValue(typicalDay.typicalDayName, forKey: "typicalDayName")
             elm!.setValue(Date(), forKey: "modifiedDate")
-            elm!.setValue(userConnected, forKey: "userId")
             do {
                 try context.save()
                 return true
@@ -77,7 +79,20 @@ class TypicalDaysDataHelpers {
     }
     
     func searchTypicalDayByName(typicalDayName : String, userConnected: Users!) -> TypicalDays? {
-        let query: NSFetchRequest<TypicalDays> = TypicalDays.fetchRequest()
+        if let days = userConnected.typicalDays?.allObjects as? [TypicalDays] {
+            let predicate1 = NSPredicate(format: "typicalDayName like %@", typicalDayName)
+            if let result = (days as NSArray).filtered(using: predicate1) as? [TypicalDays] {
+                if result.count > 0 {
+                    let sortedResult = result.sorted(by: { $0.typicalDayName! < $1.typicalDayName!})
+                    return sortedResult[0]
+                } else {
+                    return nil
+                }
+            }
+            return nil
+        }
+        return nil
+        /*let query: NSFetchRequest<TypicalDays> = TypicalDays.fetchRequest()
         let predicate1 = NSPredicate(format: "typicalDayName like %@", typicalDayName)
         let predicate2 = NSPredicate(format: "userId like %@", userConnected)
         let predicateCompount = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1,predicate2])
@@ -93,6 +108,6 @@ class TypicalDaysDataHelpers {
         } catch {
             print(error.localizedDescription)
             return nil
-        }
+        }*/
     }
 }

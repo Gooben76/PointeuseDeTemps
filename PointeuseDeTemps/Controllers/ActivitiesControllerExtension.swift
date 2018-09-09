@@ -27,7 +27,7 @@ extension ActivitiesController: UIImagePickerControllerDelegate, UINavigationCon
         imagePicker?.dismiss(animated: true, completion: nil)
         
         let act: Activities! = activities[currentTapIndex]
-        if ActivitiesDataHelpers.getFunc.setActivity(activity: act) {
+        if ActivitiesDataHelpers.getFunc.setActivity(activity: act, userConnected: userConnected) {
             tableView.reloadData()
         }
     }

@@ -8,13 +8,13 @@
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="userID" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Users" inverseName="activities" inverseEntity="Users" syncable="YES"/>
+        <relationship name="userID" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="activities" inverseEntity="Users" syncable="YES"/>
     </entity>
     <entity name="TypicalDays" representedClassName="TypicalDays" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="typicalDayName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="userID" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Users" inverseName="typicalDays" inverseEntity="Users" syncable="YES"/>
+        <relationship name="userID" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="typicalDays" inverseEntity="Users" syncable="YES"/>
     </entity>
     <entity name="Users" representedClassName="Users" syncable="YES" codeGenerationType="class">
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,12 +26,12 @@
         <attribute name="mail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="activities" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Activities" inverseName="userID" inverseEntity="Activities" syncable="YES"/>
-        <relationship name="typicalDays" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TypicalDays" inverseName="userID" inverseEntity="TypicalDays" syncable="YES"/>
+        <relationship name="activities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Activities" inverseName="userID" inverseEntity="Activities" syncable="YES"/>
+        <relationship name="typicalDays" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TypicalDays" inverseName="userID" inverseEntity="TypicalDays" syncable="YES"/>
     </entity>
     <elements>
         <element name="Activities" positionX="-29" positionY="-55" width="128" height="163"/>
+        <element name="TypicalDays" positionX="-290" positionY="252" width="128" height="105"/>
         <element name="Users" positionX="234" positionY="-72" width="128" height="208"/>
-        <element name="TypicalDays" positionX="-36" positionY="-234" width="128" height="103"/>
     </elements>
 </model>

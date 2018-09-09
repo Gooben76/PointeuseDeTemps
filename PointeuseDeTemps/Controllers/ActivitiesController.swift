@@ -16,6 +16,7 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
     var activities = [Activities]()
     var imagePicker: UIImagePickerController?
     var currentTapIndex: Int = -1
+    var userConnected: Users?
     
     let cellID = "ActivityTableCell"
     
@@ -24,13 +25,23 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         
         navigationBar.items![0].title = RSC_ACTIVITIES
         
+        let usr = UserDefaults.standard.object(forKey: "connectedUser")
+        if usr != nil, let login = usr as? String {
+            if let user = UsersDataHelpers.getFunc.searchUserByLogin(login: login), user != nil {
+                userConnected = user
+            }
+        }
+        
         tableView.delegate = self
         tableView.dataSource = self
         
         let nib = UINib(nibName: cellID, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: cellID)
         
-        activities = ActivitiesDataHelpers.getFunc.getAllActivities()
+        if let allData = ActivitiesDataHelpers.getFunc.getAllActivities(userConnected: userConnected!) {
+            activities = allData
+            print("Nbre activités : \(activities.count)")
+        }
         
         imagePicker = UIImagePickerController()
         imagePicker?.delegate = self
@@ -43,7 +54,7 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellID) as? ActivityTableCell {
-            cell.initCell(activity: activities[indexPath.row])
+            cell.initCell(activity: activities[indexPath.row], userConnected: userConnected!)
             if cell.imageActivity.gestureRecognizers?.count ?? 0 == 0 {
                 let tap = UITapGestureRecognizer(target: self, action: #selector(self.imageClick(sender: )))
                 cell.imageActivity.addGestureRecognizer(tap)
@@ -75,9 +86,14 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         let add = UIAlertAction(title: RSC_OK, style: .default) { (action) in
             let textFieldAlert = alert.textFields![0] as UITextField
             if let text = textFieldAlert.text, text != "" {
-                if ActivitiesDataHelpers.getFunc.setNewActivity(activityName: text) {
-                    self.activities = ActivitiesDataHelpers.getFunc.getAllActivities()
-                    self.tableView.reloadData()
+                print("utilisateur act : \(self.userConnected!.login!)")
+                if ActivitiesDataHelpers.getFunc.setNewActivity(activityName: text, userConnected: self.userConnected!) {
+                    print("Activité ajoutée")
+                    if let allData = ActivitiesDataHelpers.getFunc.getAllActivities(userConnected: self.userConnected!) {
+                        self.activities = allData
+                        print("Nbre activités : \(self.activities.count)")
+                        self.tableView.reloadData()
+                    }
                 }
             }
         }
