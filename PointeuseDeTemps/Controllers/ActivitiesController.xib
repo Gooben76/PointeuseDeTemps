@@ -12,7 +12,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActivitiesController" customModule="PointeuseDeTemps" customModuleProvider="target">
             <connections>
-                <outlet property="navigationBar" destination="ghN-h6-Iws" id="k0t-aT-xE4"/>
                 <outlet property="tableView" destination="Rl4-jv-hoK" id="t4p-3f-IRt"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -23,34 +22,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rl4-jv-hoK">
-                    <rect key="frame" x="10" y="64" width="355" height="603"/>
+                    <rect key="frame" x="10" y="20" width="355" height="647"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ghN-h6-Iws">
-                    <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="44" id="obl-Pn-Rzr"/>
-                    </constraints>
-                    <items>
-                        <navigationItem id="OdZ-XW-pwg">
-                            <barButtonItem key="rightBarButtonItem" systemItem="add" id="5ts-x1-8np">
-                                <connections>
-                                    <action selector="addButtonAction:" destination="-1" id="sAv-Tr-h1n"/>
-                                </connections>
-                            </barButtonItem>
-                        </navigationItem>
-                    </items>
-                </navigationBar>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="ghN-h6-Iws" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="7zq-YT-qdR"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Rl4-jv-hoK" secondAttribute="trailing" constant="10" id="Ggy-QP-hzb"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Rl4-jv-hoK" secondAttribute="bottom" id="UvN-Gl-2MO"/>
                 <constraint firstItem="Rl4-jv-hoK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="ZIv-Vp-KTf"/>
-                <constraint firstItem="ghN-h6-Iws" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="cuP-YW-YXy"/>
-                <constraint firstItem="ghN-h6-Iws" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="isd-FP-QIu"/>
-                <constraint firstItem="Rl4-jv-hoK" firstAttribute="top" secondItem="ghN-h6-Iws" secondAttribute="bottom" id="yJ0-Of-CEc"/>
+                <constraint firstItem="Rl4-jv-hoK" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="yKL-2q-Nz6"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="-107" y="29"/>

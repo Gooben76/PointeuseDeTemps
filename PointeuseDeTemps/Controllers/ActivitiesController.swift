@@ -10,8 +10,9 @@ import UIKit
 
 class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var tableView: UITableView!
+    
+    var navigationBar: UINavigationBar?
     
     var activities = [Activities]()
     var imagePicker: UIImagePickerController?
@@ -23,7 +24,13 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar.items![0].title = RSC_ACTIVITIES
+        if let nav = navigationController {
+            navigationBar = nav.navigationBar
+            navigationBar!.items![0].title = RSC_ACTIVITIES
+            
+            let rightAddBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: RSC_ADD, style: UIBarButtonItemStyle.plain, target: self, action: #selector(addButtonAction))
+            self.navigationItem.setRightBarButtonItems([rightAddBarButtonItem], animated: true)
+        }
         
         let usr = UserDefaults.standard.object(forKey: "connectedUser")
         if usr != nil, let login = usr as? String {
@@ -40,7 +47,6 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if let allData = ActivitiesDataHelpers.getFunc.getAllActivities(userConnected: userConnected!) {
             activities = allData
-            print("Nbre activités : \(activities.count)")
         }
         
         imagePicker = UIImagePickerController()
@@ -81,17 +87,14 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    @IBAction func addButtonAction(_ sender: Any) {
+    @objc func addButtonAction(_ sender: Any) {
         let alert = UIAlertController(title: RSC_ACTIVITIES_MANAGEMENT, message: RSC_ADD, preferredStyle: .alert)
         let add = UIAlertAction(title: RSC_OK, style: .default) { (action) in
             let textFieldAlert = alert.textFields![0] as UITextField
             if let text = textFieldAlert.text, text != "" {
-                print("utilisateur act : \(self.userConnected!.login!)")
                 if ActivitiesDataHelpers.getFunc.setNewActivity(activityName: text, userConnected: self.userConnected!) {
-                    print("Activité ajoutée")
                     if let allData = ActivitiesDataHelpers.getFunc.getAllActivities(userConnected: self.userConnected!) {
                         self.activities = allData
-                        print("Nbre activités : \(self.activities.count)")
                         self.tableView.reloadData()
                     }
                 }

@@ -17,7 +17,7 @@ class ActivityTableCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var gpsPositionLabel: UILabel!
     
     var activity : Activities!
-    var userConnected: Users?
+    var userConnected: Users!
     
     func initCell(activity: Activities, userConnected: Users) {
         self.activity = activity

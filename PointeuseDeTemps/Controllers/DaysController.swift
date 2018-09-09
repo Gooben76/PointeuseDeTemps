@@ -8,18 +8,28 @@
 
 import UIKit
 
-class DaysController: UIViewController {
+class DaysController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var daysTableView: UITableView!
+    
+    let cellID = "DayTableCell"
+    
+    var navigationBar: UINavigationBar?
     
     var typicalDays = [TypicalDays]()
     var userConnected: Users?
+    var dataToRefresh: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar.items![0].title = RSC_DAYS
+        if let nav = navigationController {
+            navigationBar = nav.navigationBar
+            navigationBar!.items![0].title = RSC_DAYS
+            
+            let rightAddBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: RSC_ADD, style: UIBarButtonItemStyle.plain, target: self, action: #selector(addButtonAction))
+            self.navigationItem.setRightBarButtonItems([rightAddBarButtonItem], animated: true)
+        }
         
         let usr = UserDefaults.standard.object(forKey: "connectedUser")
         if usr != nil, let login = usr as? String {
@@ -29,27 +39,60 @@ class DaysController: UIViewController {
             }
         }
         
-        if userConnected != nil {
-            print("Ok for user \(userConnected!.login!)")
-            
-            if TypicalDaysDataHelpers.getFunc.setNewTypicalDay(typicalDayName: "Journée 2", userConnected: userConnected!) {
-                print("Journée créée")
-                
-                if let allData = TypicalDaysDataHelpers.getFunc.getAllTypicalDays(userConnected: userConnected!) {
-                    typicalDays = allData
-                    print("nombre : \(typicalDays.count)")
-                }
-                
-                if let elm = TypicalDaysDataHelpers.getFunc.searchTypicalDayByName(typicalDayName: "Journée 2", userConnected: userConnected!) {
-                    print("Nom de journée 2 : \(elm.typicalDayName!)")
-                }
-            }
-        }
+        daysTableView.delegate = self
+        daysTableView.dataSource = self
         
+        let nib = UINib(nibName: cellID, bundle: nil)
+        daysTableView.register(nib, forCellReuseIdentifier: cellID)
+        
+        if let allData = TypicalDaysDataHelpers.getFunc.getAllTypicalDays(userConnected: userConnected) {
+            typicalDays = allData
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if dataToRefresh {
+            if let allData = TypicalDaysDataHelpers.getFunc.getAllTypicalDays(userConnected: userConnected) {
+                typicalDays = allData
+                daysTableView.reloadData()
+            }
+            dataToRefresh = false
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return typicalDays.count
     }
 
-    @IBAction func addNavigationBarButton_Click(_ sender: Any) {
-        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = daysTableView.dequeueReusableCell(withIdentifier: cellID) as? DayTableCell {
+            cell.initCell(typicalDay: typicalDays[indexPath.row], userConnected: userConnected!)
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = TypicalDayDetailController()
+        controller.newData = false
+        controller.userConnected = userConnected!
+        controller.typicalDay = typicalDays[indexPath.row]
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @objc func addButtonAction(_ sender: Any) {
+        let controller = TypicalDayDetailController()
+        controller.newData = true
+        controller.userConnected = userConnected!
+        controller.typicalDay = nil
+        dataToRefresh = true
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
 }

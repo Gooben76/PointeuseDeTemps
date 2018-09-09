@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		171A2264213C193E00A72DCE /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A2263213C193E00A72DCE /* DateHelper.swift */; };
 		171A2266213C7D5200A72DCE /* TypicalDaysDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A2265213C7D5200A72DCE /* TypicalDaysDataHelpers.swift */; };
+		1729E2CF214539C1004297F7 /* DayTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1729E2CD214539C1004297F7 /* DayTableCell.swift */; };
+		1729E2D0214539C1004297F7 /* DayTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1729E2CE214539C1004297F7 /* DayTableCell.xib */; };
+		1729E2D32145562C004297F7 /* TypicalDayDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1729E2D12145562C004297F7 /* TypicalDayDetailController.swift */; };
+		1729E2D42145562C004297F7 /* TypicalDayDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1729E2D22145562C004297F7 /* TypicalDayDetailController.xib */; };
 		172AC028213B26C8007E254F /* ConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172AC026213B26C8007E254F /* ConnectionController.swift */; };
 		172AC029213B26C8007E254F /* ConnectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172AC027213B26C8007E254F /* ConnectionController.xib */; };
 		172BF550213AAD08007CB7A7 /* UsersDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172BF54F213AAD08007CB7A7 /* UsersDataHelpers.swift */; };
@@ -43,6 +47,10 @@
 /* Begin PBXFileReference section */
 		171A2263213C193E00A72DCE /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		171A2265213C7D5200A72DCE /* TypicalDaysDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypicalDaysDataHelpers.swift; sourceTree = "<group>"; };
+		1729E2CD214539C1004297F7 /* DayTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTableCell.swift; sourceTree = "<group>"; };
+		1729E2CE214539C1004297F7 /* DayTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DayTableCell.xib; sourceTree = "<group>"; };
+		1729E2D12145562C004297F7 /* TypicalDayDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypicalDayDetailController.swift; sourceTree = "<group>"; };
+		1729E2D22145562C004297F7 /* TypicalDayDetailController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypicalDayDetailController.xib; sourceTree = "<group>"; };
 		172AC026213B26C8007E254F /* ConnectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionController.swift; sourceTree = "<group>"; };
 		172AC027213B26C8007E254F /* ConnectionController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConnectionController.xib; sourceTree = "<group>"; };
 		172BF54F213AAD08007CB7A7 /* UsersDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDataHelpers.swift; sourceTree = "<group>"; };
@@ -157,6 +165,8 @@
 				17CFDF8A21235B3800EC4F1A /* DaysController.xib */,
 				172AC026213B26C8007E254F /* ConnectionController.swift */,
 				172AC027213B26C8007E254F /* ConnectionController.xib */,
+				1729E2D12145562C004297F7 /* TypicalDayDetailController.swift */,
+				1729E2D22145562C004297F7 /* TypicalDayDetailController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -170,6 +180,8 @@
 				1774E88821244A3500A65415 /* TextFieldTS.swift */,
 				1767F35B213404C100BF17DA /* UIViewExtension.swift */,
 				1767F35F21347E0700BF17DA /* ButtonTS.swift */,
+				1729E2CD214539C1004297F7 /* DayTableCell.swift */,
+				1729E2CE214539C1004297F7 /* DayTableCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -249,8 +261,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				17CFDF8821235A6200EC4F1A /* HistoryController.xib in Resources */,
+				1729E2D0214539C1004297F7 /* DayTableCell.xib in Resources */,
 				175FC09E211782B600B6A3E5 /* LaunchScreen.storyboard in Resources */,
 				17CFDF8C21235B3800EC4F1A /* DaysController.xib in Resources */,
+				1729E2D42145562C004297F7 /* TypicalDayDetailController.xib in Resources */,
 				17E0F7332121FD3D00F5DD1E /* ParametersController.xib in Resources */,
 				175FC09B211782B600B6A3E5 /* Assets.xcassets in Resources */,
 				17E0F72F2121FCBC00F5DD1E /* ActivitiesController.xib in Resources */,
@@ -268,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1767F35C213404C100BF17DA /* UIViewExtension.swift in Sources */,
+				1729E2CF214539C1004297F7 /* DayTableCell.swift in Sources */,
 				171A2266213C7D5200A72DCE /* TypicalDaysDataHelpers.swift in Sources */,
 				1774E887212424D900A65415 /* ActivitiesDataHelpers.swift in Sources */,
 				172BF550213AAD08007CB7A7 /* UsersDataHelpers.swift in Sources */,
@@ -286,6 +301,7 @@
 				17CFDF8B21235B3800EC4F1A /* DaysController.swift in Sources */,
 				1774E88B212486C200A65415 /* Resources.swift in Sources */,
 				175FC091211782B500B6A3E5 /* AppDelegate.swift in Sources */,
+				1729E2D32145562C004297F7 /* TypicalDayDetailController.swift in Sources */,
 				17E0F7352121FD6200F5DD1E /* TabBarController.swift in Sources */,
 				1774E8812124108900A65415 /* ImageViewTS.swift in Sources */,
 				17E0F72E2121FCBC00F5DD1E /* ActivitiesController.swift in Sources */,

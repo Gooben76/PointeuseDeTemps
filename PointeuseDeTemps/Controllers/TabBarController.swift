@@ -13,15 +13,15 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let parameters = ParametersController()
+        let parameters = UINavigationController(rootViewController: ParametersController())
         parameters.title = RSC_USER
         parameters.tabBarItem.image = #imageLiteral(resourceName: "user-30")
         
-        let activities = ActivitiesController()
+        let activities = UINavigationController(rootViewController: ActivitiesController())
         activities.title = RSC_ACTIVITIES
         activities.tabBarItem.image = #imageLiteral(resourceName: "activities-30")
         
-        let days = DaysController()
+        let days = UINavigationController(rootViewController: DaysController())
         days.title = RSC_DAYS
         days.tabBarItem.image = #imageLiteral(resourceName: "days-30")
         

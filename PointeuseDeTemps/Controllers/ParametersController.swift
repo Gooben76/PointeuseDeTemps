@@ -10,7 +10,6 @@ import UIKit
 
 class ParametersController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var imageView: ImageViewTS!
     @IBOutlet weak var loginTF: TextFieldTS!
     @IBOutlet weak var passwordTF: TextFieldTS!
@@ -20,6 +19,8 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var deconnectionButton: ButtonTS!
     @IBOutlet weak var deleteButton: ButtonTS!
     
+    var navigationBar: UINavigationBar?
+    
     var imagePicker: UIImagePickerController?
     var userCreation: Bool = false
     var userConnected: Users?
@@ -27,6 +28,11 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let nav = navigationController {
+            navigationBar = nav.navigationBar
+            navigationBar!.items![0].title = RSC_USER
+        }
         
         imagePicker = UIImagePickerController()
         imagePicker!.delegate = self
@@ -36,7 +42,6 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         imageView.addGestureRecognizer(tap)
         imageView.isUserInteractionEnabled = true
         
-        navigationBar.items![0].title = RSC_USER
         loginTF.placeholder = RSC_LOGIN
         passwordTF.placeholder = RSC_PASSWORD
         nameTF.placeholder = RSC_LASTNAME
