@@ -24,6 +24,7 @@
 		1767F35C213404C100BF17DA /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767F35B213404C100BF17DA /* UIViewExtension.swift */; };
 		1767F35E2134490500BF17DA /* ActivitiesControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767F35D2134490500BF17DA /* ActivitiesControllerExtension.swift */; };
 		1767F36021347E0700BF17DA /* ButtonTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767F35F21347E0700BF17DA /* ButtonTS.swift */; };
+		176C627D214C39E3008FA263 /* TypicalDayActivitiesDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176C627C214C39E3008FA263 /* TypicalDayActivitiesDataHelpers.swift */; };
 		1774E8812124108900A65415 /* ImageViewTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E8802124108900A65415 /* ImageViewTS.swift */; };
 		1774E8842124222C00A65415 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E8832124222C00A65415 /* Constants.swift */; };
 		1774E887212424D900A65415 /* ActivitiesDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E886212424D900A65415 /* ActivitiesDataHelpers.swift */; };
@@ -64,6 +65,7 @@
 		1767F35B213404C100BF17DA /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		1767F35D2134490500BF17DA /* ActivitiesControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesControllerExtension.swift; sourceTree = "<group>"; };
 		1767F35F21347E0700BF17DA /* ButtonTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTS.swift; sourceTree = "<group>"; };
+		176C627C214C39E3008FA263 /* TypicalDayActivitiesDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypicalDayActivitiesDataHelpers.swift; sourceTree = "<group>"; };
 		1774E8802124108900A65415 /* ImageViewTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewTS.swift; sourceTree = "<group>"; };
 		1774E8832124222C00A65415 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1774E886212424D900A65415 /* ActivitiesDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesDataHelpers.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				1774E886212424D900A65415 /* ActivitiesDataHelpers.swift */,
 				172BF54F213AAD08007CB7A7 /* UsersDataHelpers.swift */,
 				171A2265213C7D5200A72DCE /* TypicalDaysDataHelpers.swift */,
+				176C627C214C39E3008FA263 /* TypicalDayActivitiesDataHelpers.swift */,
 			);
 			path = DataHelpers;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				1767F35C213404C100BF17DA /* UIViewExtension.swift in Sources */,
 				1729E2CF214539C1004297F7 /* DayTableCell.swift in Sources */,
 				171A2266213C7D5200A72DCE /* TypicalDaysDataHelpers.swift in Sources */,
+				176C627D214C39E3008FA263 /* TypicalDayActivitiesDataHelpers.swift in Sources */,
 				1774E887212424D900A65415 /* ActivitiesDataHelpers.swift in Sources */,
 				172BF550213AAD08007CB7A7 /* UsersDataHelpers.swift in Sources */,
 				1774E88921244A3500A65415 /* TextFieldTS.swift in Sources */,

@@ -47,17 +47,17 @@ class TypicalDaysDataHelpers {
     
     func delTypicalDay(typicalDay: TypicalDays!) -> Bool {
         if typicalDay != nil {
-            context.delete(typicalDay)
-            do {
-                try context.save()
-                return true
-            } catch {
-                print(error.localizedDescription)
-                return false
+            if TypicalDayActivitiesDataHelpers.getFunc.delTypicalDayActivitiesFromTypicalDay(typicalDay: typicalDay) {
+                context.delete(typicalDay)
+                do {
+                    try context.save()
+                    return true
+                } catch {
+                    print(error.localizedDescription)
+                }
             }
-        } else {
-            return false
         }
+        return false
     }
     
     func setTypicalDay(typicalDay: TypicalDays!, userConnected: Users!) -> Bool {

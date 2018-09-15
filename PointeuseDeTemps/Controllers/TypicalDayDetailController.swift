@@ -24,6 +24,7 @@ class TypicalDayDetailController: UIViewController {
         
         typicalDayTF.placeholder = RSC_TYPICAL_DAY
         saveButton.setTitle(RSC_SAVE, for: .normal)
+        saveButton.isHidden = true
         
         if typicalDay != nil {
             tableView.isHidden = false
@@ -34,6 +35,7 @@ class TypicalDayDetailController: UIViewController {
                 typicalDayTF.text = ""
                 numberOfActivitiesLabel.text = RSC_NUMBER_OF_ACTIVITIES + "0"
                 tableView.isHidden = true
+                saveButton.isHidden = false
             }
         }
     }
@@ -42,9 +44,16 @@ class TypicalDayDetailController: UIViewController {
         if let text = typicalDayTF.text, text != "" {
             if newData {
                 if TypicalDaysDataHelpers.getFunc.setNewTypicalDay(typicalDayName: text, userConnected: userConnected!) {
-                    let controller = DaysController()
-                    controller.dataToRefresh = true
-                    self.navigationController?.popToRootViewController(animated: true)
+                    let typicalDay: TypicalDays! = TypicalDaysDataHelpers.getFunc.searchTypicalDayByName(typicalDayName: text, userConnected: userConnected)
+                    let activities: [Activities]! = ActivitiesDataHelpers.getFunc.getAllActivities(userConnected: userConnected!)
+                    
+                    
+                    //self.navigationController?.popToRootViewController(animated: true)
+                }
+            } else {
+                typicalDay!.typicalDayName = text
+                if TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: typicalDay!, userConnected: userConnected!) {
+                    Alert.show.success(message: RSC_SAVE_OK, controller: self)
                 }
             }
         }

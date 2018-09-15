@@ -18,7 +18,6 @@ class DaysController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var typicalDays = [TypicalDays]()
     var userConnected: Users?
-    var dataToRefresh: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,12 +52,9 @@ class DaysController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if dataToRefresh {
-            if let allData = TypicalDaysDataHelpers.getFunc.getAllTypicalDays(userConnected: userConnected) {
-                typicalDays = allData
-                daysTableView.reloadData()
-            }
-            dataToRefresh = false
+        if let allData = TypicalDaysDataHelpers.getFunc.getAllTypicalDays(userConnected: userConnected) {
+            typicalDays = allData
+            daysTableView.reloadData()
         }
     }
     
@@ -78,6 +74,18 @@ class DaysController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return UITableViewCell()
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+            case .delete:
+                if TypicalDaysDataHelpers.getFunc.delTypicalDay(typicalDay: typicalDays[indexPath.row]) {
+                    typicalDays.remove(at: indexPath.row)
+                    self.daysTableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            default:
+                break
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controller = TypicalDayDetailController()
         controller.newData = false
@@ -91,7 +99,6 @@ class DaysController: UIViewController, UITableViewDelegate, UITableViewDataSour
         controller.newData = true
         controller.userConnected = userConnected!
         controller.typicalDay = nil
-        dataToRefresh = true
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
