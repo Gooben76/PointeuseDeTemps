@@ -21,6 +21,7 @@ class DayTableCell: UITableViewCell {
         self.userConnected = userConnected
         
         typicalDayNameLabel.text = typicalDay.typicalDayName
-        numberOfActivitiesLabel.text = RSC_NUMBER_OF_ACTIVITIES
+        let nbr = typicalDay.typicalDayActivities?.allObjects.count
+        numberOfActivitiesLabel.text = RSC_NUMBER_OF_ACTIVITIES + String(nbr!)
     }
 }

@@ -42,6 +42,23 @@ class TypicalDayActivitiesDataHelpers {
         }
     }
     
+    func setTypicalDayActivity(typicalDay: TypicalDays!, activity: Activities!, userConnected: Users!) -> Bool {
+        if typicalDay != nil && activity != nil && userConnected != nil {
+            let elm = searchTypicalDayActivityByTypicalDayAndActivity(typicalDay: typicalDay, activity: activity, userConnected: userConnected)
+            guard elm != nil else {return false}
+            elm!.setValue(Date(), forKey: "modifiedDate")
+            do {
+                try context.save()
+                return true
+            } catch {
+                print(error.localizedDescription)
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+    
     func delTypicalDayActivity(typicalDayActivity: TypicalDayActivities!) -> Bool {
         if typicalDayActivity != nil {
             context.delete(typicalDayActivity)
@@ -90,15 +107,21 @@ class TypicalDayActivitiesDataHelpers {
             var table: [TypicalDayActivitiesDetails] = [TypicalDayActivitiesDetails]()
             let activities = ActivitiesDataHelpers.getFunc.getAllActivities(userConnected: userConnected)
             if activities != nil, activities!.count > 0 {
+                print("Nombre d'activités : \(activities!.count)")
                 for elm in activities! {
                     let new = TypicalDayActivitiesDetails(activity: elm)
                     table.append(new)
                 }
+                print("Table : \(table.count)")
                 if let records = typicalDay!.typicalDayActivities?.allObjects as? [TypicalDayActivities] {
                     for elm in records {
-                        
+                        let find = table.first(where: {$0.activity == elm.activityId!})
+                        if find != nil {
+                            find?.setSelected(true)
+                        }
                     }
                 }
+                return table
             }
         }
         return nil

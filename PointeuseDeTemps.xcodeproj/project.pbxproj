@@ -43,6 +43,8 @@
 		17E0F7352121FD6200F5DD1E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E0F7342121FD6200F5DD1E /* TabBarController.swift */; };
 		17F8C5B821221AAE00CB312E /* TimeScoresController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F8C5B621221AAE00CB312E /* TimeScoresController.swift */; };
 		17F8C5B921221AAE00CB312E /* TimeScoresController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17F8C5B721221AAE00CB312E /* TimeScoresController.xib */; };
+		17FE60E5214E55BD00B27954 /* TypicalDayDetailTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FE60E3214E55BD00B27954 /* TypicalDayDetailTableCell.swift */; };
+		17FE60E6214E55BD00B27954 /* TypicalDayDetailTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FE60E4214E55BD00B27954 /* TypicalDayDetailTableCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +86,8 @@
 		17E0F7342121FD6200F5DD1E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		17F8C5B621221AAE00CB312E /* TimeScoresController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScoresController.swift; sourceTree = "<group>"; };
 		17F8C5B721221AAE00CB312E /* TimeScoresController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeScoresController.xib; sourceTree = "<group>"; };
+		17FE60E3214E55BD00B27954 /* TypicalDayDetailTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypicalDayDetailTableCell.swift; sourceTree = "<group>"; };
+		17FE60E4214E55BD00B27954 /* TypicalDayDetailTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypicalDayDetailTableCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +189,8 @@
 				1767F35F21347E0700BF17DA /* ButtonTS.swift */,
 				1729E2CD214539C1004297F7 /* DayTableCell.swift */,
 				1729E2CE214539C1004297F7 /* DayTableCell.xib */,
+				17FE60E3214E55BD00B27954 /* TypicalDayDetailTableCell.swift */,
+				17FE60E4214E55BD00B27954 /* TypicalDayDetailTableCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -268,6 +274,7 @@
 				175FC09E211782B600B6A3E5 /* LaunchScreen.storyboard in Resources */,
 				17CFDF8C21235B3800EC4F1A /* DaysController.xib in Resources */,
 				1729E2D42145562C004297F7 /* TypicalDayDetailController.xib in Resources */,
+				17FE60E6214E55BD00B27954 /* TypicalDayDetailTableCell.xib in Resources */,
 				17E0F7332121FD3D00F5DD1E /* ParametersController.xib in Resources */,
 				175FC09B211782B600B6A3E5 /* Assets.xcassets in Resources */,
 				17E0F72F2121FCBC00F5DD1E /* ActivitiesController.xib in Resources */,
@@ -301,6 +308,7 @@
 				17E0F7322121FD3D00F5DD1E /* ParametersController.swift in Sources */,
 				171A2264213C193E00A72DCE /* DateHelper.swift in Sources */,
 				17CFDF8721235A6200EC4F1A /* HistoryController.swift in Sources */,
+				17FE60E5214E55BD00B27954 /* TypicalDayDetailTableCell.swift in Sources */,
 				17CFDF8F212363C200EC4F1A /* ActivityTableCell.swift in Sources */,
 				17CFDF8B21235B3800EC4F1A /* DaysController.swift in Sources */,
 				1774E88B212486C200A65415 /* Resources.swift in Sources */,
