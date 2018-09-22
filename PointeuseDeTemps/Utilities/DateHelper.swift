@@ -31,4 +31,12 @@ class DateHelper {
             return nil
         }
     }
+    
+    func convertDateToString(_ date: Date) -> String? {
+        let format = DateFormatter()
+        format.dateFormat = "dd/MM/yyyy"
+        let data = format.string(from: date)
+        return data
+    }
+    
 }

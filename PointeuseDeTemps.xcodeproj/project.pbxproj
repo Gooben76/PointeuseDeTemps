@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1707386E2156B05B0092C3C8 /* TimeScoresDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1707386D2156B05B0092C3C8 /* TimeScoresDataHelpers.swift */; };
+		170738702156C5C80092C3C8 /* TimeScoresControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1707386F2156C5C80092C3C8 /* TimeScoresControllerExtension.swift */; };
 		171A2264213C193E00A72DCE /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A2263213C193E00A72DCE /* DateHelper.swift */; };
 		171A2266213C7D5200A72DCE /* TypicalDaysDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A2265213C7D5200A72DCE /* TypicalDaysDataHelpers.swift */; };
 		1729E2CF214539C1004297F7 /* DayTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1729E2CD214539C1004297F7 /* DayTableCell.swift */; };
@@ -48,6 +50,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1707386D2156B05B0092C3C8 /* TimeScoresDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScoresDataHelpers.swift; sourceTree = "<group>"; };
+		1707386F2156C5C80092C3C8 /* TimeScoresControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScoresControllerExtension.swift; sourceTree = "<group>"; };
 		171A2263213C193E00A72DCE /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		171A2265213C7D5200A72DCE /* TypicalDaysDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypicalDaysDataHelpers.swift; sourceTree = "<group>"; };
 		1729E2CD214539C1004297F7 /* DayTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTableCell.swift; sourceTree = "<group>"; };
@@ -151,6 +155,7 @@
 				172BF54F213AAD08007CB7A7 /* UsersDataHelpers.swift */,
 				171A2265213C7D5200A72DCE /* TypicalDaysDataHelpers.swift */,
 				176C627C214C39E3008FA263 /* TypicalDayActivitiesDataHelpers.swift */,
+				1707386D2156B05B0092C3C8 /* TimeScoresDataHelpers.swift */,
 			);
 			path = DataHelpers;
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 				17E0F7312121FD3D00F5DD1E /* ParametersController.xib */,
 				17E0F7342121FD6200F5DD1E /* TabBarController.swift */,
 				17F8C5B621221AAE00CB312E /* TimeScoresController.swift */,
+				1707386F2156C5C80092C3C8 /* TimeScoresControllerExtension.swift */,
 				17F8C5B721221AAE00CB312E /* TimeScoresController.xib */,
 				17CFDF8521235A6200EC4F1A /* HistoryController.swift */,
 				17CFDF8621235A6200EC4F1A /* HistoryController.xib */,
@@ -301,6 +307,7 @@
 				172AC028213B26C8007E254F /* ConnectionController.swift in Sources */,
 				175FC099211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodeld in Sources */,
 				172BF552213AC75A007CB7A7 /* Alert.swift in Sources */,
+				1707386E2156B05B0092C3C8 /* TimeScoresDataHelpers.swift in Sources */,
 				1767F35E2134490500BF17DA /* ActivitiesControllerExtension.swift in Sources */,
 				1767F36021347E0700BF17DA /* ButtonTS.swift in Sources */,
 				1774E8842124222C00A65415 /* Constants.swift in Sources */,
@@ -315,6 +322,7 @@
 				175FC091211782B500B6A3E5 /* AppDelegate.swift in Sources */,
 				1729E2D32145562C004297F7 /* TypicalDayDetailController.swift in Sources */,
 				17E0F7352121FD6200F5DD1E /* TabBarController.swift in Sources */,
+				170738702156C5C80092C3C8 /* TimeScoresControllerExtension.swift in Sources */,
 				1774E8812124108900A65415 /* ImageViewTS.swift in Sources */,
 				17E0F72E2121FCBC00F5DD1E /* ActivitiesController.swift in Sources */,
 			);
