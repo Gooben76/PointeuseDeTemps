@@ -37,7 +37,9 @@ class TimeScoresDataHelpers {
             if typicalDay != nil {
                 if let allSubData = typicalDay!.typicalDayActivities?.allObjects as? [TypicalDayActivities] {
                     for elm in allSubData {
-                        
+                        if !TimeScoreActivitiesDataHelpers.getFunc.setNewTimeScoreActivity(timeScore: newTimeScore, activity: elm.activityId!, userConnected: userConnected) {
+                            print("Erreur de sauvegarde de TimeScoreActivities")
+                        }
                     }
                 }
             }

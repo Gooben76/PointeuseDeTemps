@@ -30,7 +30,7 @@ class TypicalDayDetailTableCell: UITableViewCell {
 
     @objc func switchValueDidChange(sender: UISwitch!) {
         if sender.isOn {
-            if let elmfound = TypicalDayActivitiesDataHelpers.getFunc.searchTypicalDayActivityByTypicalDayAndActivity(typicalDay: typicalDay, activity: typicalDayActivityDetail.activity, userConnected: userConnected), elmfound != nil {
+            if let elmfound = TypicalDayActivitiesDataHelpers.getFunc.searchTypicalDayActivityByTypicalDayAndActivity(typicalDay: typicalDay, activity: typicalDayActivityDetail.activity, userConnected: userConnected) {
                 if !TypicalDayActivitiesDataHelpers.getFunc.setTypicalDayActivity(typicalDay: typicalDay, activity: typicalDayActivityDetail.activity, userConnected: userConnected) {
                     print("Erreur à la sauvegarde de TypicalDayActivities")
                 }
@@ -40,11 +40,13 @@ class TypicalDayDetailTableCell: UITableViewCell {
                 }
             }
         } else {
-            if let elmfound = TypicalDayActivitiesDataHelpers.getFunc.searchTypicalDayActivityByTypicalDayAndActivity(typicalDay: typicalDay, activity: typicalDayActivityDetail.activity, userConnected: userConnected), elmfound != nil {
+            if let elmfound = TypicalDayActivitiesDataHelpers.getFunc.searchTypicalDayActivityByTypicalDayAndActivity(typicalDay: typicalDay, activity: typicalDayActivityDetail.activity, userConnected: userConnected) {
                 if !TypicalDayActivitiesDataHelpers.getFunc.delTypicalDayActivity(typicalDayActivity: elmfound) {
                     print("Erreur à la suppression de TypicalDayActivities")
                 }
             }
         }
+        
+        NotificationCenter.default.post(name: .numberActivitiesInTypicalDay, object: self)
     }
 }

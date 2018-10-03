@@ -107,17 +107,15 @@ class TypicalDayActivitiesDataHelpers {
             var table: [TypicalDayActivitiesDetails] = [TypicalDayActivitiesDetails]()
             let activities = ActivitiesDataHelpers.getFunc.getAllActivities(userConnected: userConnected)
             if activities != nil, activities!.count > 0 {
-                print("Nombre d'activités : \(activities!.count)")
                 for elm in activities! {
                     let new = TypicalDayActivitiesDetails(activity: elm)
                     table.append(new)
                 }
-                print("Table : \(table.count)")
                 if let records = typicalDay!.typicalDayActivities?.allObjects as? [TypicalDayActivities] {
                     for elm in records {
                         let find = table.first(where: {$0.activity == elm.activityId!})
                         if find != nil {
-                            find?.setSelected(true)
+                            find!.setSelected(true)
                         }
                     }
                 }

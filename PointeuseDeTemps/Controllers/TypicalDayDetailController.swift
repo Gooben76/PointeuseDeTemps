@@ -56,6 +56,8 @@ class TypicalDayDetailController: UIViewController, UITableViewDelegate, UITable
                 titleActivitiesLabel.isHidden = true
             }
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handler_DetailUpdate), name: .numberActivitiesInTypicalDay, object: nil)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,6 +85,11 @@ class TypicalDayDetailController: UIViewController, UITableViewDelegate, UITable
         if !TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: typicalDay!, userConnected: userConnected!) {
             print("Erreur de sauvegarde de la journée type")
         }
+    }
+    
+    @objc func handler_DetailUpdate(notification: Notification) {
+        let nbr = typicalDay?.typicalDayActivities?.allObjects.count
+        numberOfActivitiesLabel.text = RSC_NUMBER_OF_ACTIVITIES + String(nbr!)
     }
     
     @IBAction func saveButton_Click(_ sender: Any) {

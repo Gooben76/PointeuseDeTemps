@@ -25,7 +25,7 @@ class TabBarController: UITabBarController {
         days.title = RSC_DAYS
         days.tabBarItem.image = #imageLiteral(resourceName: "days-30")
         
-        let timeScores = TimeScoresController()
+        let timeScores = UINavigationController(rootViewController: TimeScoresController())
         timeScores.title = RSC_TIMESCORE
         timeScores.tabBarItem.image = #imageLiteral(resourceName: "times-30")
         
