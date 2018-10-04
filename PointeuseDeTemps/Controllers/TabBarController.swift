@@ -29,7 +29,7 @@ class TabBarController: UITabBarController {
         timeScores.title = RSC_TIMESCORE
         timeScores.tabBarItem.image = #imageLiteral(resourceName: "times-30")
         
-        let history = HistoryController()
+        let history = UINavigationController(rootViewController:HistoryController())
         history.title = RSC_HISTORY
         history.tabBarItem.image = #imageLiteral(resourceName: "history-30")
         

@@ -43,6 +43,9 @@ class TimeScoreActivityDetailsDataHelpers {
                 if filterResult.count > 0 {
                     filterResult[0].setValue(false, forKey: "running")
                     filterResult[0].setValue(Date(), forKey: "endDateTime")
+                    
+                    let durationComponents: DateComponents = Calendar.current.dateComponents([.second, .minute , .hour], from: filterResult[0].startDateTime!, to: filterResult[0].endDateTime!)
+                    
                     filterResult[0].setValue(Date(), forKey: "modifiedDate")
                     do {
                         try context.save()
@@ -54,6 +57,6 @@ class TimeScoreActivityDetailsDataHelpers {
                 }
             }
         }
-        return false
+        return true
     }
 }

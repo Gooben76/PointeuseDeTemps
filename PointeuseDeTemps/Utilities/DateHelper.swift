@@ -39,4 +39,16 @@ class DateHelper {
         return data
     }
     
+    func convertDateTimeToString(_ date: Date) -> String? {
+        let format = DateFormatter()
+        format.dateFormat = "dd/MM/yyyy HH:mm"
+        let data = format.string(from: date)
+        return data
+    }
+    
+    func getDateComponentsBetween2Dates(startDate: Date, endDate: Date) -> DateComponents {
+        let durationComponents: DateComponents = Calendar.current.dateComponents([.second, .minute , .hour], from: startDate, to: endDate)
+        return durationComponents
+    }
+    
 }

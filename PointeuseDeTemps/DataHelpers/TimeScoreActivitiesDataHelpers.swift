@@ -57,11 +57,11 @@ class TimeScoreActivitiesDataHelpers {
         guard elm != nil else {return false}
         if running {
             if !TimeScoreActivityDetailsDataHelpers.getFunc.setNewTimeScoreActivityDetail(timeScoreActivity: timeScoreActivity, userConnected: userConnected) {
-                print("Erreur de sauvegarde TimeScoreActivityDetail")
+                print("Erreur de sauvegarde TimeScoreActivityDetail 2")
             }
         } else {
             if !TimeScoreActivityDetailsDataHelpers.getFunc.updateTimeScoreActivityDetail(timeScoreActivity: timeScoreActivity, userConnected: userConnected) {
-                print("Erreur de sauvegarde TimeScoreActivityDetail")
+                print("Erreur de sauvegarde TimeScoreActivityDetail 3")
             }
         }
         elm!.setValue(running, forKey: "running")

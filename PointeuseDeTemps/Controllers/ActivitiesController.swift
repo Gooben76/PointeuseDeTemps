@@ -34,7 +34,7 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let usr = UserDefaults.standard.object(forKey: "connectedUser")
         if usr != nil, let login = usr as? String {
-            if let user = UsersDataHelpers.getFunc.searchUserByLogin(login: login), user != nil {
+            if let user = UsersDataHelpers.getFunc.searchUserByLogin(login: login) {
                 userConnected = user
             }
         }
