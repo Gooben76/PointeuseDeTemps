@@ -49,6 +49,12 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         saveButton.setTitle(RSC_SAVE, for: .normal)
         deconnectionButton.setTitle(RSC_DECONNECTION, for: .normal)
         deleteButton.setTitle(RSC_DELETE, for: .normal)
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {

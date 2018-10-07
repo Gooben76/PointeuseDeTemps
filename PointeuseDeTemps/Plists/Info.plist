@@ -20,6 +20,20 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Souhaitez-vous sélectionner des images pour vos activités ?</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Souhaitez-vous sélectionner des images pour vos activités ?</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Souhaitez-vous enregistrer votre position pour les activités ainsi identifiées ?</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Vous allez utilisez la localisation pour les activités identifiées</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Vous allez utilisez la localisation pour les activités identifiées</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Vous allez utilisez la localisation pour les activités identifiées</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Souhaitez-vous sélectionner des images pour vos activités ?</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -29,8 +43,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -39,19 +51,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>Souhaitez-vous sélectionner des images pour vos activités ?</string>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Souhaitez-vous sélectionner des images pour vos activités ?</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Souhaitez-vous sélectionner des images pour vos activités ?</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Souhaitez-vous enregistrer votre position pour les activités ainsi identifiées ?</string>
-	<key>NSLocationUsageDescription</key>
-	<string>Vous allez utilisez la localisation pour les activités identifiées</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Vous allez utilisez la localisation pour les activités identifiées</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Vous allez utilisez la localisation pour les activités identifiées</string>
 </dict>
 </plist>
