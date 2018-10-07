@@ -11,10 +11,11 @@ import UIKit
 class ActivityTableCell: UITableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var imageActivity: ImageViewTS!
-    @IBOutlet weak var activityTextField: UITextField!
+    @IBOutlet weak var activityTextField: TextFieldTS!
     @IBOutlet weak var positionSwitch: UISwitch!
-    @IBOutlet weak var orderTextField: UITextField!
-    @IBOutlet weak var gpsPositionLabel: UILabel!
+    @IBOutlet weak var orderTextField: TextFieldSmallTS!
+    @IBOutlet weak var gpsPositionLabel: LabelH2TS!
+    @IBOutlet weak var orderLabel: LabelH2TS!
     
     var activity : Activities!
     var userConnected: Users!
@@ -29,6 +30,7 @@ class ActivityTableCell: UITableViewCell, UITextFieldDelegate {
         activityTextField.placeholder = RSC_ACTIVITYNAME
         orderTextField.placeholder = RSC_ACTIVITY_ORDER
         gpsPositionLabel.text = RSC_GPSPOSITION
+        orderLabel.text = RSC_ORDER
         
         activityTextField.text = activity.activityName
         positionSwitch.isOn = activity.gpsPosition
@@ -41,17 +43,47 @@ class ActivityTableCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        print("Event")
+        var toSave: Bool = false
         if textField == activityTextField {
+            print("activité")
             if let text = textField.text {
-                activity.activityName = text
+                if text != activity.activityName {
+                    print("Nom a changé")
+                    if ActivitiesDataHelpers.getFunc.existActivityName(activityName: text, userConnected: userConnected) {
+                        print("Nom existe")
+                        activityTextField.text = activity.activityName
+                        NotificationCenter.default.post(name: .showErrorMessageInActivitiesController, object: self, userInfo: ["message": RSC_ERROR_ACTIVITYNAMEEXISTS])
+                    } else {
+                        print("Nom n'existe pas")
+                        activity.activityName = text
+                        toSave = true
+                    }
+                }
             }
-        } else {
+        } else if textField == orderTextField {
+            print("Ordre")
             if let text = textField.text, let order = Int32(text) {
-                activity.order = order
+                if order != activity.order {
+                    print("Ordre a changé")
+                    if ActivitiesDataHelpers.getFunc.existActivityOrder(order: order, userConnected: userConnected) {
+                        print("Ordre existe")
+                        orderTextField.text = String(activity.order)
+                        NotificationCenter.default.post(name: .showErrorMessageInActivitiesController, object: self, userInfo: ["message": RSC_ERROR_ORDEREXISTS])
+                    } else {
+                        print("Ordre n'existe pas")
+                        activity.order = order
+                        toSave = true
+                    }
+                }
             }
         }
-        if !ActivitiesDataHelpers.getFunc.setActivity(activity: activity, userConnected: userConnected) {
-            print("Erreur de sauvegarde de l'activité")
+        if toSave {
+            if !ActivitiesDataHelpers.getFunc.setActivity(activity: activity, userConnected: userConnected) {
+                print("Erreur de sauvegarde de l'activité")
+            }
+            NotificationCenter.default.post(name: .refreshActivitiesController, object: self)
+            toSave = false
         }
     }
     

@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = ConnectionController()
         
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.font : UIFont(name: "Futura", size: 20)!]
+        
         return true
     }
 

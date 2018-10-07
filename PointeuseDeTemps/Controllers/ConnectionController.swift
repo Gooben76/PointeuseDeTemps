@@ -10,9 +10,9 @@ import UIKit
 
 class ConnectionController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var loginTF: UITextField!
-    @IBOutlet weak var passwordTF: UITextField!
+    @IBOutlet weak var titleLabel: LabelH1TS!
+    @IBOutlet weak var loginTF: TextFieldTS!
+    @IBOutlet weak var passwordTF: TextFieldTS!
     @IBOutlet weak var connexionButton: ButtonTS!
     @IBOutlet weak var userCreationButton: ButtonTS!
     
@@ -36,7 +36,7 @@ class ConnectionController: UIViewController {
         super.viewDidAppear(animated)
         let usr = UserDefaults.standard.object(forKey: "connectedUser")
         if usr != nil, let login = usr as? String {
-            if let user = UsersDataHelpers.getFunc.searchUserByLogin(login: login), user != nil {
+            if let user = UsersDataHelpers.getFunc.searchUserByLogin(login: login) {
                 let controller = TabBarController()
                 self.present(controller, animated: true, completion: nil)
             } else {

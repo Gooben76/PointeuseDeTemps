@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import MapKit
 
 class TimeScoresController: UIViewController {
     
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var typicalDayTF: UITextField!
+    @IBOutlet weak var dateLabel: LabelH1TS!
+    @IBOutlet weak var typicalDayTF: TextFieldTS!
     @IBOutlet weak var saveButton: ButtonTS!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var actvititiesLabel: UILabel!
@@ -44,9 +45,11 @@ class TimeScoresController: UIViewController {
             navigationBar = nav.navigationBar
             navigationBar!.items![0].title = RSC_TIMESCORE
             
-            rightAddBarButtonItem = UIBarButtonItem(title: RSC_ADD, style: UIBarButtonItemStyle.plain, target: self, action: #selector(addButtonAction))
+            rightAddBarButtonItem = UIBarButtonItem(image: UIImage(named: "add-16px"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(addButtonAction))
+            rightAddBarButtonItem!.tintColor = UIColor.black
             self.navigationItem.setRightBarButtonItems([rightAddBarButtonItem!], animated: true)
-            leftAddBarButtonItem = UIBarButtonItem(title: RSC_DELETE, style: UIBarButtonItemStyle.plain, target: self, action: #selector(delButtonAction))
+            leftAddBarButtonItem = UIBarButtonItem(image: UIImage(named: "del-16px"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(delButtonAction))
+            leftAddBarButtonItem!.tintColor = UIColor.black
             self.navigationItem.setLeftBarButtonItems([leftAddBarButtonItem!], animated: true)
         }
         

@@ -10,7 +10,7 @@ import UIKit
 
 class HistoryActivitiesController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var dateLabel: LabelH1TS!
     @IBOutlet weak var tableView: UITableView!
     
     var timeScore: TimeScores?
@@ -22,6 +22,7 @@ class HistoryActivitiesController: UIViewController, UITableViewDataSource, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = RSC_ACTIVITIES
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -43,7 +44,7 @@ class HistoryActivitiesController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 85
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

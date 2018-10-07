@@ -12,34 +12,47 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="68" id="KGk-i7-Jjw" customClass="HistoryTimeScoreActivityTableCell" customModule="PointeuseDeTemps" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="108" id="KGk-i7-Jjw" customClass="HistoryTimeScoreActivityTableCell" customModule="PointeuseDeTemps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="108"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="67.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="107.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAm-TT-nig">
-                        <rect key="frame" x="26" y="21" width="200" height="30"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAm-TT-nig" customClass="LabelH2BoldTS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="16" y="16" width="288" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="200" id="IRU-cV-aLK"/>
-                            <constraint firstAttribute="height" constant="30" id="aaY-he-rQA"/>
+                            <constraint firstAttribute="height" constant="25" id="aaY-he-rQA"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="41V-Dj-P9C" customClass="LabelH3TS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="36" y="51" width="258" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="nHx-cb-jDq"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="VAm-TT-nig" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="l97-0V-fer"/>
-                    <constraint firstItem="VAm-TT-nig" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="u3o-4Y-wOe"/>
+                    <constraint firstItem="VAm-TT-nig" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="FQp-jT-Wzt"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="VAm-TT-nig" secondAttribute="trailing" id="Lqx-tx-Sja"/>
+                    <constraint firstItem="41V-Dj-P9C" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="eza-GM-dZK"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="41V-Dj-P9C" secondAttribute="trailing" constant="10" id="mmv-Kc-wFQ"/>
+                    <constraint firstItem="VAm-TT-nig" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="u3o-4Y-wOe"/>
+                    <constraint firstItem="41V-Dj-P9C" firstAttribute="top" secondItem="VAm-TT-nig" secondAttribute="bottom" constant="10" id="zsp-iV-5h7"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="activityLabel" destination="VAm-TT-nig" id="7Zo-lW-4lo"/>
+                <outlet property="durationLabel" destination="41V-Dj-P9C" id="0Je-0C-w7u"/>
             </connections>
-            <point key="canvasLocation" x="132.80000000000001" y="153.82308845577214"/>
+            <point key="canvasLocation" x="132.80000000000001" y="171.81409295352324"/>
         </tableViewCell>
     </objects>
 </document>

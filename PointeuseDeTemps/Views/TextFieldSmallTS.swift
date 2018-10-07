@@ -1,15 +1,15 @@
 //
-//  TextFieldTS.swift
+//  TextFieldSmallTS.swift
 //  PointeuseDeTemps
 //
-//  Created by Benoît Goossens on 15/08/18.
+//  Created by Benoît Goossens on 5/10/18.
 //  Copyright © 2018 Benoît Goossens. All rights reserved.
 //
 
 import UIKit
 
-class TextFieldTS: UITextField {
-    
+class TextFieldSmallTS: UITextField {
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initObj()
@@ -25,6 +25,7 @@ class TextFieldTS: UITextField {
         layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 0.5
         textColor = UIColor.darkGray
-        font = UIFont.systemFont(ofSize: 23)
+        font = UIFont.italicSystemFont(ofSize: 17)
     }
+
 }

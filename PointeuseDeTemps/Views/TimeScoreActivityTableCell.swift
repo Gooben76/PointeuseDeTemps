@@ -7,26 +7,35 @@
 //
 
 import UIKit
+import MapKit
 
-class TimeScoreActivityTableCell: UITableViewCell {
+class TimeScoreActivityTableCell: UITableViewCell, CLLocationManagerDelegate {
 
-    @IBOutlet weak var activityNameLabel: UILabel!
-    @IBOutlet weak var activityImageView: UIImageView!
+    @IBOutlet weak var activityNameLabel: LabelH2TS!
+    @IBOutlet weak var activityImageView: ImageViewTS!
     @IBOutlet weak var activityStatusLabel: UILabel!
-    @IBOutlet weak var activityTimeLabel: UILabel!
+    @IBOutlet weak var activityTimeTitleLabel: LabelH3TitleTS!
+    @IBOutlet weak var activityTimeLabel: LabelH3TS!
     @IBOutlet weak var toggleButton: UIButton!
     
     var timeScoreActivity: TimeScoreActivities!
     var timeScore: TimeScores!
     var userConnected: Users!
     
+    var locationManager = CLLocationManager()
+    
     func initCell(timeScoreActivity: TimeScoreActivities, timeScore: TimeScores, userConnected: Users) {
         self.timeScoreActivity = timeScoreActivity
         self.timeScore = timeScore
         self.userConnected = userConnected
         
+        locationManager.delegate = self
+        
+        activityStatusLabel.text = RSC_RUNNING
         toggleButton.setTitle(RSC_ACTIVATE, for: .normal)
         activityNameLabel.text = timeScoreActivity.activityId!.activityName
+        activityTimeTitleLabel.text = RSC_TOTALDURATION
+        
         if timeScoreActivity.activityId!.image != nil, let image = timeScoreActivity.activityId!.image as? UIImage {
             activityImageView.image = image
             toggleButton.isHidden = true
@@ -35,37 +44,79 @@ class TimeScoreActivityTableCell: UITableViewCell {
             toggleButton.isHidden = false
             activityImageView.isHidden = true
         }
-        activityStatusLabel.textColor = UIColor.green
+        
         activityStatusLabel.text = ""
-        if let nbr = timeScoreActivity.timeScoreActivityDetails?.allObjects.count, nbr > 0 {
-            activityTimeLabel.text = "Nombre de détail : \(nbr)"
+        var totalDuration: Double = 0
+        for elm in timeScoreActivity.timeScoreActivityDetails!.allObjects {
+            if let element = elm as? TimeScoreActivityDetails {
+                if !element.running {
+                    totalDuration += DateHelper.getFunc.getDurationBetween2Dates(startDate: element.startDateTime!, endDate: element.endDateTime!)
+                }
+            }
+        }
+        if totalDuration > 0 {
+            activityTimeLabel.text = DateHelper.getFunc.getDurationFromDouble(duration: totalDuration)
         } else {
-            activityTimeLabel.text = "Aucun temps pour cette activité"
+            activityTimeLabel.text = RSC_NODURATION
         }
         
         activityImageView.isUserInteractionEnabled = true
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(imageView_Click))
-        activityImageView.addGestureRecognizer(tap)
-        toggleButton.addGestureRecognizer(tap)
+        let tap1 = UITapGestureRecognizer(target: self, action: #selector(imageView_Click))
+        activityImageView.addGestureRecognizer(tap1)
+        let tap2 = UITapGestureRecognizer(target: self, action: #selector(imageView_Click))
+        toggleButton.addGestureRecognizer(tap2)
         
         if timeScoreActivity.running {
-            activityStatusLabel.text = "En cours"
+            activityStatusLabel.isHidden = false
+            toggleButton.setTitle(RSC_DESACTIVATE, for: .normal)
         } else {
-            activityStatusLabel.text = ""
+            activityStatusLabel.isHidden = true
+            toggleButton.setTitle(RSC_ACTIVATE, for: .normal)
         }
     }
     
     @objc func imageView_Click() {
         if timeScoreActivity.running {
-            if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: false, userConnected: userConnected!) {
-                activityStatusLabel.text = ""
+            if timeScoreActivity.activityId!.gpsPosition {
+                locationManager.requestAlwaysAuthorization()
+                locationManager.startUpdatingLocation()
+            } else {
+                if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: false, coordinates: nil, userConnected: userConnected!) {
+                    activityStatusLabel.isHidden = true
+                }
             }
         } else {
-            if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: true, userConnected: userConnected!) {
-                activityStatusLabel.text = "En cours"
+            if timeScoreActivity.activityId!.gpsPosition {
+                locationManager.requestAlwaysAuthorization()
+                locationManager.startUpdatingLocation()
+            } else {
+                if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: true, coordinates: nil, userConnected: userConnected!) {
+                    activityStatusLabel.isHidden = false
+                }
             }
         }
         NotificationCenter.default.post(name: .changeRunningStatusInTimeScoreActivity, object: self, userInfo: ["timeScoreActivity": timeScoreActivity])
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if locations.count > 0 {
+            locationManager.stopUpdatingLocation()
+            let position = locations[0]
+            let coordinates = position.coordinate
+            if timeScoreActivity.running {
+                if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: false, coordinates: coordinates, userConnected: userConnected!) {
+                    activityStatusLabel.isHidden = true
+                }
+            } else {
+                if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: true, coordinates: coordinates, userConnected: userConnected!) {
+                    activityStatusLabel.isHidden = false
+                }
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
     }
 }

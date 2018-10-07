@@ -45,5 +45,13 @@
 	<string>Souhaitez-vous sélectionner des images pour vos activités ?</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Souhaitez-vous sélectionner des images pour vos activités ?</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Souhaitez-vous enregistrer votre position pour les activités ainsi identifiées ?</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Vous allez utilisez la localisation pour les activités identifiées</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Vous allez utilisez la localisation pour les activités identifiées</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Vous allez utilisez la localisation pour les activités identifiées</string>
 </dict>
 </plist>

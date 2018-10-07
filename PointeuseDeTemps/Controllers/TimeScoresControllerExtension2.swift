@@ -48,7 +48,7 @@ extension TimeScoresController: UITableViewDelegate, UITableViewDataSource {
                 let finded = timeScoreActivities!.filter {$0 != selectedActivity}
                 if finded.count > 0 {
                     for elm: TimeScoreActivities in finded {
-                        if !TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: elm, running: false, userConnected: userConnected!) {
+                        if !TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: elm, running: false, coordinates: nil, userConnected: userConnected!) {
                             print("Erreur à la sauvegarde TimeScoreActivities")
                         }
                     }

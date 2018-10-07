@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import MapKit
 
 class TimeScoreActivitiesDataHelpers {
     
@@ -52,15 +53,15 @@ class TimeScoreActivitiesDataHelpers {
         }
     }
     
-    func setTimeScoreActivityRunning(timeScoreActivity: TimeScoreActivities, running: Bool, userConnected: Users!) -> Bool {
+    func setTimeScoreActivityRunning(timeScoreActivity: TimeScoreActivities, running: Bool, coordinates: CLLocationCoordinate2D?, userConnected: Users!) -> Bool {
         let elm = searchTimeScoreActivityByTimeScoreAndActivity(timeScore: timeScoreActivity.timeScoreId!, activity: timeScoreActivity.activityId!, userConnected: userConnected)
         guard elm != nil else {return false}
         if running {
-            if !TimeScoreActivityDetailsDataHelpers.getFunc.setNewTimeScoreActivityDetail(timeScoreActivity: timeScoreActivity, userConnected: userConnected) {
+            if !TimeScoreActivityDetailsDataHelpers.getFunc.setNewTimeScoreActivityDetail(timeScoreActivity: timeScoreActivity, coordinates: coordinates, userConnected: userConnected) {
                 print("Erreur de sauvegarde TimeScoreActivityDetail 2")
             }
         } else {
-            if !TimeScoreActivityDetailsDataHelpers.getFunc.updateTimeScoreActivityDetail(timeScoreActivity: timeScoreActivity, userConnected: userConnected) {
+            if !TimeScoreActivityDetailsDataHelpers.getFunc.updateTimeScoreActivityDetail(timeScoreActivity: timeScoreActivity, coordinates: coordinates, userConnected: userConnected) {
                 print("Erreur de sauvegarde TimeScoreActivityDetail 3")
             }
         }

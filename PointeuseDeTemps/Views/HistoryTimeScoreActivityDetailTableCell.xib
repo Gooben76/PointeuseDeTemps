@@ -12,47 +12,221 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="118" id="KGk-i7-Jjw" customClass="HistoryTimeScoreActivityDetailTableCell" customModule="PointeuseDeTemps" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="118"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="204" id="KGk-i7-Jjw" customClass="HistoryTimeScoreActivityDetailTableCell" customModule="PointeuseDeTemps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="506" height="204"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="117.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="506" height="203.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02V-Av-iBb">
-                        <rect key="frame" x="26" y="21" width="150" height="30"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02V-Av-iBb" customClass="LabelH3TS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="110" y="21" width="251" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="APR-82-N3B"/>
-                            <constraint firstAttribute="width" constant="150" id="LLW-X5-JSE"/>
+                            <constraint firstAttribute="height" constant="25" id="pCM-LD-hZa"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATv-pK-Wsk" customClass="LabelH3TS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="426" y="21" width="50" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="8zv-W3-fWo"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="JGU-HI-BhV"/>
+                            <constraint firstAttribute="height" constant="25" id="NeH-tA-jT8"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8NE-PS-HNH" customClass="LabelH3TS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="426" y="91" width="50" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="25" id="3gw-Nd-k2P"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="NzS-eO-ImT"/>
+                            <constraint firstAttribute="height" constant="25" id="gHx-Rp-nhO"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="lcN-Pc-DIg"/>
+                            <constraint firstAttribute="width" constant="50" id="zg9-ZX-5ih"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m8D-bm-apt" customClass="LabelH3TS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="426" y="56" width="50" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="6JS-7L-dfk"/>
+                            <constraint firstAttribute="width" constant="50" id="OFp-BT-lqV"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="xub-En-0i1"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLY-jV-Dw3" customClass="LabelH3TS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="426" y="126" width="50" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="0Pv-6k-c2o"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="U4z-oT-eZR"/>
+                            <constraint firstAttribute="height" constant="25" id="dQw-hP-Mc9"/>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="25" id="nmH-bw-EXT"/>
+                            <constraint firstAttribute="width" constant="50" id="nyL-5L-wQG"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="end" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wWc-vC-qwG" customClass="LabelH3TS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="110" y="91" width="251" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="tuS-up-kYy"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wWc-vC-qwG">
-                        <rect key="frame" x="26" y="61" width="150" height="30"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Début" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8t-sv-Byj" customClass="LabelH3TitleTS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="30" y="21" width="75" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="150" id="7ip-op-G9f"/>
-                            <constraint firstAttribute="height" constant="30" id="NoH-ec-4T6"/>
+                            <constraint firstAttribute="height" constant="25" id="AfW-J4-OmY"/>
+                            <constraint firstAttribute="width" constant="75" id="hww-Xl-2UV"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xY-g3-gE4" customClass="LabelH3TitleTS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="30" y="91" width="75" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="3p4-gd-5tO"/>
+                            <constraint firstAttribute="width" constant="75" id="gvs-tN-BbY"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="jok-2a-jY1"/>
+                            <constraint firstAttribute="height" constant="25" id="r07-p3-Hnf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dur" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NaE-vK-BjG" customClass="LabelH3TitleTS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="30" y="161" width="75" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="75" id="Bdf-18-fYd"/>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="25" id="DrR-Ar-fJi"/>
+                            <constraint firstAttribute="width" constant="75" id="Ind-Bg-N0I"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="USw-a9-1pu"/>
+                            <constraint firstAttribute="height" constant="25" id="YbM-nf-WnD"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="b4d-fN-srj"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lat:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eok-K0-I3W" customClass="LabelH3TitleTS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="371" y="21" width="50" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="FXy-CU-UoR"/>
+                            <constraint firstAttribute="width" constant="50" id="aT8-Kb-caX"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lat:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WUo-Jw-dOL" customClass="LabelH3TitleTS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="371" y="91" width="50" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="6l4-HR-Ch9"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="X8w-du-Lol"/>
+                            <constraint firstAttribute="width" constant="50" id="mif-HF-tlZ"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="waB-5S-2Zh"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Long:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BlM-tG-ewh" customClass="LabelH3TitleTS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="371" y="56" width="50" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Ilw-Ad-6fW"/>
+                            <constraint firstAttribute="width" constant="50" id="RqS-2n-n0c"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Long:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Oy-4Q-636" customClass="LabelH3TitleTS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="371" y="126" width="50" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="0xm-zg-KAX"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="KRE-Ym-Ylg"/>
+                            <constraint firstAttribute="width" constant="50" id="oqT-ov-5eU"/>
+                            <constraint firstAttribute="height" constant="25" id="zZq-ao-9V6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F6H-tk-nxg" customClass="LabelH3TitleTS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="110" y="161" width="366" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="5qk-Hk-UgU"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="02V-Av-iBb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="LDR-7X-WkU"/>
-                    <constraint firstItem="wWc-vC-qwG" firstAttribute="top" secondItem="02V-Av-iBb" secondAttribute="bottom" constant="10" id="awA-hR-zbs"/>
-                    <constraint firstItem="02V-Av-iBb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="hfI-Hm-9Tg"/>
-                    <constraint firstItem="wWc-vC-qwG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="oSX-qC-hH6"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="F6H-tk-nxg" secondAttribute="trailing" constant="10" id="0Ps-hh-gby"/>
+                    <constraint firstItem="fLY-jV-Dw3" firstAttribute="leading" secondItem="3Oy-4Q-636" secondAttribute="trailing" constant="5" id="0io-kv-fxK"/>
+                    <constraint firstItem="Eok-K0-I3W" firstAttribute="leading" secondItem="02V-Av-iBb" secondAttribute="trailing" constant="10" id="2sx-CA-SHb"/>
+                    <constraint firstItem="8NE-PS-HNH" firstAttribute="top" secondItem="m8D-bm-apt" secondAttribute="bottom" constant="10" id="337-bb-qC5"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="fLY-jV-Dw3" secondAttribute="trailing" constant="10" id="3Wy-Iz-P0B"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="8NE-PS-HNH" secondAttribute="trailing" constant="10" id="4uw-8m-jDa"/>
+                    <constraint firstItem="F6H-tk-nxg" firstAttribute="leading" secondItem="NaE-vK-BjG" secondAttribute="trailing" constant="5" id="7iJ-gg-e84"/>
+                    <constraint firstItem="0xY-g3-gE4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="7z6-Q4-fAj"/>
+                    <constraint firstItem="ATv-pK-Wsk" firstAttribute="leading" secondItem="Eok-K0-I3W" secondAttribute="trailing" constant="5" id="9F6-t7-eBa"/>
+                    <constraint firstItem="K8t-sv-Byj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="AWU-sw-kVl"/>
+                    <constraint firstItem="0xY-g3-gE4" firstAttribute="top" secondItem="K8t-sv-Byj" secondAttribute="bottom" constant="45" id="E66-HZ-kQD"/>
+                    <constraint firstItem="WUo-Jw-dOL" firstAttribute="leading" secondItem="wWc-vC-qwG" secondAttribute="trailing" constant="10" id="Fuv-sg-oK6"/>
+                    <constraint firstItem="8NE-PS-HNH" firstAttribute="leading" secondItem="WUo-Jw-dOL" secondAttribute="trailing" constant="5" id="Grn-Pb-hCW"/>
+                    <constraint firstItem="WUo-Jw-dOL" firstAttribute="top" secondItem="BlM-tG-ewh" secondAttribute="bottom" constant="10" id="JbK-Nz-8qo"/>
+                    <constraint firstItem="K8t-sv-Byj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="LRL-Ga-fnC"/>
+                    <constraint firstItem="Eok-K0-I3W" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="QLL-s7-1zS"/>
+                    <constraint firstItem="NaE-vK-BjG" firstAttribute="top" secondItem="0xY-g3-gE4" secondAttribute="bottom" constant="45" id="Ttr-DO-bfw"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="m8D-bm-apt" secondAttribute="trailing" constant="10" id="VQM-Xq-G1y"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ATv-pK-Wsk" secondAttribute="trailing" constant="10" id="XzV-zi-587"/>
+                    <constraint firstItem="3Oy-4Q-636" firstAttribute="top" secondItem="WUo-Jw-dOL" secondAttribute="bottom" constant="10" id="ZLc-Y7-JDa"/>
+                    <constraint firstItem="02V-Av-iBb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="acO-9u-vWE"/>
+                    <constraint firstItem="F6H-tk-nxg" firstAttribute="top" secondItem="wWc-vC-qwG" secondAttribute="bottom" constant="45" id="c1D-2p-wfX"/>
+                    <constraint firstItem="wWc-vC-qwG" firstAttribute="top" secondItem="02V-Av-iBb" secondAttribute="bottom" constant="45" id="cFV-bG-Hga"/>
+                    <constraint firstItem="wWc-vC-qwG" firstAttribute="leading" secondItem="0xY-g3-gE4" secondAttribute="trailing" constant="5" id="ihf-LR-FeH"/>
+                    <constraint firstItem="m8D-bm-apt" firstAttribute="leading" secondItem="BlM-tG-ewh" secondAttribute="trailing" constant="5" id="jkN-or-TOy"/>
+                    <constraint firstItem="fLY-jV-Dw3" firstAttribute="top" secondItem="8NE-PS-HNH" secondAttribute="bottom" constant="10" id="l8K-A8-ERw"/>
+                    <constraint firstItem="02V-Av-iBb" firstAttribute="leading" secondItem="K8t-sv-Byj" secondAttribute="trailing" constant="5" id="qNZ-zL-Yiu"/>
+                    <constraint firstItem="m8D-bm-apt" firstAttribute="top" secondItem="ATv-pK-Wsk" secondAttribute="bottom" constant="10" id="r6o-4z-SFb"/>
+                    <constraint firstItem="ATv-pK-Wsk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="suI-yf-ML1"/>
+                    <constraint firstItem="NaE-vK-BjG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="tnL-EC-Zix"/>
+                    <constraint firstItem="BlM-tG-ewh" firstAttribute="top" secondItem="Eok-K0-I3W" secondAttribute="bottom" constant="10" id="yHd-TG-X2Q"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="durationLabel" destination="F6H-tk-nxg" id="Gge-jy-gcu"/>
+                <outlet property="durationTitleLabel" destination="NaE-vK-BjG" id="P3P-dM-3Xt"/>
                 <outlet property="endDateLabel" destination="wWc-vC-qwG" id="72j-2v-dA8"/>
+                <outlet property="endDateTitleLabel" destination="0xY-g3-gE4" id="hes-Xo-h6l"/>
+                <outlet property="latitudeEndLabel" destination="8NE-PS-HNH" id="Qy0-qF-ROO"/>
+                <outlet property="latitudeEndTitleLabel" destination="WUo-Jw-dOL" id="dFV-GB-CMQ"/>
+                <outlet property="latitudeStartLabel" destination="ATv-pK-Wsk" id="BXW-hW-34A"/>
+                <outlet property="latitudeStartTitleLabel" destination="Eok-K0-I3W" id="8K4-pt-j57"/>
+                <outlet property="longitudeEndLabel" destination="fLY-jV-Dw3" id="tvj-g6-oKc"/>
+                <outlet property="longitudeEndTitleLabel" destination="3Oy-4Q-636" id="rKY-d5-7hY"/>
+                <outlet property="longitudeStartLabel" destination="m8D-bm-apt" id="EjD-QR-Kk9"/>
+                <outlet property="longitudeStartTitleLabel" destination="BlM-tG-ewh" id="wdC-b1-tbF"/>
                 <outlet property="startDateLabel" destination="02V-Av-iBb" id="rpG-cg-ODV"/>
+                <outlet property="startDateTitleLabel" destination="K8t-sv-Byj" id="DVP-jX-xr5"/>
             </connections>
-            <point key="canvasLocation" x="132.80000000000001" y="177.21139430284859"/>
+            <point key="canvasLocation" x="-291.19999999999999" y="20.689655172413794"/>
         </tableViewCell>
     </objects>
 </document>

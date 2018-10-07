@@ -22,8 +22,8 @@ class ButtonTS: UIButton {
     
     func initObj() {
         layer.cornerRadius = 5
-        layer.borderColor = UIColor.lightGray.cgColor
+        layer.borderColor = UIColor.darkGray.cgColor
         layer.borderWidth = 0.5
-        tintColor = UIColor.lightGray
+        tintColor = UIColor.darkGray
     }
 }

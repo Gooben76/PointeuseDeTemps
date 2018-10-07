@@ -26,13 +26,14 @@ class DaysController: UIViewController, UITableViewDelegate, UITableViewDataSour
             navigationBar = nav.navigationBar
             navigationBar!.items![0].title = RSC_DAYS
             
-            let rightAddBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: RSC_ADD, style: UIBarButtonItemStyle.plain, target: self, action: #selector(addButtonAction))
+            let rightAddBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "add-16px"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(addButtonAction))
+            rightAddBarButtonItem.tintColor = UIColor.black
             self.navigationItem.setRightBarButtonItems([rightAddBarButtonItem], animated: true)
         }
         
         let usr = UserDefaults.standard.object(forKey: "connectedUser")
         if usr != nil, let login = usr as? String {
-            if let user = UsersDataHelpers.getFunc.searchUserByLogin(login: login), user != nil {
+            if let user = UsersDataHelpers.getFunc.searchUserByLogin(login: login) {
                 print("User OK  for day")
                 userConnected = user
             }

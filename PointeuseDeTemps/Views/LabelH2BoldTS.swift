@@ -1,15 +1,15 @@
 //
-//  TextFieldTS.swift
+//  LabelH2BoldTS.swift
 //  PointeuseDeTemps
 //
-//  Created by Benoît Goossens on 15/08/18.
+//  Created by Benoît Goossens on 7/10/18.
 //  Copyright © 2018 Benoît Goossens. All rights reserved.
 //
 
 import UIKit
 
-class TextFieldTS: UITextField {
-    
+class LabelH2BoldTS: UILabel {
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initObj()
@@ -21,10 +21,7 @@ class TextFieldTS: UITextField {
     }
     
     func initObj() {
-        layer.cornerRadius = 5
-        layer.borderColor = UIColor.lightGray.cgColor
-        layer.borderWidth = 0.5
         textColor = UIColor.darkGray
-        font = UIFont.systemFont(ofSize: 23)
+        font = UIFont.boldSystemFont(ofSize: 17)
     }
 }

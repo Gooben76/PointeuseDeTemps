@@ -15,20 +15,10 @@ class ActivitiesDataHelpers {
     
     func getAllActivities(userConnected: Users!) -> [Activities]? {
         if let result = userConnected.activities!.allObjects as? [Activities] {
-            let sortedResult = result.sorted(by: { $0.activityName! < $1.activityName!})
+            let sortedResult = result.sorted(by: { $0.order < $1.order})
             return sortedResult
         }
         return nil
-        /*let query: NSFetchRequest<Activities> = Activities.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "activityName", ascending: true)
-        query.sortDescriptors?.append(sortDescriptor)
-        do {
-            activities = try context.fetch(query)
-        } catch {
-            print(error.localizedDescription)
-        }
-        return activities
-        */
     }
     
     func setNewActivity(activityName: String, userConnected: Users) -> Bool {
@@ -38,7 +28,8 @@ class ActivitiesDataHelpers {
             let newActivity = Activities(context: context)
             newActivity.activityName = activityName
             newActivity.gpsPosition = false
-            newActivity.order = 10
+            let nextOrder = getNextOrderNumber(userConnected: userConnected)
+            newActivity.order = nextOrder
             newActivity.modifiedDate = Date()
             newActivity.userID = userConnected
             appDelegate.saveContext()
@@ -65,10 +56,8 @@ class ActivitiesDataHelpers {
     
     func setActivity(activity: Activities!, userConnected: Users!) -> Bool {
         if activity != nil {
-            print("A mettre à jour")
             let act = searchActivityByName(activityName: activity.activityName!, userConnected: userConnected)
             guard act != nil else {return false}
-            print("activité trouvée")
             act!.setValue(activity.order, forKey: "order")
             act!.setValue(activity.image, forKey: "image")
             act!.setValue(activity.activityName, forKey: "activityName")
@@ -93,27 +82,46 @@ class ActivitiesDataHelpers {
                 if resultNS.count > 0 {
                     let sortedResult = resultNS.sorted(by: { $0.activityName! < $1.activityName!})
                     return sortedResult[0]
-                } else {
-                    return nil
                 }
             }
-            return nil
         }
         return nil
-        /*let query: NSFetchRequest<Activities> = Activities.fetchRequest()
-        query.predicate = NSPredicate(format: "activityName like %@", activityName)
-        do {
-            var foundRecordsArray = [Activities]()
-            try foundRecordsArray = context.fetch(query)
-            if foundRecordsArray.count > 0 {
-                return foundRecordsArray[0]
-            } else {
-                return nil
+    }
+    
+    func existActivityOrder(order: Int32, userConnected: Users!) -> Bool {
+        if let result = userConnected.activities?.allObjects as? [Activities] {
+            let predicate1 = NSPredicate(format: "order == \(order)")
+            if let resultNS = (result as NSArray).filtered(using: predicate1) as? [Activities] {
+                if resultNS.count > 0 {
+                    return true
+                }
             }
-        } catch {
-            print(error.localizedDescription)
-            return nil
         }
-        */
+        return false
+    }
+    
+    func existActivityName(activityName: String, userConnected: Users!) -> Bool {
+        if let result = userConnected.activities?.allObjects as? [Activities] {
+            let predicate1 = NSPredicate(format: "activityName like %@", activityName)
+            if let resultNS = (result as NSArray).filtered(using: predicate1) as? [Activities] {
+                if resultNS.count > 0 {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    private func getNextOrderNumber(userConnected: Users!) -> Int32 {
+        if let result = userConnected.activities!.allObjects as? [Activities] {
+            if result.count > 0 {
+                let sortedResult = result.sorted(by: { $0.order > $1.order})
+                let lastValue = sortedResult[0].order
+                let (q, r) = lastValue.quotientAndRemainder(dividingBy: 10)
+                let newValue = (q+1)*10
+                return newValue
+            }
+        }
+        return 0
     }
 }

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1707386E2156B05B0092C3C8 /* TimeScoresDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1707386D2156B05B0092C3C8 /* TimeScoresDataHelpers.swift */; };
 		170738702156C5C80092C3C8 /* TimeScoresControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1707386F2156C5C80092C3C8 /* TimeScoresControllerExtension.swift */; };
+		1712F18E21673BF2003EE77C /* LabelH1TS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1712F18D21673BF2003EE77C /* LabelH1TS.swift */; };
+		1712F19021673C30003EE77C /* LabelH2TS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1712F18F21673C30003EE77C /* LabelH2TS.swift */; };
+		1712F19221673C4C003EE77C /* LabelH3TS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1712F19121673C4C003EE77C /* LabelH3TS.swift */; };
+		1712F19421673E57003EE77C /* TextFieldSmallTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1712F19321673E57003EE77C /* TextFieldSmallTS.swift */; };
 		1714C21C2165551C003FBDFB /* TimeScoreActivityDetailsDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1714C21B2165551C003FBDFB /* TimeScoreActivityDetailsDataHelpers.swift */; };
 		171A2264213C193E00A72DCE /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A2263213C193E00A72DCE /* DateHelper.swift */; };
 		171A2266213C7D5200A72DCE /* TypicalDaysDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A2265213C7D5200A72DCE /* TypicalDaysDataHelpers.swift */; };
@@ -36,6 +40,8 @@
 		172E0BF621669655006A8039 /* HistoryActivityDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172E0BF421669655006A8039 /* HistoryActivityDetailsController.xib */; };
 		172E0BF9216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172E0BF7216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift */; };
 		172E0BFA216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172E0BF8216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib */; };
+		175B28A8216A5A6800BB4028 /* LabelStatusTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175B28A7216A5A6800BB4028 /* LabelStatusTS.swift */; };
+		175B28AA216A603100BB4028 /* LabelH2BoldTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175B28A9216A603100BB4028 /* LabelH2BoldTS.swift */; };
 		175FC091211782B500B6A3E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175FC090211782B500B6A3E5 /* AppDelegate.swift */; };
 		175FC099211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 175FC097211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodeld */; };
 		175FC09B211782B600B6A3E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 175FC09A211782B600B6A3E5 /* Assets.xcassets */; };
@@ -62,6 +68,8 @@
 		17E0F7352121FD6200F5DD1E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E0F7342121FD6200F5DD1E /* TabBarController.swift */; };
 		17F8C5B821221AAE00CB312E /* TimeScoresController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F8C5B621221AAE00CB312E /* TimeScoresController.swift */; };
 		17F8C5B921221AAE00CB312E /* TimeScoresController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17F8C5B721221AAE00CB312E /* TimeScoresController.xib */; };
+		17FC842A2168A182000BDEB8 /* LabelH2TitleTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FC84292168A182000BDEB8 /* LabelH2TitleTS.swift */; };
+		17FC842C2168A19B000BDEB8 /* LabelH3TitleTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FC842B2168A19B000BDEB8 /* LabelH3TitleTS.swift */; };
 		17FE60E5214E55BD00B27954 /* TypicalDayDetailTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FE60E3214E55BD00B27954 /* TypicalDayDetailTableCell.swift */; };
 		17FE60E6214E55BD00B27954 /* TypicalDayDetailTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FE60E4214E55BD00B27954 /* TypicalDayDetailTableCell.xib */; };
 /* End PBXBuildFile section */
@@ -69,6 +77,10 @@
 /* Begin PBXFileReference section */
 		1707386D2156B05B0092C3C8 /* TimeScoresDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScoresDataHelpers.swift; sourceTree = "<group>"; };
 		1707386F2156C5C80092C3C8 /* TimeScoresControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScoresControllerExtension.swift; sourceTree = "<group>"; };
+		1712F18D21673BF2003EE77C /* LabelH1TS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelH1TS.swift; sourceTree = "<group>"; };
+		1712F18F21673C30003EE77C /* LabelH2TS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelH2TS.swift; sourceTree = "<group>"; };
+		1712F19121673C4C003EE77C /* LabelH3TS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelH3TS.swift; sourceTree = "<group>"; };
+		1712F19321673E57003EE77C /* TextFieldSmallTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldSmallTS.swift; sourceTree = "<group>"; };
 		1714C21B2165551C003FBDFB /* TimeScoreActivityDetailsDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScoreActivityDetailsDataHelpers.swift; sourceTree = "<group>"; };
 		171A2263213C193E00A72DCE /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		171A2265213C7D5200A72DCE /* TypicalDaysDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypicalDaysDataHelpers.swift; sourceTree = "<group>"; };
@@ -96,6 +108,8 @@
 		172E0BF421669655006A8039 /* HistoryActivityDetailsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryActivityDetailsController.xib; sourceTree = "<group>"; };
 		172E0BF7216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTimeScoreActivityDetailTableCell.swift; sourceTree = "<group>"; };
 		172E0BF8216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTimeScoreActivityDetailTableCell.xib; sourceTree = "<group>"; };
+		175B28A7216A5A6800BB4028 /* LabelStatusTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStatusTS.swift; sourceTree = "<group>"; };
+		175B28A9216A603100BB4028 /* LabelH2BoldTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelH2BoldTS.swift; sourceTree = "<group>"; };
 		175FC08D211782B500B6A3E5 /* PointeuseDeTemps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointeuseDeTemps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		175FC090211782B500B6A3E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		175FC098211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PointeuseDeTemps.xcdatamodel; sourceTree = "<group>"; };
@@ -124,6 +138,8 @@
 		17E0F7342121FD6200F5DD1E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		17F8C5B621221AAE00CB312E /* TimeScoresController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScoresController.swift; sourceTree = "<group>"; };
 		17F8C5B721221AAE00CB312E /* TimeScoresController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeScoresController.xib; sourceTree = "<group>"; };
+		17FC84292168A182000BDEB8 /* LabelH2TitleTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelH2TitleTS.swift; sourceTree = "<group>"; };
+		17FC842B2168A19B000BDEB8 /* LabelH3TitleTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelH3TitleTS.swift; sourceTree = "<group>"; };
 		17FE60E3214E55BD00B27954 /* TypicalDayDetailTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypicalDayDetailTableCell.swift; sourceTree = "<group>"; };
 		17FE60E4214E55BD00B27954 /* TypicalDayDetailTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypicalDayDetailTableCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -229,12 +245,20 @@
 		17BAAC48211C9C5E0035DF40 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				17CFDF8D212363C200EC4F1A /* ActivityTableCell.swift */,
-				17CFDF8E212363C200EC4F1A /* ActivityTableCell.xib */,
 				1774E8802124108900A65415 /* ImageViewTS.swift */,
 				1774E88821244A3500A65415 /* TextFieldTS.swift */,
-				1767F35B213404C100BF17DA /* UIViewExtension.swift */,
+				1712F19321673E57003EE77C /* TextFieldSmallTS.swift */,
 				1767F35F21347E0700BF17DA /* ButtonTS.swift */,
+				1712F18D21673BF2003EE77C /* LabelH1TS.swift */,
+				17FC84292168A182000BDEB8 /* LabelH2TitleTS.swift */,
+				1712F18F21673C30003EE77C /* LabelH2TS.swift */,
+				175B28A9216A603100BB4028 /* LabelH2BoldTS.swift */,
+				17FC842B2168A19B000BDEB8 /* LabelH3TitleTS.swift */,
+				1712F19121673C4C003EE77C /* LabelH3TS.swift */,
+				175B28A7216A5A6800BB4028 /* LabelStatusTS.swift */,
+				17CFDF8D212363C200EC4F1A /* ActivityTableCell.swift */,
+				17CFDF8E212363C200EC4F1A /* ActivityTableCell.xib */,
+				1767F35B213404C100BF17DA /* UIViewExtension.swift */,
 				1729E2CD214539C1004297F7 /* DayTableCell.swift */,
 				1729E2CE214539C1004297F7 /* DayTableCell.xib */,
 				17FE60E3214E55BD00B27954 /* TypicalDayDetailTableCell.swift */,
@@ -358,22 +382,29 @@
 				1729E2CF214539C1004297F7 /* DayTableCell.swift in Sources */,
 				172E0BF9216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift in Sources */,
 				171A2266213C7D5200A72DCE /* TypicalDaysDataHelpers.swift in Sources */,
+				175B28AA216A603100BB4028 /* LabelH2BoldTS.swift in Sources */,
 				176C627D214C39E3008FA263 /* TypicalDayActivitiesDataHelpers.swift in Sources */,
 				1774E887212424D900A65415 /* ActivitiesDataHelpers.swift in Sources */,
 				1723ACEA2157B246007F63DC /* TimeScoresControllerExtension2.swift in Sources */,
 				172BF550213AAD08007CB7A7 /* UsersDataHelpers.swift in Sources */,
 				1774E88921244A3500A65415 /* TextFieldTS.swift in Sources */,
 				172AC028213B26C8007E254F /* ConnectionController.swift in Sources */,
+				1712F19221673C4C003EE77C /* LabelH3TS.swift in Sources */,
+				1712F18E21673BF2003EE77C /* LabelH1TS.swift in Sources */,
+				1712F19421673E57003EE77C /* TextFieldSmallTS.swift in Sources */,
 				175FC099211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodeld in Sources */,
+				1712F19021673C30003EE77C /* LabelH2TS.swift in Sources */,
 				1723ACF021580A45007F63DC /* PickerViewSelection.swift in Sources */,
 				1714C21C2165551C003FBDFB /* TimeScoreActivityDetailsDataHelpers.swift in Sources */,
 				172BF552213AC75A007CB7A7 /* Alert.swift in Sources */,
 				1707386E2156B05B0092C3C8 /* TimeScoresDataHelpers.swift in Sources */,
+				17FC842C2168A19B000BDEB8 /* LabelH3TitleTS.swift in Sources */,
 				1767F35E2134490500BF17DA /* ActivitiesControllerExtension.swift in Sources */,
 				172E0BF121669303006A8039 /* HistoryTimeScoreActivityTableCell.swift in Sources */,
 				1723ACE62157A01B007F63DC /* NotificationNameExtension.swift in Sources */,
 				1767F36021347E0700BF17DA /* ButtonTS.swift in Sources */,
 				1774E8842124222C00A65415 /* Constants.swift in Sources */,
+				175B28A8216A5A6800BB4028 /* LabelStatusTS.swift in Sources */,
 				17F8C5B821221AAE00CB312E /* TimeScoresController.swift in Sources */,
 				17E0F7322121FD3D00F5DD1E /* ParametersController.swift in Sources */,
 				171A2264213C193E00A72DCE /* DateHelper.swift in Sources */,
@@ -388,6 +419,7 @@
 				172E0BF521669655006A8039 /* HistoryActivityDetailsController.swift in Sources */,
 				1729E2D32145562C004297F7 /* TypicalDayDetailController.swift in Sources */,
 				17E0F7352121FD6200F5DD1E /* TabBarController.swift in Sources */,
+				17FC842A2168A182000BDEB8 /* LabelH2TitleTS.swift in Sources */,
 				1723ACE82157AD4A007F63DC /* TimeScoreActivitiesDataHelpers.swift in Sources */,
 				170738702156C5C80092C3C8 /* TimeScoresControllerExtension.swift in Sources */,
 				172E0BED21668E86006A8039 /* HistoryActivitiesController.swift in Sources */,

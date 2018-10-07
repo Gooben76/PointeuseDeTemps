@@ -22,12 +22,16 @@
         <relationship name="userId" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="timeScoresActivities" inverseEntity="Users" syncable="YES"/>
     </entity>
     <entity name="TimeScoreActivityDetails" representedClassName="TimeScoreActivityDetails" syncable="YES" codeGenerationType="class">
-        <attribute name="duration" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="endDateTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="endLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="endLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="running" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="startDateTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="startLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="startLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="timeScoreActivityId" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TimeScoreActivities" inverseName="timeScoreActivityDetails" inverseEntity="TimeScoreActivities" syncable="YES"/>
         <relationship name="userId" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="timeScoreActivityDetails" inverseEntity="Users" syncable="YES"/>
     </entity>
@@ -74,7 +78,7 @@
     <elements>
         <element name="Activities" positionX="-29" positionY="-55" width="128" height="195"/>
         <element name="TimeScoreActivities" positionX="-81" positionY="81" width="128" height="150"/>
-        <element name="TimeScoreActivityDetails" positionX="-90" positionY="72" width="128" height="165"/>
+        <element name="TimeScoreActivityDetails" positionX="-90" positionY="72" width="128" height="225"/>
         <element name="TimeScores" positionX="-45" positionY="144" width="128" height="135"/>
         <element name="TypicalDayActivities" positionX="207.88671875" positionY="284.79296875" width="128" height="120"/>
         <element name="TypicalDays" positionX="-290" positionY="252" width="128" height="135"/>

@@ -10,7 +10,8 @@ import UIKit
 
 class HistoryTimeScoreActivityTableCell: UITableViewCell {
 
-    @IBOutlet weak var activityLabel: UILabel!
+    @IBOutlet weak var activityLabel: LabelH2BoldTS!
+    @IBOutlet weak var durationLabel: LabelH3TS!
     
     var timeScoreActivity : TimeScoreActivities!
     var userConnected: Users!
@@ -20,6 +21,20 @@ class HistoryTimeScoreActivityTableCell: UITableViewCell {
         self.userConnected = userConnected
         
         activityLabel.text = timeScoreActivity.activityId!.activityName!
+        
+        var totalDuration: Double = 0
+        for elm in timeScoreActivity.timeScoreActivityDetails!.allObjects {
+            if let element = elm as? TimeScoreActivityDetails {
+                if !element.running {
+                    totalDuration += DateHelper.getFunc.getDurationBetween2Dates(startDate: element.startDateTime!, endDate: element.endDateTime!)
+                }
+            }
+        }
+        if totalDuration > 0 {
+            durationLabel.text = RSC_TOTALDURATION + "  " + DateHelper.getFunc.getDurationFromDouble(duration: totalDuration)
+        } else {
+            durationLabel.text = RSC_NODURATION
+        }
     }
     
 }

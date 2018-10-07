@@ -22,7 +22,7 @@ class ImageViewTS : UIImageView {
     func initObj() {
         self.layer.cornerRadius = 20
         self.contentMode = .scaleAspectFit
-        self.clipsToBounds = false
+        self.clipsToBounds = true
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = 1
         self.image = #imageLiteral(resourceName: "camera-50")

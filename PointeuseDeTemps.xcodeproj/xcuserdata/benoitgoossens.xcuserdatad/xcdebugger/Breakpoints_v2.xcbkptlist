@@ -26,12 +26,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PointeuseDeTemps/DataHelpers/TimeScoreActivityDetailsDataHelpers.swift"
-            timestampString = "560377491.301558"
+            timestampString = "560627682.5359679"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "setNewTimeScoreActivityDetail(timeScoreActivity:userConnected:)"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "setNewTimeScoreActivityDetail(timeScoreActivity:coordinates:userConnected:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PointeuseDeTemps/Views/ActivityTableCell.swift"
+            timestampString = "560620139.291797"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "textFieldDidEndEditing(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

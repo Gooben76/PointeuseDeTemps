@@ -28,7 +28,8 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
             navigationBar = nav.navigationBar
             navigationBar!.items![0].title = RSC_ACTIVITIES
             
-            let rightAddBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: RSC_ADD, style: UIBarButtonItemStyle.plain, target: self, action: #selector(addButtonAction))
+            let rightAddBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "add-16px"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(addButtonAction))
+            rightAddBarButtonItem.tintColor = UIColor.black
             self.navigationItem.setRightBarButtonItems([rightAddBarButtonItem], animated: true)
         }
         
@@ -45,15 +46,32 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         let nib = UINib(nibName: cellID, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: cellID)
         
-        if let allData = ActivitiesDataHelpers.getFunc.getAllActivities(userConnected: userConnected!) {
-            activities = allData
-        }
-        
         imagePicker = UIImagePickerController()
         imagePicker?.delegate = self
         imagePicker?.allowsEditing = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handler_ErrorMessageToShow), name: .showErrorMessageInActivitiesController, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handler_RefreshData), name: .refreshActivitiesController, object: nil)
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadData()
+    }
+    
+    func loadData() {
+        if let allData = ActivitiesDataHelpers.getFunc.getAllActivities(userConnected: userConnected!) {
+            activities = allData
+        }
+        tableView.reloadData()
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return activities.count
     }
@@ -110,4 +128,15 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         self.present(alert, animated: true, completion: nil)
     }
     
+    @objc func handler_ErrorMessageToShow(notification: Notification) {
+        if let userInfo = notification.userInfo {
+            if let message = userInfo["message"] as? String {
+                Alert.show.error(message: message, controller: self)
+            }
+        }
+    }
+    
+    @objc func handler_RefreshData(notification: Notification) {
+        loadData()
+    }
 }

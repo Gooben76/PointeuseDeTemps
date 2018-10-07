@@ -12,4 +12,6 @@ extension Notification.Name {
     
     static let numberActivitiesInTypicalDay = Notification.Name(rawValue: "numberActivitiesInTypicalDay")
     static let changeRunningStatusInTimeScoreActivity = Notification.Name(rawValue: "changeRunningStatusInTimeScoreActivity")
+    static let showErrorMessageInActivitiesController = Notification.Name(rawValue: "showErrorMessageInActivitiesController")
+    static let refreshActivitiesController = Notification.Name(rawValue: "refreshActivitiesController")
 }

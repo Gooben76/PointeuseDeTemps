@@ -41,14 +41,40 @@ class DateHelper {
     
     func convertDateTimeToString(_ date: Date) -> String? {
         let format = DateFormatter()
-        format.dateFormat = "dd/MM/yyyy HH:mm"
+        format.dateFormat = "dd/MM/yyyy HH:mm:ss"
         let data = format.string(from: date)
         return data
     }
     
-    func getDateComponentsBetween2Dates(startDate: Date, endDate: Date) -> DateComponents {
-        let durationComponents: DateComponents = Calendar.current.dateComponents([.second, .minute , .hour], from: startDate, to: endDate)
-        return durationComponents
+    func convertDateTimeToDouble(_ date: Date) -> Double {
+        return date.timeIntervalSince1970
     }
     
+    func getDurationBetween2Dates(startDate: Date, endDate: Date) -> Double {
+        let startDouble: Double = convertDateTimeToDouble(startDate)
+        let endDouble: Double = convertDateTimeToDouble(endDate)
+        let duration: Double = endDouble - startDouble
+        return duration
+    }
+    
+    func getDurationBetween2Dates(startDate: Date, endDate: Date) -> String {
+        let durationComponents: DateComponents = Calendar.current.dateComponents([.hour, .minute , .second], from: startDate, to: endDate)
+        var data: String = ""
+        if let hours = durationComponents.hour, hours > 0 {
+            data += String(hours) + " " + RSC_HOURS
+        }
+        if let minutes = durationComponents.minute, minutes > 0 {
+            data += String(minutes) + " " + RSC_MINUTES
+        }
+        if let seconds = durationComponents.second, seconds > 0 {
+            data += String(seconds) + " " + RSC_SECONDS
+        }
+        return data
+    }
+    
+    func getDurationFromDouble(duration: Double) -> String {
+        let date = Date.init(timeIntervalSince1970: duration)
+        let dateStart = Date.init(timeIntervalSince1970: 0)
+        return getDurationBetween2Dates(startDate: dateStart, endDate: date)
+    }
 }

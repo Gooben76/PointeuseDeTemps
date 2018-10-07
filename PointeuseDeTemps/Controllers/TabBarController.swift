@@ -34,6 +34,8 @@ class TabBarController: UITabBarController {
         history.tabBarItem.image = #imageLiteral(resourceName: "history-30")
         
         viewControllers = [activities, days, timeScores, history, parameters]
+        
+        selectedViewController = timeScores
     }
 
     
