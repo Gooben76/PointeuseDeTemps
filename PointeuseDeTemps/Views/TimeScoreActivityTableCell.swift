@@ -45,7 +45,6 @@ class TimeScoreActivityTableCell: UITableViewCell, CLLocationManagerDelegate {
             activityImageView.isHidden = true
         }
         
-        activityStatusLabel.text = ""
         var totalDuration: Double = 0
         for elm in timeScoreActivity.timeScoreActivityDetails!.allObjects {
             if let element = elm as? TimeScoreActivityDetails {
@@ -117,6 +116,15 @@ class TimeScoreActivityTableCell: UITableViewCell, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
+        if timeScoreActivity.running {
+            if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: false, coordinates: nil, userConnected: userConnected!) {
+                    activityStatusLabel.isHidden = true
+            }
+        } else {
+            if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: true, coordinates: nil, userConnected: userConnected!) {
+                    activityStatusLabel.isHidden = false
+            }
+        }
+        NotificationCenter.default.post(name: .changeRunningStatusInTimeScoreActivity, object: self, userInfo: ["timeScoreActivity": timeScoreActivity])
     }
 }

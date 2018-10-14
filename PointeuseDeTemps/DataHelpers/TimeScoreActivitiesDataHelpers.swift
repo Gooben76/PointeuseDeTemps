@@ -19,7 +19,8 @@ class TimeScoreActivitiesDataHelpers {
             let predicate1 = NSPredicate(format: "timeScoreId == %@", timeScore)
             if let filterResult = (result as NSArray).filtered(using: predicate1) as? [TimeScoreActivities] {
                 if filterResult.count > 0 {
-                    return filterResult
+                    let sortedResult = filterResult.sorted(by: { $0.activityId!.order < $1.activityId!.order})
+                    return sortedResult
                 }
             }
         }

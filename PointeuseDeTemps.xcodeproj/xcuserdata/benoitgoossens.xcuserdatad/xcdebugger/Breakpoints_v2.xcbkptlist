@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PointeuseDeTemps/Controllers/ParametersController.swift"
-            timestampString = "560632579.369856"
+            timestampString = "561235663.999306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "160"
             endingLineNumber = "160"
-            landmarkName = "saveButton_Click(_:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PointeuseDeTemps/DataHelpers/TimeScoreActivityDetailsDataHelpers.swift"
-            timestampString = "560627682.5359679"
+            timestampString = "561239216.7608089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "setNewTimeScoreActivityDetail(timeScoreActivity:coordinates:userConnected:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -122,6 +122,6 @@ class ActivitiesDataHelpers {
                 return newValue
             }
         }
-        return 0
+        return 10
     }
 }
