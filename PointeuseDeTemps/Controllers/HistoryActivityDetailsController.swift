@@ -56,4 +56,14 @@ class HistoryActivityDetailsController: UIViewController, UITableViewDelegate, U
         }
         return UITableViewCell()
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if timeScoreActivityDetails[indexPath.row].startLatitude != 0 && timeScoreActivityDetails[indexPath.row].startLongitude != 0 &&
+            timeScoreActivityDetails[indexPath.row].endLatitude != 0 &&
+            timeScoreActivityDetails[indexPath.row].endLongitude != 0 {
+            let controller = MapControllerViewController()
+            controller.detail = timeScoreActivityDetails[indexPath.row]
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
 }

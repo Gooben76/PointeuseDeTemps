@@ -21,6 +21,7 @@ class TimeScoreActivityTableCell: UITableViewCell, CLLocationManagerDelegate {
     var timeScoreActivity: TimeScoreActivities!
     var timeScore: TimeScores!
     var userConnected: Users!
+    var listenGPS: Bool = false
     
     var locationManager = CLLocationManager()
     
@@ -60,6 +61,7 @@ class TimeScoreActivityTableCell: UITableViewCell, CLLocationManagerDelegate {
         }
         
         activityImageView.isUserInteractionEnabled = true
+        toggleButton.isUserInteractionEnabled = true
         
         let tap1 = UITapGestureRecognizer(target: self, action: #selector(imageView_Click))
         activityImageView.addGestureRecognizer(tap1)
@@ -76,22 +78,35 @@ class TimeScoreActivityTableCell: UITableViewCell, CLLocationManagerDelegate {
     }
     
     @objc func imageView_Click() {
+        activityImageView.isUserInteractionEnabled = false
+        toggleButton.isUserInteractionEnabled = false
+        print("Start")
         if timeScoreActivity.running {
             if timeScoreActivity.activityId!.gpsPosition {
+                print("start GPS")
                 locationManager.requestAlwaysAuthorization()
                 locationManager.startUpdatingLocation()
+                listenGPS = true
             } else {
                 if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: false, coordinates: nil, userConnected: userConnected!) {
                     activityStatusLabel.isHidden = true
+                    activityImageView.isUserInteractionEnabled = true
+                    toggleButton.isUserInteractionEnabled = true
+                    print("Save end no GPS")
                 }
             }
         } else {
             if timeScoreActivity.activityId!.gpsPosition {
+                print("start GPS")
                 locationManager.requestAlwaysAuthorization()
                 locationManager.startUpdatingLocation()
+                listenGPS = true
             } else {
                 if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: true, coordinates: nil, userConnected: userConnected!) {
                     activityStatusLabel.isHidden = false
+                    activityImageView.isUserInteractionEnabled = true
+                    toggleButton.isUserInteractionEnabled = true
+                    print("Save start no GPS")
                 }
             }
         }
@@ -99,30 +114,45 @@ class TimeScoreActivityTableCell: UITableViewCell, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if locations.count > 0 {
+        if locations.count > 0 && listenGPS {
+            print("Stop GPS")
             locationManager.stopUpdatingLocation()
+            listenGPS = false
             let position = locations[0]
             let coordinates = position.coordinate
             if timeScoreActivity.running {
                 if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: false, coordinates: coordinates, userConnected: userConnected!) {
                     activityStatusLabel.isHidden = true
+                    activityImageView.isUserInteractionEnabled = true
+                    toggleButton.isUserInteractionEnabled = true
+                    print("Save end")
                 }
             } else {
                 if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: true, coordinates: coordinates, userConnected: userConnected!) {
                     activityStatusLabel.isHidden = false
+                    activityImageView.isUserInteractionEnabled = true
+                    toggleButton.isUserInteractionEnabled = true
+                    print("Save start")
                 }
             }
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Erreur")
         if timeScoreActivity.running {
             if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: false, coordinates: nil, userConnected: userConnected!) {
                     activityStatusLabel.isHidden = true
+                    activityImageView.isUserInteractionEnabled = true
+                    toggleButton.isUserInteractionEnabled = true
+                print("Save end erreur")
             }
         } else {
             if TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivityRunning(timeScoreActivity: timeScoreActivity!, running: true, coordinates: nil, userConnected: userConnected!) {
                     activityStatusLabel.isHidden = false
+                    activityImageView.isUserInteractionEnabled = true
+                    toggleButton.isUserInteractionEnabled = true
+                print("Save start erreur")
             }
         }
         NotificationCenter.default.post(name: .changeRunningStatusInTimeScoreActivity, object: self, userInfo: ["timeScoreActivity": timeScoreActivity])

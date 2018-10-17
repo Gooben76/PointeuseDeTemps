@@ -10,7 +10,7 @@ import UIKit
 
 class TypicalDayDetailTableCell: UITableViewCell {
 
-    @IBOutlet weak var activityLabel: UILabel!
+    @IBOutlet weak var activityLabel: LabelH2TS!
     @IBOutlet weak var selectedSwitch: UISwitch!
     
     var typicalDay: TypicalDays!

@@ -10,11 +10,11 @@ import UIKit
 
 class TypicalDayDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
-    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var saveButton: ButtonTS!
     @IBOutlet weak var typicalDayTF: TextFieldTS!
-    @IBOutlet weak var numberOfActivitiesLabel: UILabel!
+    @IBOutlet weak var numberOfActivitiesLabel: LabelH3TitleTS!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var titleActivitiesLabel: UILabel!
+    @IBOutlet weak var titleActivitiesLabel: LabelH2TS!
     
     var typicalDay: TypicalDays?
     var newData:Bool = false
@@ -31,6 +31,11 @@ class TypicalDayDetailController: UIViewController, UITableViewDelegate, UITable
         saveButton.isHidden = true
         titleActivitiesLabel.text = RSC_LISTOFACTIVITIES
         
+        if let nav = navigationController {
+            let navigationBar = nav.navigationBar
+            navigationBar.tintColor = UIColor.black
+        }
+            
         let nib = UINib(nibName: cellID, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: cellID)
         
@@ -57,9 +62,15 @@ class TypicalDayDetailController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
+        
         NotificationCenter.default.addObserver(self, selector: #selector(handler_DetailUpdate), name: .numberActivitiesInTypicalDay, object: nil)
     }
 
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return typicalDayActivitiesDetails.count
     }
@@ -116,5 +127,6 @@ class TypicalDayDetailController: UIViewController, UITableViewDelegate, UITable
                 }
             }
         }
+        hideKeyboard()
     }
 }
