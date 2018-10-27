@@ -40,6 +40,8 @@
 		172E0BF621669655006A8039 /* HistoryActivityDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172E0BF421669655006A8039 /* HistoryActivityDetailsController.xib */; };
 		172E0BF9216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172E0BF7216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift */; };
 		172E0BFA216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172E0BF8216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib */; };
+		174436662184EB50009A5E36 /* EncodeHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174436652184EB50009A5E36 /* EncodeHelpers.swift */; };
+		174436682184F1D3009A5E36 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174436672184F1D3009A5E36 /* Character.swift */; };
 		175B28A8216A5A6800BB4028 /* LabelStatusTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175B28A7216A5A6800BB4028 /* LabelStatusTS.swift */; };
 		175B28AA216A603100BB4028 /* LabelH2BoldTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175B28A9216A603100BB4028 /* LabelH2BoldTS.swift */; };
 		175FC091211782B500B6A3E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175FC090211782B500B6A3E5 /* AppDelegate.swift */; };
@@ -110,6 +112,8 @@
 		172E0BF421669655006A8039 /* HistoryActivityDetailsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryActivityDetailsController.xib; sourceTree = "<group>"; };
 		172E0BF7216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTimeScoreActivityDetailTableCell.swift; sourceTree = "<group>"; };
 		172E0BF8216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTimeScoreActivityDetailTableCell.xib; sourceTree = "<group>"; };
+		174436652184EB50009A5E36 /* EncodeHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodeHelpers.swift; sourceTree = "<group>"; };
+		174436672184F1D3009A5E36 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		175B28A7216A5A6800BB4028 /* LabelStatusTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStatusTS.swift; sourceTree = "<group>"; };
 		175B28A9216A603100BB4028 /* LabelH2BoldTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelH2BoldTS.swift; sourceTree = "<group>"; };
 		175FC08D211782B500B6A3E5 /* PointeuseDeTemps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointeuseDeTemps.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +163,140 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		174436692184FF34009A5E36 /* CustomControls */ = {
+			isa = PBXGroup;
+			children = (
+				175B28A7216A5A6800BB4028 /* LabelStatusTS.swift */,
+				1712F19121673C4C003EE77C /* LabelH3TS.swift */,
+				17FC842B2168A19B000BDEB8 /* LabelH3TitleTS.swift */,
+				175B28A9216A603100BB4028 /* LabelH2BoldTS.swift */,
+				1712F18F21673C30003EE77C /* LabelH2TS.swift */,
+				17FC84292168A182000BDEB8 /* LabelH2TitleTS.swift */,
+				1712F18D21673BF2003EE77C /* LabelH1TS.swift */,
+				1767F35F21347E0700BF17DA /* ButtonTS.swift */,
+				1712F19321673E57003EE77C /* TextFieldSmallTS.swift */,
+				1774E88821244A3500A65415 /* TextFieldTS.swift */,
+				1774E8802124108900A65415 /* ImageViewTS.swift */,
+			);
+			path = CustomControls;
+			sourceTree = "<group>";
+		};
+		1744366A2184FF74009A5E36 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1767F35B213404C100BF17DA /* UIViewExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1744366B2184FFAE009A5E36 /* ActivitiesController */ = {
+			isa = PBXGroup;
+			children = (
+				17E0F72C2121FCBC00F5DD1E /* ActivitiesController.swift */,
+				17E0F72D2121FCBC00F5DD1E /* ActivitiesController.xib */,
+				1767F35D2134490500BF17DA /* ActivitiesControllerExtension.swift */,
+			);
+			path = ActivitiesController;
+			sourceTree = "<group>";
+		};
+		1744366C2184FFDC009A5E36 /* TypicalDayController */ = {
+			isa = PBXGroup;
+			children = (
+				17CFDF8921235B3800EC4F1A /* DaysController.swift */,
+				17CFDF8A21235B3800EC4F1A /* DaysController.xib */,
+				1729E2D12145562C004297F7 /* TypicalDayDetailController.swift */,
+				1729E2D22145562C004297F7 /* TypicalDayDetailController.xib */,
+			);
+			path = TypicalDayController;
+			sourceTree = "<group>";
+		};
+		1744366D2185000D009A5E36 /* ConnectionController */ = {
+			isa = PBXGroup;
+			children = (
+				172AC027213B26C8007E254F /* ConnectionController.xib */,
+				172AC026213B26C8007E254F /* ConnectionController.swift */,
+			);
+			path = ConnectionController;
+			sourceTree = "<group>";
+		};
+		1744366E21850039009A5E36 /* ParametersController */ = {
+			isa = PBXGroup;
+			children = (
+				17E0F7302121FD3D00F5DD1E /* ParametersController.swift */,
+				17E0F7312121FD3D00F5DD1E /* ParametersController.xib */,
+			);
+			path = ParametersController;
+			sourceTree = "<group>";
+		};
+		1744366F2185005D009A5E36 /* TimeScoresController */ = {
+			isa = PBXGroup;
+			children = (
+				17F8C5B721221AAE00CB312E /* TimeScoresController.xib */,
+				1723ACE92157B246007F63DC /* TimeScoresControllerExtension2.swift */,
+				1707386F2156C5C80092C3C8 /* TimeScoresControllerExtension.swift */,
+				17F8C5B621221AAE00CB312E /* TimeScoresController.swift */,
+			);
+			path = TimeScoresController;
+			sourceTree = "<group>";
+		};
+		1744367021850083009A5E36 /* HistoryController */ = {
+			isa = PBXGroup;
+			children = (
+				17CFDF8521235A6200EC4F1A /* HistoryController.swift */,
+				17CFDF8621235A6200EC4F1A /* HistoryController.xib */,
+				172E0BEB21668E86006A8039 /* HistoryActivitiesController.swift */,
+				172E0BEC21668E86006A8039 /* HistoryActivitiesController.xib */,
+				172E0BF321669655006A8039 /* HistoryActivityDetailsController.swift */,
+				172E0BF421669655006A8039 /* HistoryActivityDetailsController.xib */,
+				17C989A22177C18300CAF776 /* MapControllerViewController.swift */,
+				17C989A32177C18300CAF776 /* MapControllerViewController.xib */,
+			);
+			path = HistoryController;
+			sourceTree = "<group>";
+		};
+		17443671218500A7009A5E36 /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				17CFDF8D212363C200EC4F1A /* ActivityTableCell.swift */,
+				17CFDF8E212363C200EC4F1A /* ActivityTableCell.xib */,
+			);
+			path = Activities;
+			sourceTree = "<group>";
+		};
+		17443672218500C0009A5E36 /* TypicalDays */ = {
+			isa = PBXGroup;
+			children = (
+				1729E2CD214539C1004297F7 /* DayTableCell.swift */,
+				1729E2CE214539C1004297F7 /* DayTableCell.xib */,
+				17FE60E3214E55BD00B27954 /* TypicalDayDetailTableCell.swift */,
+				17FE60E4214E55BD00B27954 /* TypicalDayDetailTableCell.xib */,
+			);
+			path = TypicalDays;
+			sourceTree = "<group>";
+		};
+		17443673218500E2009A5E36 /* TimeScores */ = {
+			isa = PBXGroup;
+			children = (
+				1723ACEB2157B513007F63DC /* TimeScoreActivityTableCell.swift */,
+				1723ACEC2157B513007F63DC /* TimeScoreActivityTableCell.xib */,
+				1723ACEF21580A45007F63DC /* PickerViewSelection.swift */,
+			);
+			path = TimeScores;
+			sourceTree = "<group>";
+		};
+		17443674218500F5009A5E36 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				172E0BE7216685EC006A8039 /* HistoryTimeScoreTableCell.swift */,
+				172E0BE8216685EC006A8039 /* HistoryTimeScoreTableCell.xib */,
+				172E0BEF21669303006A8039 /* HistoryTimeScoreActivityTableCell.swift */,
+				172E0BF021669303006A8039 /* HistoryTimeScoreActivityTableCell.xib */,
+				172E0BF7216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift */,
+				172E0BF8216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		175FC084211782B500B6A3E5 = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +337,8 @@
 				1774E88A212486C200A65415 /* Resources.swift */,
 				171A2263213C193E00A72DCE /* DateHelper.swift */,
 				1723ACE52157A01B007F63DC /* NotificationNameExtension.swift */,
+				174436652184EB50009A5E36 /* EncodeHelpers.swift */,
+				174436672184F1D3009A5E36 /* Character.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -220,30 +360,13 @@
 		17BAAC47211C9C4A0035DF40 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				17E0F72C2121FCBC00F5DD1E /* ActivitiesController.swift */,
-				17E0F72D2121FCBC00F5DD1E /* ActivitiesController.xib */,
-				1767F35D2134490500BF17DA /* ActivitiesControllerExtension.swift */,
-				17E0F7302121FD3D00F5DD1E /* ParametersController.swift */,
-				17E0F7312121FD3D00F5DD1E /* ParametersController.xib */,
+				1744367021850083009A5E36 /* HistoryController */,
+				1744366F2185005D009A5E36 /* TimeScoresController */,
+				1744366E21850039009A5E36 /* ParametersController */,
+				1744366D2185000D009A5E36 /* ConnectionController */,
+				1744366C2184FFDC009A5E36 /* TypicalDayController */,
+				1744366B2184FFAE009A5E36 /* ActivitiesController */,
 				17E0F7342121FD6200F5DD1E /* TabBarController.swift */,
-				17F8C5B621221AAE00CB312E /* TimeScoresController.swift */,
-				1707386F2156C5C80092C3C8 /* TimeScoresControllerExtension.swift */,
-				1723ACE92157B246007F63DC /* TimeScoresControllerExtension2.swift */,
-				17F8C5B721221AAE00CB312E /* TimeScoresController.xib */,
-				17CFDF8521235A6200EC4F1A /* HistoryController.swift */,
-				17CFDF8621235A6200EC4F1A /* HistoryController.xib */,
-				17CFDF8921235B3800EC4F1A /* DaysController.swift */,
-				17CFDF8A21235B3800EC4F1A /* DaysController.xib */,
-				172AC026213B26C8007E254F /* ConnectionController.swift */,
-				172AC027213B26C8007E254F /* ConnectionController.xib */,
-				1729E2D12145562C004297F7 /* TypicalDayDetailController.swift */,
-				1729E2D22145562C004297F7 /* TypicalDayDetailController.xib */,
-				172E0BEB21668E86006A8039 /* HistoryActivitiesController.swift */,
-				172E0BEC21668E86006A8039 /* HistoryActivitiesController.xib */,
-				172E0BF321669655006A8039 /* HistoryActivityDetailsController.swift */,
-				172E0BF421669655006A8039 /* HistoryActivityDetailsController.xib */,
-				17C989A22177C18300CAF776 /* MapControllerViewController.swift */,
-				17C989A32177C18300CAF776 /* MapControllerViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -251,33 +374,12 @@
 		17BAAC48211C9C5E0035DF40 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1774E8802124108900A65415 /* ImageViewTS.swift */,
-				1774E88821244A3500A65415 /* TextFieldTS.swift */,
-				1712F19321673E57003EE77C /* TextFieldSmallTS.swift */,
-				1767F35F21347E0700BF17DA /* ButtonTS.swift */,
-				1712F18D21673BF2003EE77C /* LabelH1TS.swift */,
-				17FC84292168A182000BDEB8 /* LabelH2TitleTS.swift */,
-				1712F18F21673C30003EE77C /* LabelH2TS.swift */,
-				175B28A9216A603100BB4028 /* LabelH2BoldTS.swift */,
-				17FC842B2168A19B000BDEB8 /* LabelH3TitleTS.swift */,
-				1712F19121673C4C003EE77C /* LabelH3TS.swift */,
-				175B28A7216A5A6800BB4028 /* LabelStatusTS.swift */,
-				17CFDF8D212363C200EC4F1A /* ActivityTableCell.swift */,
-				17CFDF8E212363C200EC4F1A /* ActivityTableCell.xib */,
-				1767F35B213404C100BF17DA /* UIViewExtension.swift */,
-				1729E2CD214539C1004297F7 /* DayTableCell.swift */,
-				1729E2CE214539C1004297F7 /* DayTableCell.xib */,
-				17FE60E3214E55BD00B27954 /* TypicalDayDetailTableCell.swift */,
-				17FE60E4214E55BD00B27954 /* TypicalDayDetailTableCell.xib */,
-				1723ACEB2157B513007F63DC /* TimeScoreActivityTableCell.swift */,
-				1723ACEC2157B513007F63DC /* TimeScoreActivityTableCell.xib */,
-				1723ACEF21580A45007F63DC /* PickerViewSelection.swift */,
-				172E0BE7216685EC006A8039 /* HistoryTimeScoreTableCell.swift */,
-				172E0BE8216685EC006A8039 /* HistoryTimeScoreTableCell.xib */,
-				172E0BEF21669303006A8039 /* HistoryTimeScoreActivityTableCell.swift */,
-				172E0BF021669303006A8039 /* HistoryTimeScoreActivityTableCell.xib */,
-				172E0BF7216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift */,
-				172E0BF8216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib */,
+				17443674218500F5009A5E36 /* History */,
+				17443673218500E2009A5E36 /* TimeScores */,
+				17443672218500C0009A5E36 /* TypicalDays */,
+				17443671218500A7009A5E36 /* Activities */,
+				1744366A2184FF74009A5E36 /* Extensions */,
+				174436692184FF34009A5E36 /* CustomControls */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -426,11 +528,13 @@
 				172E0BE9216685EC006A8039 /* HistoryTimeScoreTableCell.swift in Sources */,
 				172E0BF521669655006A8039 /* HistoryActivityDetailsController.swift in Sources */,
 				1729E2D32145562C004297F7 /* TypicalDayDetailController.swift in Sources */,
+				174436662184EB50009A5E36 /* EncodeHelpers.swift in Sources */,
 				17E0F7352121FD6200F5DD1E /* TabBarController.swift in Sources */,
 				17FC842A2168A182000BDEB8 /* LabelH2TitleTS.swift in Sources */,
 				1723ACE82157AD4A007F63DC /* TimeScoreActivitiesDataHelpers.swift in Sources */,
 				170738702156C5C80092C3C8 /* TimeScoresControllerExtension.swift in Sources */,
 				172E0BED21668E86006A8039 /* HistoryActivitiesController.swift in Sources */,
+				174436682184F1D3009A5E36 /* Character.swift in Sources */,
 				1774E8812124108900A65415 /* ImageViewTS.swift in Sources */,
 				17E0F72E2121FCBC00F5DD1E /* ActivitiesController.swift in Sources */,
 			);
