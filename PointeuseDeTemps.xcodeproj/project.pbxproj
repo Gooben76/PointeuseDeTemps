@@ -44,6 +44,7 @@
 		174436682184F1D3009A5E36 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174436672184F1D3009A5E36 /* Character.swift */; };
 		175B28A8216A5A6800BB4028 /* LabelStatusTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175B28A7216A5A6800BB4028 /* LabelStatusTS.swift */; };
 		175B28AA216A603100BB4028 /* LabelH2BoldTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175B28A9216A603100BB4028 /* LabelH2BoldTS.swift */; };
+		175F19432185F84A00761450 /* APIConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175F19422185F84A00761450 /* APIConnection.swift */; };
 		175FC091211782B500B6A3E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175FC090211782B500B6A3E5 /* AppDelegate.swift */; };
 		175FC099211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 175FC097211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodeld */; };
 		175FC09B211782B600B6A3E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 175FC09A211782B600B6A3E5 /* Assets.xcassets */; };
@@ -116,6 +117,7 @@
 		174436672184F1D3009A5E36 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		175B28A7216A5A6800BB4028 /* LabelStatusTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStatusTS.swift; sourceTree = "<group>"; };
 		175B28A9216A603100BB4028 /* LabelH2BoldTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelH2BoldTS.swift; sourceTree = "<group>"; };
+		175F19422185F84A00761450 /* APIConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConnection.swift; sourceTree = "<group>"; };
 		175FC08D211782B500B6A3E5 /* PointeuseDeTemps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointeuseDeTemps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		175FC090211782B500B6A3E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		175FC098211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PointeuseDeTemps.xcdatamodel; sourceTree = "<group>"; };
@@ -213,8 +215,8 @@
 		1744366D2185000D009A5E36 /* ConnectionController */ = {
 			isa = PBXGroup;
 			children = (
-				172AC027213B26C8007E254F /* ConnectionController.xib */,
 				172AC026213B26C8007E254F /* ConnectionController.swift */,
+				172AC027213B26C8007E254F /* ConnectionController.xib */,
 			);
 			path = ConnectionController;
 			sourceTree = "<group>";
@@ -231,10 +233,10 @@
 		1744366F2185005D009A5E36 /* TimeScoresController */ = {
 			isa = PBXGroup;
 			children = (
-				17F8C5B721221AAE00CB312E /* TimeScoresController.xib */,
-				1723ACE92157B246007F63DC /* TimeScoresControllerExtension2.swift */,
-				1707386F2156C5C80092C3C8 /* TimeScoresControllerExtension.swift */,
 				17F8C5B621221AAE00CB312E /* TimeScoresController.swift */,
+				1707386F2156C5C80092C3C8 /* TimeScoresControllerExtension.swift */,
+				1723ACE92157B246007F63DC /* TimeScoresControllerExtension2.swift */,
+				17F8C5B721221AAE00CB312E /* TimeScoresController.xib */,
 			);
 			path = TimeScoresController;
 			sourceTree = "<group>";
@@ -297,6 +299,14 @@
 			path = History;
 			sourceTree = "<group>";
 		};
+		175F19412185F82600761450 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				175F19422185F84A00761450 /* APIConnection.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		175FC084211782B500B6A3E5 = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +326,7 @@
 		175FC08F211782B500B6A3E5 /* PointeuseDeTemps */ = {
 			isa = PBXGroup;
 			children = (
+				175F19412185F82600761450 /* API */,
 				175FC090211782B500B6A3E5 /* AppDelegate.swift */,
 				1774E8852124249400A65415 /* DataHelpers */,
 				1774E8822124218D00A65415 /* Utilities */,
@@ -487,6 +498,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				175F19432185F84A00761450 /* APIConnection.swift in Sources */,
 				1767F35C213404C100BF17DA /* UIViewExtension.swift in Sources */,
 				1729E2CF214539C1004297F7 /* DayTableCell.swift in Sources */,
 				172E0BF9216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift in Sources */,

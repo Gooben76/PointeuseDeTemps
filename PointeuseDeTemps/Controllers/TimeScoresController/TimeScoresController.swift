@@ -50,7 +50,8 @@ class TimeScoresController: UIViewController {
             self.navigationItem.setRightBarButtonItems([rightAddBarButtonItem!], animated: true)
             leftAddBarButtonItem = UIBarButtonItem(image: UIImage(named: "del-16px"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(delButtonAction))
             leftAddBarButtonItem!.tintColor = UIColor.black
-            self.navigationItem.setLeftBarButtonItems([leftAddBarButtonItem!], animated: true)
+            let apiBarButtonItem = UIBarButtonItem(title: "API", style: UIBarButtonItemStyle.done, target: self, action: #selector(apiButtonAction))
+            self.navigationItem.setLeftBarButtonItems([leftAddBarButtonItem!, apiBarButtonItem], animated: true)
         }
         
         let usr = UserDefaults.standard.object(forKey: "connectedUser")
@@ -76,6 +77,13 @@ class TimeScoresController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handler_DetailUpdate), name: .changeRunningStatusInTimeScoreActivity, object: nil)
     }
 
+    @objc func apiButtonAction() {
+        if userConnected != nil {
+            let apiRep = APIConnection.getFunc.getToken(login: userConnected!.login!, password: userConnected!.password!)
+            print(apiRep)
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         saveButton.isHidden = true
