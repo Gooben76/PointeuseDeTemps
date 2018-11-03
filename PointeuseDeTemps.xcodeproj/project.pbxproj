@@ -40,6 +40,7 @@
 		172E0BF621669655006A8039 /* HistoryActivityDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172E0BF421669655006A8039 /* HistoryActivityDetailsController.xib */; };
 		172E0BF9216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172E0BF7216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift */; };
 		172E0BFA216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172E0BF8216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib */; };
+		1732D27A218E28CE0038B356 /* APIUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1732D279218E28CE0038B356 /* APIUsers.swift */; };
 		174436662184EB50009A5E36 /* EncodeHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174436652184EB50009A5E36 /* EncodeHelpers.swift */; };
 		174436682184F1D3009A5E36 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174436672184F1D3009A5E36 /* Character.swift */; };
 		175B28A8216A5A6800BB4028 /* LabelStatusTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175B28A7216A5A6800BB4028 /* LabelStatusTS.swift */; };
@@ -58,6 +59,7 @@
 		1774E887212424D900A65415 /* ActivitiesDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E886212424D900A65415 /* ActivitiesDataHelpers.swift */; };
 		1774E88921244A3500A65415 /* TextFieldTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E88821244A3500A65415 /* TextFieldTS.swift */; };
 		1774E88B212486C200A65415 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E88A212486C200A65415 /* Resources.swift */; };
+		17795D06218AF47F00C0A33B /* APIStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17795D05218AF47F00C0A33B /* APIStructs.swift */; };
 		17C989A42177C18300CAF776 /* MapControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C989A22177C18300CAF776 /* MapControllerViewController.swift */; };
 		17C989A52177C18300CAF776 /* MapControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17C989A32177C18300CAF776 /* MapControllerViewController.xib */; };
 		17CFDF8721235A6200EC4F1A /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CFDF8521235A6200EC4F1A /* HistoryController.swift */; };
@@ -113,6 +115,7 @@
 		172E0BF421669655006A8039 /* HistoryActivityDetailsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryActivityDetailsController.xib; sourceTree = "<group>"; };
 		172E0BF7216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTimeScoreActivityDetailTableCell.swift; sourceTree = "<group>"; };
 		172E0BF8216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTimeScoreActivityDetailTableCell.xib; sourceTree = "<group>"; };
+		1732D279218E28CE0038B356 /* APIUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUsers.swift; sourceTree = "<group>"; };
 		174436652184EB50009A5E36 /* EncodeHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodeHelpers.swift; sourceTree = "<group>"; };
 		174436672184F1D3009A5E36 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		175B28A7216A5A6800BB4028 /* LabelStatusTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStatusTS.swift; sourceTree = "<group>"; };
@@ -133,6 +136,7 @@
 		1774E886212424D900A65415 /* ActivitiesDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesDataHelpers.swift; sourceTree = "<group>"; };
 		1774E88821244A3500A65415 /* TextFieldTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTS.swift; sourceTree = "<group>"; };
 		1774E88A212486C200A65415 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		17795D05218AF47F00C0A33B /* APIStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStructs.swift; sourceTree = "<group>"; };
 		17C989A22177C18300CAF776 /* MapControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapControllerViewController.swift; sourceTree = "<group>"; };
 		17C989A32177C18300CAF776 /* MapControllerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapControllerViewController.xib; sourceTree = "<group>"; };
 		17CFDF8521235A6200EC4F1A /* HistoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
@@ -303,6 +307,8 @@
 			isa = PBXGroup;
 			children = (
 				175F19422185F84A00761450 /* APIConnection.swift */,
+				17795D05218AF47F00C0A33B /* APIStructs.swift */,
+				1732D279218E28CE0038B356 /* APIUsers.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -326,8 +332,8 @@
 		175FC08F211782B500B6A3E5 /* PointeuseDeTemps */ = {
 			isa = PBXGroup;
 			children = (
-				175F19412185F82600761450 /* API */,
 				175FC090211782B500B6A3E5 /* AppDelegate.swift */,
+				175F19412185F82600761450 /* API */,
 				1774E8852124249400A65415 /* DataHelpers */,
 				1774E8822124218D00A65415 /* Utilities */,
 				17BAAC49211C9C760035DF40 /* Models */,
@@ -525,6 +531,7 @@
 				17C989A42177C18300CAF776 /* MapControllerViewController.swift in Sources */,
 				1723ACE62157A01B007F63DC /* NotificationNameExtension.swift in Sources */,
 				1767F36021347E0700BF17DA /* ButtonTS.swift in Sources */,
+				1732D27A218E28CE0038B356 /* APIUsers.swift in Sources */,
 				1774E8842124222C00A65415 /* Constants.swift in Sources */,
 				175B28A8216A5A6800BB4028 /* LabelStatusTS.swift in Sources */,
 				17F8C5B821221AAE00CB312E /* TimeScoresController.swift in Sources */,
@@ -539,6 +546,7 @@
 				175FC091211782B500B6A3E5 /* AppDelegate.swift in Sources */,
 				172E0BE9216685EC006A8039 /* HistoryTimeScoreTableCell.swift in Sources */,
 				172E0BF521669655006A8039 /* HistoryActivityDetailsController.swift in Sources */,
+				17795D06218AF47F00C0A33B /* APIStructs.swift in Sources */,
 				1729E2D32145562C004297F7 /* TypicalDayDetailController.swift in Sources */,
 				174436662184EB50009A5E36 /* EncodeHelpers.swift in Sources */,
 				17E0F7352121FD6200F5DD1E /* TabBarController.swift in Sources */,

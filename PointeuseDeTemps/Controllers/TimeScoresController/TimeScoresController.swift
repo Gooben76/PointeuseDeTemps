@@ -79,8 +79,20 @@ class TimeScoresController: UIViewController {
 
     @objc func apiButtonAction() {
         if userConnected != nil {
-            let apiRep = APIConnection.getFunc.getToken(login: userConnected!.login!, password: userConnected!.password!)
-            print(apiRep)
+            APIConnection.getFunc.getToken(login: userConnected!.login!, mail: userConnected!.mail!, password: userConnected!.password!) { (token) in
+                if token.id > 0 {
+                    print("Token : \(token.token)")
+                    APIUsers.getFunc.getUserFromId(id: token.id, token: token.token, completion: { (userAPI) in
+                        if userAPI != nil {
+                            print(userAPI)
+                        } else {
+                            print("Pas de User")
+                        }
+                    })
+                } else {
+                    print("Pas de retour")
+                }
+            }
         }
     }
     

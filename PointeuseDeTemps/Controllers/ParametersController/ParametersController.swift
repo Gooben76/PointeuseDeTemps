@@ -13,6 +13,7 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var imageView: ImageViewTS!
     @IBOutlet weak var loginTF: TextFieldTS!
     @IBOutlet weak var passwordTF: TextFieldTS!
+    @IBOutlet weak var mailTF: TextFieldTS!
     @IBOutlet weak var nameTF: TextFieldTS!
     @IBOutlet weak var firstNameTF: TextFieldTS!
     @IBOutlet weak var saveButton: ButtonTS!
@@ -44,6 +45,7 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         
         loginTF.placeholder = RSC_LOGIN
         passwordTF.placeholder = RSC_PASSWORD
+        mailTF.placeholder = RSC_EMAIL
         nameTF.placeholder = RSC_LASTNAME
         firstNameTF.placeholder = RSC_FIRSTNAME
         saveButton.setTitle(RSC_SAVE, for: .normal)
@@ -68,6 +70,7 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                         userConnected = user
                         loginTF.text = userConnected!.login
                         passwordTF.text = userConnected!.password
+                        mailTF.text = userConnected!.mail
                         nameTF.text = userConnected!.lastName
                         firstNameTF.text = userConnected!.firstName
                         if userConnected!.image != nil, let img = userConnected!.image as? UIImage {
@@ -79,6 +82,7 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                         UserDefaults.standard.removeObject(forKey: "connectedUser")
                         loginTF.text = ""
                         passwordTF.text = ""
+                        mailTF.text = ""
                         nameTF.text = ""
                         firstNameTF.text = ""
                         imageView.image = nil
@@ -88,6 +92,7 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
             } else {
                 loginTF.text = ""
                 passwordTF.text = ""
+                mailTF.text = ""
                 nameTF.text = ""
                 firstNameTF.text = ""
                 imageView.image = nil
@@ -148,6 +153,7 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                 if !userCreation {
                     if userConnected != nil {
                         userConnected!.password = passwordTF.text
+                        userConnected!.mail = mailTF.text
                         userConnected!.firstName = firstNameTF.text
                         userConnected!.lastName = nameTF.text
                         userConnected!.image = imageView.image

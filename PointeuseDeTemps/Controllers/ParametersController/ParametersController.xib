@@ -17,6 +17,7 @@
                 <outlet property="firstNameTF" destination="Mnk-bs-1zB" id="jh8-1U-bvw"/>
                 <outlet property="imageView" destination="UVx-7C-U3j" id="6m1-Cl-ajI"/>
                 <outlet property="loginTF" destination="qDt-oo-4Ck" id="lQY-xY-g2i"/>
+                <outlet property="mailTF" destination="9oK-Gw-GUv" id="QhA-FR-tMq"/>
                 <outlet property="nameTF" destination="OXO-rv-Mmc" id="eNf-jR-s0U"/>
                 <outlet property="passwordTF" destination="7fb-iY-tbf" id="bzX-ip-Clc"/>
                 <outlet property="saveButton" destination="4ae-zL-VPs" id="Roc-FM-Krr"/>
@@ -45,13 +46,19 @@
                             <textInputTraits key="textInputTraits" textContentType="username"/>
                         </textField>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mot de passe" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7fb-iY-tbf" customClass="TextFieldTS" customModule="PointeuseDeTemps" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="50" width="335" height="30"/>
+                            <rect key="frame" x="0.0" y="37.5" width="335" height="30"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                         </textField>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9oK-Gw-GUv" customClass="TextFieldTS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="75" width="335" height="30"/>
+                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nom" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OXO-rv-Mmc" customClass="TextFieldTS" customModule="PointeuseDeTemps" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="100" width="335" height="30"/>
+                            <rect key="frame" x="0.0" y="112.5" width="335" height="30"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <textInputTraits key="textInputTraits"/>

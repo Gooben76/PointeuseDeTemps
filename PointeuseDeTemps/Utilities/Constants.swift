@@ -10,3 +10,6 @@ import UIKit
 
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
 let context = appDelegate.persistentContainer.viewContext
+
+//let url = "http://timescore.benoitg.net/api/"
+let url = "http://timescoreunsecure.benoitg.net/api/"
