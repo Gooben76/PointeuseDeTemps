@@ -39,6 +39,8 @@ struct UserAPI: Codable {
     var mail: String
     var firstName: String
     var lastName: String
+    var synchronization: Bool
+    var allowMessages: Bool
     var modifiedDate: Date
     
     init(_ dictionary: [String: Any]) {
@@ -48,11 +50,25 @@ struct UserAPI: Codable {
         self.mail = dictionary["mail"] as? String ?? ""
         self.firstName = dictionary["firstName"] as? String ?? ""
         self.lastName = dictionary["lastName"] as? String ?? ""
+        self.synchronization = dictionary["synchronization"] as? Bool ?? false
+        self.allowMessages = dictionary["allowMessages"] as? Bool ?? false
         self.modifiedDate = dictionary["modifiedDate"] as? Date ?? Date(timeIntervalSince1970: 0)
         
         /*if self.password.count > 0 {
             self.password = EncodeHelpers.getFunc.decrypte(key: self.password)
         }
         */
+    }
+    
+    init(userId: Users) {
+        self.id = Int(userId.id)
+        self.login = userId.login!
+        self.password = userId.password!
+        self.mail = userId.mail!
+        self.firstName = userId.firstName ?? ""
+        self.lastName = userId.lastName ?? ""
+        self.synchronization = userId.synchronization
+        self.allowMessages  = userId.allowMessages
+        self.modifiedDate = userId.modifiedDate!
     }
 }

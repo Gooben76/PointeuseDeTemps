@@ -10,6 +10,7 @@ import UIKit
 
 class ParametersController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    @IBOutlet weak var scroll: UIScrollView!
     @IBOutlet weak var imageView: ImageViewTS!
     @IBOutlet weak var loginTF: TextFieldTS!
     @IBOutlet weak var passwordTF: TextFieldTS!
@@ -19,6 +20,12 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var saveButton: ButtonTS!
     @IBOutlet weak var deconnectionButton: ButtonTS!
     @IBOutlet weak var deleteButton: ButtonTS!
+    @IBOutlet weak var synchronizationLabel: LabelH2TitleTS!
+    @IBOutlet weak var synchronizationSwitch: UISwitch!
+    @IBOutlet weak var allowMessagesLabel: LabelH2TitleTS!
+    @IBOutlet weak var allowMessagesSwitch: UISwitch!
+    @IBOutlet weak var widthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var navigationBar: UINavigationBar?
     
@@ -51,16 +58,20 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         saveButton.setTitle(RSC_SAVE, for: .normal)
         deconnectionButton.setTitle(RSC_DECONNECTION, for: .normal)
         deleteButton.setTitle(RSC_DELETE, for: .normal)
+        synchronizationLabel.text = RSC_SYNCHRONIZATION
+        allowMessagesLabel.text = RSC_ALLOW_MESSAGES
         
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
+        scroll.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
     }
-    
+
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        widthConstraint.constant = view.frame.width - 20
+        scroll.contentSize = CGSize(width: widthConstraint.constant, height: view.frame.height)
         
         if !selectImage {
             if !userCreation {
@@ -73,6 +84,8 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                         mailTF.text = userConnected!.mail
                         nameTF.text = userConnected!.lastName
                         firstNameTF.text = userConnected!.firstName
+                        synchronizationSwitch.isOn = userConnected!.synchronization
+                        allowMessagesSwitch.isOn = userConnected!.allowMessages
                         if userConnected!.image != nil, let img = userConnected!.image as? UIImage {
                             imageView.image = img
                         }
@@ -85,6 +98,8 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                         mailTF.text = ""
                         nameTF.text = ""
                         firstNameTF.text = ""
+                        synchronizationSwitch.isOn = false
+                        allowMessagesSwitch.isOn = false
                         imageView.image = nil
                         userCreation = true
                     }
@@ -96,6 +111,8 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                 nameTF.text = ""
                 firstNameTF.text = ""
                 imageView.image = nil
+                synchronizationSwitch.isOn = false
+                allowMessagesSwitch.isOn = false
             }
         }
     }
@@ -147,6 +164,11 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     
     @IBAction func saveButton_Click(_ sender: Any) {
         view.endEditing(true)
+        var saveOk: Bool = false
+        if synchronizationSwitch.isOn && mailTF.text == "" {
+            Alert.show.error(message: RSC_MAIL_REQUIRED, controller: self)
+            return
+        }
         if loginTF.text != nil, loginTF.text != "" {
             if passwordTF.text != nil, passwordTF.text != "" {
                 let mail: String = ""
@@ -157,15 +179,19 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                         userConnected!.firstName = firstNameTF.text
                         userConnected!.lastName = nameTF.text
                         userConnected!.image = imageView.image
+                        userConnected!.synchronization = synchronizationSwitch.isOn
+                        userConnected!.allowMessages = allowMessagesSwitch.isOn
                         if !UsersDataHelpers.getFunc.setUser(user: userConnected!) {
                             Alert.show.error(message: RSC_SAVE_ERROR, controller: self)
                         } else {
+                            saveOk = true
                             Alert.show.success(message: RSC_SAVE_OK, controller: self)
                         }
                     }
                 } else {
                     if UsersDataHelpers.getFunc.setNewUser(login: loginTF.text!, password: passwordTF.text!, firstName: firstNameTF.text, lastName: nameTF.text, mail: mail, image: imageView.image) {
                         UserDefaults.standard.set(loginTF.text!, forKey: "connectedUser")
+                        saveOk = true
                         userCreation = false
                         deleteButton.isEnabled = true
                         deconnectionButton.isEnabled = true
@@ -181,6 +207,26 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
             }
         } else {
             Alert.show.error(message: RSC_LOGIN_REQUIRED, controller: self)
+        }
+        if saveOk && userConnected != nil {
+            if userConnected!.synchronization {
+                if userConnected!.id == 0 {
+                    APIUsers.getFunc.createUserToAPI(userId: userConnected!, token: "") { (userAPI) in
+                        if userAPI != nil {
+                            self.userConnected!.id = Int32(userAPI!.id)
+                            if UsersDataHelpers.getFunc.setUser(user: self.userConnected!) {
+                                Alert.show.success(message: "Synchro ok, id = \(userAPI!.id)", controller: self)
+                            }
+                        } else {
+                            Alert.show.error(message: RSC_SYNCHRONIZATION_ERROR, controller: self)
+                        }
+                    }
+                } else {
+                    APIUsers.getFunc.updateUserToAPI(userId: userConnected!, token: "") { (status) in
+                        print("Statut : \(status)")
+                    }
+                }
+            }
         }
     }
     
