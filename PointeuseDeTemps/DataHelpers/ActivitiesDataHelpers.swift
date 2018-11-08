@@ -25,25 +25,43 @@ class ActivitiesDataHelpers {
         if activityName != "" {
             let elm = searchActivityByName(activityName: activityName, userConnected: userConnected)
             guard elm == nil else {return false}
-            let newActivity = Activities(context: context)
-            newActivity.activityName = activityName
-            newActivity.gpsPosition = false
+            let newElm = Activities(context: context)
+            newElm.activityName = activityName
+            newElm.gpsPosition = false
             let nextOrder = getNextOrderNumber(userConnected: userConnected)
-            newActivity.order = nextOrder
-            newActivity.modifiedDate = Date()
-            newActivity.userID = userConnected
+            newElm.order = nextOrder
+            newElm.modifiedDate = Date()
+            newElm.userID = userConnected
             appDelegate.saveContext()
+            
+            if userConnected.synchronization {
+                APIActivities.getFunc.createToAPI(activityId: newElm, token: "") { (newAPI) in
+                    if newAPI != nil, newAPI!.id != -1 {
+                        newElm.id = Int32(newAPI!.id)
+                        newElm.modifiedDate = Date()
+                        appDelegate.saveContext()
+                    }
+                }
+            }
+            
             return true
         } else {
             return false
         }
     }
     
-    func delActivity(activity: Activities!) -> Bool {
+    func delActivity(activity: Activities!, userConnected: Users) -> Bool {
         if activity != nil {
+            let deleteId = activity.id
             context.delete(activity)
             do {
                 try context.save()
+                
+                if userConnected.synchronization {
+                    APIActivities.getFunc.deleteToAPI(id: deleteId, token: "") { (httpcode) in
+                        print("http response code : \(httpcode)")
+                    }
+                }
                 return true
             } catch {
                 print(error.localizedDescription)
@@ -65,6 +83,12 @@ class ActivitiesDataHelpers {
             act!.setValue(Date(), forKey: "modifiedDate")
             do {
                 try context.save()
+                
+                if userConnected.synchronization {
+                    APIActivities.getFunc.updateToAPI(activityId: activity, token: "", completion: { (httpcode) in
+                        print("http response code : \(httpcode)")
+                    })
+                }
                 return true
             } catch {
                 print(error.localizedDescription)

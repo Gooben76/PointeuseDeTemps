@@ -1,4 +1,3 @@
-//
 //  APIUsers.swift
 //  PointeuseDeTemps
 //
@@ -8,19 +7,18 @@
 
 import Foundation
 
-class APIUsers {
+class APITypicalDays {
     
-    static let getFunc = APIUsers()
+    static let getFunc = APITypicalDays()
     
-    func getUserFromId(id: Int, token: String, completion: @escaping (UserAPI?) -> ()) {
-        let fullURL = url + "users"
+    func getOneFromAPI(id: Int, token: String, completion: @escaping (TypicalDayAPI?) -> ()) {
+        let fullURL = url + "typicaldays/\(id)"
         let urlToGet = URL(string: fullURL)
-        var model = [UserAPI]()
+        var model = [TypicalDayAPI]()
         if urlToGet != nil {
-            var request = URLRequest(url: urlToGet!) //requestURL( (string: fullURL)
+            var request = URLRequest(url: urlToGet!)
             request.httpMethod = "GET"
             if token.count > 0 {
-                //request.setValue("token=\"\(token)\"", forHTTPHeaderField: "Authorization")
                 request.setValue(token, forHTTPHeaderField: "Authorization: Bearer")
             }
             let session = URLSession.shared
@@ -33,7 +31,6 @@ class APIUsers {
                 
                 let httpStatus = response as? HTTPURLResponse
                 let httpStatusCode:Int = (httpStatus?.statusCode)!
-                print("Statut : \(httpStatusCode)")
                 
                 if httpStatusCode < 400 {
                     do {
@@ -42,15 +39,13 @@ class APIUsers {
                         
                         if let jsonArray = jsonResponse as? [[String: Any]] {
                             for dic in jsonArray{
-                                model.append(UserAPI(dic))
-                                model[0].password = EncodeHelpers.getFunc.decrypte(key: model[0].password)
+                                model.append(TypicalDayAPI(dic))
                                 completion(model[0])
                                 return
                             }
                         } else {
                             if let jsonArray2 = jsonResponse as? [String: Any] {
-                                model.append(UserAPI(jsonArray2))
-                                model[0].password = EncodeHelpers.getFunc.decrypte(key: model[0].password)
+                                model.append(TypicalDayAPI(jsonArray2))
                                 completion(model[0])
                                 return
                             } else {
@@ -66,15 +61,68 @@ class APIUsers {
                     completion(nil)
                     return
                 }
-            }.resume()
+                }.resume()
         }
     }
     
-    func updateUserToAPI(userId: Users, token: String, completion: @escaping (Int) -> ()) {
-        let fullURL = url + "users/\(userId.id)"
+    func getAllFromAPI(userId: Int, token: String, completion: @escaping ([TypicalDayAPI]?) -> ()) {
+        let fullURL = url + "typicaldays/fromuserid/\(userId)"
         let urlToGet = URL(string: fullURL)
-        var modelToSend = UserAPI(userId: userId)
-        modelToSend.password = EncodeHelpers.getFunc.crypte(key: modelToSend.password)
+        var model = [TypicalDayAPI]()
+        if urlToGet != nil {
+            var request = URLRequest(url: urlToGet!)
+            request.httpMethod = "GET"
+            if token.count > 0 {
+                request.setValue(token, forHTTPHeaderField: "Authorization: Bearer")
+            }
+            let session = URLSession.shared
+            session.dataTask(with: request) { (data, response, error) in
+                guard let dataResponse = data, error == nil else {
+                    print(error?.localizedDescription ?? "Response Error")
+                    completion(nil)
+                    return
+                }
+                
+                let httpStatus = response as? HTTPURLResponse
+                let httpStatusCode:Int = (httpStatus?.statusCode)!
+                
+                if httpStatusCode < 400 {
+                    do {
+                        let jsonResponse = try JSONSerialization.jsonObject(with:
+                            dataResponse, options: [])
+                        
+                        if let jsonArray = jsonResponse as? [[String: Any]] {
+                            for dic in jsonArray{
+                                model.append(TypicalDayAPI(dic))
+                                completion(model)
+                                return
+                            }
+                        } else {
+                            if let jsonArray2 = jsonResponse as? [String: Any] {
+                                model.append(TypicalDayAPI(jsonArray2))
+                                completion(model)
+                                return
+                            } else {
+                                completion(nil)
+                                return
+                            }
+                        }
+                    } catch let parsingError {
+                        print("Error", parsingError)
+                        completion(nil)
+                    }
+                } else {
+                    completion(nil)
+                    return
+                }
+                }.resume()
+        }
+    }
+    
+    func updateToAPI(typicalDayId: TypicalDays, token: String, completion: @escaping (Int) -> ()) {
+        let fullURL = url + "typicaldays/\(typicalDayId.id)"
+        let urlToGet = URL(string: fullURL)
+        let modelToSend = TypicalDayAPI(typicalDayId: typicalDayId)
         var jsonData: Data
         
         do {
@@ -88,11 +136,10 @@ class APIUsers {
         }
         
         if urlToGet != nil {
-            var request = URLRequest(url: urlToGet!) //requestURL( (string: fullURL)
+            var request = URLRequest(url: urlToGet!)
             request.httpMethod = "PUT"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             if token.count > 0 {
-                //request.setValue("token=\"\(token)\"", forHTTPHeaderField: "Authorization")
                 request.setValue(token, forHTTPHeaderField: "Authorization: Bearer")
             }
             
@@ -111,22 +158,22 @@ class APIUsers {
                 
                 completion(httpStatusCode)
                 return
-            }.resume()
+                }.resume()
         }
     }
     
-    func createUserToAPI(userId: Users, token: String, completion: @escaping (UserAPI?) -> ()) {
-        let fullURL = url + "users"
+    func createToAPI(typicalDayId: TypicalDays, token: String, completion: @escaping (TypicalDayAPI?) -> ()) {
+        let fullURL = url + "typicaldays"
         let urlToGet = URL(string: fullURL)
-        var model = [UserAPI]()
-        var modelToSend = UserAPI(userId: userId)
-        modelToSend.password = EncodeHelpers.getFunc.crypte(key: modelToSend.password)
+        var model = [TypicalDayAPI]()
+        let modelToSend = TypicalDayAPI(typicalDayId: typicalDayId)
         var jsonData: Data
         
         do {
             let jsonEncoder = JSONEncoder()
             jsonEncoder.dateEncodingStrategy = .iso8601
             jsonData = try jsonEncoder.encode(modelToSend)
+            print((String(data: jsonData, encoding: .isoLatin1)) ?? "")
         } catch let encodingError {
             print("Erreur d'encodage")
             print(encodingError.localizedDescription)
@@ -134,11 +181,10 @@ class APIUsers {
         }
         
         if urlToGet != nil {
-            var request = URLRequest(url: urlToGet!) //requestURL( (string: fullURL)
+            var request = URLRequest(url: urlToGet!)
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             if token.count > 0 {
-                //request.setValue("token=\"\(token)\"", forHTTPHeaderField: "Authorization")
                 request.setValue(token, forHTTPHeaderField: "Authorization: Bearer")
             }
             
@@ -154,7 +200,6 @@ class APIUsers {
                 
                 let httpStatus = response as? HTTPURLResponse
                 let httpStatusCode:Int = (httpStatus?.statusCode)!
-                print("Statut : \(httpStatusCode)")
                 
                 if httpStatusCode < 400 {
                     do {
@@ -163,13 +208,13 @@ class APIUsers {
                         
                         if let jsonArray = jsonResponse as? [[String: Any]] {
                             for dic in jsonArray{
-                                model.append(UserAPI(dic)) // adding now value in Model array
+                                model.append(TypicalDayAPI(dic))
                                 completion(model[0])
                                 return
                             }
                         } else {
                             if let jsonArray2 = jsonResponse as? [String: Any] {
-                                model.append(UserAPI(jsonArray2))
+                                model.append(TypicalDayAPI(jsonArray2))
                                 completion(model[0])
                                 return
                             } else {
@@ -185,19 +230,18 @@ class APIUsers {
                     completion(nil)
                     return
                 }
-            }.resume()
+                }.resume()
         }
     }
     
-    func deleteUserToAPI(userId: Int32, token: String, completion: @escaping (Int) -> ()) {
-        let fullURL = url + "users/\(userId)"
+    func deleteToAPI(id: Int32, token: String, completion: @escaping (Int) -> ()) {
+        let fullURL = url + "typicaldays/\(id)"
         let urlToGet = URL(string: fullURL)
         
         if urlToGet != nil {
-            var request = URLRequest(url: urlToGet!) //requestURL( (string: fullURL)
+            var request = URLRequest(url: urlToGet!)
             request.httpMethod = "DELETE"
             if token.count > 0 {
-                //request.setValue("token=\"\(token)\"", forHTTPHeaderField: "Authorization")
                 request.setValue(token, forHTTPHeaderField: "Authorization: Bearer")
             }
             
@@ -214,7 +258,7 @@ class APIUsers {
                 
                 completion(httpStatusCode)
                 return
-            }.resume()
+                }.resume()
         }
     }
 }

@@ -189,7 +189,7 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                         }
                     }
                 } else {
-                    if UsersDataHelpers.getFunc.setNewUser(login: loginTF.text!, password: passwordTF.text!, firstName: firstNameTF.text, lastName: nameTF.text, mail: mail, image: imageView.image) {
+                    if UsersDataHelpers.getFunc.setNewUser(login: loginTF.text!, password: passwordTF.text!, firstName: firstNameTF.text, lastName: nameTF.text, mail: mail, image: imageView.image, synchronization: synchronizationSwitch.isOn, allowMessages: allowMessagesSwitch.isOn) {
                         UserDefaults.standard.set(loginTF.text!, forKey: "connectedUser")
                         saveOk = true
                         userCreation = false

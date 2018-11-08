@@ -26,7 +26,7 @@ class UsersDataHelpers {
         return users
     }
     
-    func setNewUser(login: String, password: String, firstName: String?, lastName: String?, mail: String?, image: UIImage?) -> Bool {
+    func setNewUser(login: String, password: String, firstName: String?, lastName: String?, mail: String?, image: UIImage?, synchronization: Bool, allowMessages: Bool) -> Bool {
         if login != "" && password != "" {
             let elm = searchUserByLogin(login: login)
             guard elm == nil else {return false}
@@ -45,8 +45,20 @@ class UsersDataHelpers {
             if image != nil {
                 newUser.image = image
             }
+            newUser.synchronization = synchronization
+            newUser.allowMessages = allowMessages
             newUser.modifiedDate = Date()
             appDelegate.saveContext()
+            
+            if newUser.synchronization {
+                APIUsers.getFunc.createUserToAPI(userId: newUser, token: "", completion: { (apiUser) in
+                    if apiUser != nil, apiUser!.id != -1 {
+                        newUser.id = Int32(apiUser!.id)
+                        newUser.modifiedDate = Date()
+                        appDelegate.saveContext()
+                    }
+                })
+            }
             return true
         } else {
             return false
@@ -55,9 +67,17 @@ class UsersDataHelpers {
     
     func delUser(user: Users!) -> Bool {
         if user != nil {
+            let synchro: Bool = user.synchronization
+            let deleteId = user.id
             context.delete(user)
             do {
                 try context.save()
+                
+                if synchro {
+                    APIUsers.getFunc.deleteUserToAPI(userId: deleteId, token: "") { (httpcode) in
+                        print("http response code : \(httpcode)")
+                    }
+                }
                 return true
             } catch {
                 print(error.localizedDescription)
@@ -80,7 +100,12 @@ class UsersDataHelpers {
             elm!.setValue(Date(), forKey: "modifiedDate")
             do {
                 try context.save()
-                print("updated")
+                
+                if user.synchronization {
+                    APIUsers.getFunc.updateUserToAPI(userId: user, token: "", completion: { (httpcode) in
+                        print("http response code : \(httpcode)")
+                    })
+                }
                 return true
             } catch {
                 print(error.localizedDescription)

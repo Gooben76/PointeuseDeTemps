@@ -96,7 +96,7 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            if ActivitiesDataHelpers.getFunc.delActivity(activity: activities[indexPath.row]) {
+            if ActivitiesDataHelpers.getFunc.delActivity(activity: activities[indexPath.row], userConnected: userConnected!) {
                 activities.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
             }

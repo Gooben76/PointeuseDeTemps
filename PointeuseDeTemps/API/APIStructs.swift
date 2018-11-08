@@ -53,11 +53,6 @@ struct UserAPI: Codable {
         self.synchronization = dictionary["synchronization"] as? Bool ?? false
         self.allowMessages = dictionary["allowMessages"] as? Bool ?? false
         self.modifiedDate = dictionary["modifiedDate"] as? Date ?? Date(timeIntervalSince1970: 0)
-        
-        /*if self.password.count > 0 {
-            self.password = EncodeHelpers.getFunc.decrypte(key: self.password)
-        }
-        */
     }
     
     init(userId: Users) {
@@ -70,5 +65,53 @@ struct UserAPI: Codable {
         self.synchronization = userId.synchronization
         self.allowMessages  = userId.allowMessages
         self.modifiedDate = userId.modifiedDate!
+    }
+}
+
+struct ActivityAPI: Codable {
+    var id: Int
+    var userId: Int
+    var activityName: String
+    var order: Int
+    var gpsPosition: Bool
+    var modifiedDate: Date
+    
+    init(_ dictionary: [String: Any]) {
+        self.id = dictionary["id"] as? Int ?? -1
+        self.userId = dictionary["userId"] as? Int ?? 0
+        self.activityName = dictionary["activityName"] as? String ?? ""
+        self.order = dictionary["order"] as? Int ?? 0
+        self.gpsPosition = dictionary["gpsPosition"] as? Bool ?? false
+        self.modifiedDate = dictionary["modifiedDate"] as? Date ?? Date(timeIntervalSince1970: 0)
+    }
+    
+    init(activityId: Activities) {
+        self.id = Int(activityId.id)
+        self.userId = Int(activityId.userID!.id)
+        self.activityName = activityId.activityName!
+        self.order = Int(activityId.order)
+        self.gpsPosition = activityId.gpsPosition
+        self.modifiedDate = activityId.modifiedDate!
+    }
+}
+
+struct TypicalDayAPI: Codable {
+    var id: Int
+    var userId: Int
+    var typicalDayName: String
+    var modifiedDate: Date
+    
+    init(_ dictionary: [String: Any]) {
+        self.id = dictionary["id"] as? Int ?? -1
+        self.userId = dictionary["userId"] as? Int ?? 0
+        self.typicalDayName = dictionary["typicalDayName"] as? String ?? ""
+        self.modifiedDate = dictionary["modifiedDate"] as? Date ?? Date(timeIntervalSince1970: 0)
+    }
+    
+    init(typicalDayId: TypicalDays) {
+        self.id = Int(typicalDayId.id)
+        self.userId = Int(typicalDayId.userID!.id)
+        self.typicalDayName = typicalDayId.typicalDayName!
+        self.modifiedDate = typicalDayId.modifiedDate!
     }
 }
