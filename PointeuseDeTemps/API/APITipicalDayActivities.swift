@@ -1,4 +1,3 @@
-//
 //  APIUsers.swift
 //  PointeuseDeTemps
 //
@@ -8,14 +7,14 @@
 
 import Foundation
 
-class APIActivities {
+class APITypicalDayActivities {
     
-    static let getFunc = APIActivities()
+    static let getFunc = APITypicalDayActivities()
     
-    func getOneFromAPI(id: Int, token: String, completion: @escaping (ActivityAPI?) -> ()) {
-        let fullURL = url + "activities/\(id)"
+    func getOneFromAPI(id: Int, token: String, completion: @escaping (TypicalDayActivityAPI?) -> ()) {
+        let fullURL = url + "typicaldayactivities/\(id)"
         let urlToGet = URL(string: fullURL)
-        var model = [ActivityAPI]()
+        var model = [TypicalDayActivityAPI]()
         if urlToGet != nil {
             var request = URLRequest(url: urlToGet!)
             request.httpMethod = "GET"
@@ -40,13 +39,13 @@ class APIActivities {
                         
                         if let jsonArray = jsonResponse as? [[String: Any]] {
                             for dic in jsonArray{
-                                model.append(ActivityAPI(dic))
+                                model.append(TypicalDayActivityAPI(dic))
                             }
                             completion(model[0])
                             return
                         } else {
                             if let jsonArray2 = jsonResponse as? [String: Any] {
-                                model.append(ActivityAPI(jsonArray2))
+                                model.append(TypicalDayActivityAPI(jsonArray2))
                                 completion(model[0])
                                 return
                             } else {
@@ -62,14 +61,14 @@ class APIActivities {
                     completion(nil)
                     return
                 }
-            }.resume()
+                }.resume()
         }
     }
     
-    func getAllFromAPI(userId: Int, token: String, completion: @escaping ([ActivityAPI]?) -> ()) {
-        let fullURL = url + "activities/fromuserid/\(userId)"
+    func getAllFromAPI(userId: Int, token: String, completion: @escaping ([TypicalDayActivityAPI]?) -> ()) {
+        let fullURL = url + "typicaldayactivities/fromuserid/\(userId)"
         let urlToGet = URL(string: fullURL)
-        var model = [ActivityAPI]()
+        var model = [TypicalDayActivityAPI]()
         if urlToGet != nil {
             var request = URLRequest(url: urlToGet!)
             request.httpMethod = "GET"
@@ -94,13 +93,13 @@ class APIActivities {
                         
                         if let jsonArray = jsonResponse as? [[String: Any]] {
                             for dic in jsonArray{
-                                model.append(ActivityAPI(dic))
+                                model.append(TypicalDayActivityAPI(dic))
                             }
                             completion(model)
                             return
                         } else {
                             if let jsonArray2 = jsonResponse as? [String: Any] {
-                                model.append(ActivityAPI(jsonArray2))
+                                model.append(TypicalDayActivityAPI(jsonArray2))
                                 completion(model)
                                 return
                             } else {
@@ -120,10 +119,10 @@ class APIActivities {
         }
     }
     
-    func updateToAPI(activityId: Activities, token: String, completion: @escaping (Int) -> ()) {
-        let fullURL = url + "activities/\(activityId.id)"
+    func updateToAPI(typicalDayAvtivityId: TypicalDayActivities, token: String, completion: @escaping (Int) -> ()) {
+        let fullURL = url + "typicaldayactivities/\(typicalDayAvtivityId.id)"
         let urlToGet = URL(string: fullURL)
-        let modelToSend = ActivityAPI(activityId: activityId)
+        let modelToSend = TypicalDayActivityAPI(typicalDayActivityId: typicalDayAvtivityId)
         var jsonData: Data
         
         do {
@@ -163,18 +162,17 @@ class APIActivities {
         }
     }
     
-    func createToAPI(activityId: Activities, token: String, completion: @escaping (ActivityAPI?) -> ()) {
-        let fullURL = url + "activities"
+    func createToAPI(typicalDayAvtivityId: TypicalDayActivities, token: String, completion: @escaping (TypicalDayActivityAPI?) -> ()) {
+        let fullURL = url + "typicaldayactivities"
         let urlToGet = URL(string: fullURL)
-        var model = [ActivityAPI]()
-        let modelToSend = ActivityAPI(activityId: activityId)
+        var model = [TypicalDayActivityAPI]()
+        let modelToSend = TypicalDayActivityAPI(typicalDayActivityId: typicalDayAvtivityId)
         var jsonData: Data
         
         do {
             let jsonEncoder = JSONEncoder()
             jsonEncoder.dateEncodingStrategy = .iso8601
             jsonData = try jsonEncoder.encode(modelToSend)
-            print((String(data: jsonData, encoding: .isoLatin1)) ?? "")
         } catch let encodingError {
             print("Erreur d'encodage")
             print(encodingError.localizedDescription)
@@ -209,13 +207,13 @@ class APIActivities {
                         
                         if let jsonArray = jsonResponse as? [[String: Any]] {
                             for dic in jsonArray{
-                                model.append(ActivityAPI(dic))
+                                model.append(TypicalDayActivityAPI(dic))
                             }
                             completion(model[0])
                             return
                         } else {
                             if let jsonArray2 = jsonResponse as? [String: Any] {
-                                model.append(ActivityAPI(jsonArray2))
+                                model.append(TypicalDayActivityAPI(jsonArray2))
                                 completion(model[0])
                                 return
                             } else {
@@ -236,7 +234,7 @@ class APIActivities {
     }
     
     func deleteToAPI(id: Int32, token: String, completion: @escaping (Int) -> ()) {
-        let fullURL = url + "activities/\(id)"
+        let fullURL = url + "typicaldayactivities/\(id)"
         let urlToGet = URL(string: fullURL)
         
         if urlToGet != nil {

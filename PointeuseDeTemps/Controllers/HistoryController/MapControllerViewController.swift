@@ -11,11 +11,11 @@ import MapKit
 
 class MapControllerViewController: UIViewController, CLLocationManagerDelegate {
 
-    @IBOutlet weak var latitudeLabel: LabelH3TitleTS!
-    @IBOutlet weak var latitudeValueLabel: LabelH3TS!
-    @IBOutlet weak var longitudeLabel: LabelH3TitleTS!
-    @IBOutlet weak var longitudeValueLabel: LabelH3TS!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var startLabel: LabelH3TitleTS!
+    @IBOutlet weak var endLabel: LabelH3TitleTS!
+    @IBOutlet weak var startPlaceLabel: LabelH3TS!
+    @IBOutlet weak var endPlaceLabel: LabelH3TS!
     
     var detail: TimeScoreActivityDetails?
     var locationManager = CLLocationManager()
@@ -29,24 +29,50 @@ class MapControllerViewController: UIViewController, CLLocationManagerDelegate {
             navigationBar.tintColor = UIColor.black
         }
         
+        startLabel.text = RSC_START
+        endLabel.text = RSC_END
+        startPlaceLabel.text = ""
+        endPlaceLabel.text = ""
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if detail != nil {
-            let annotationStart = MKPointAnnotation()
-            annotationStart.coordinate = CLLocationCoordinate2DMake(detail!.startLatitude, detail!.startLongitude)
-            annotationStart.title = RSC_START
+            if detail!.startLatitude != 0 && detail!.startLongitude != 0 {
+                let annotationStart = MKPointAnnotation()
+                annotationStart.coordinate = CLLocationCoordinate2DMake(detail!.startLatitude, detail!.startLongitude)
+                annotationStart.title = RSC_START
+                mapView.addAnnotation(annotationStart)
+                
+                APIGoogle.getFunc.getPlaceFromLatitudeAndLongitude(latitude: detail!.startLatitude, longitude: detail!.startLongitude) { (response) in
+                    if response != nil {
+                        self.startPlaceLabel.text = response
+                    } else {
+                        self.startPlaceLabel.text = RSC_NOT_DEFINED
+                    }
+                }
+            } else {
+                self.startPlaceLabel.text = RSC_NOT_DEFINED
+            }
             
-            let annotationEnd = MKPointAnnotation()
-            annotationEnd.coordinate = CLLocationCoordinate2DMake(detail!.endLatitude, detail!.endLongitude)
-            annotationEnd.title = RSC_END
-            
-            mapView.addAnnotation(annotationStart)
-            mapView.addAnnotation(annotationEnd)
+            if detail!.endLatitude != 0 && detail!.endLongitude != 0 {
+                let annotationEnd = MKPointAnnotation()
+                annotationEnd.coordinate = CLLocationCoordinate2DMake(detail!.endLatitude, detail!.endLongitude)
+                annotationEnd.title = RSC_END
+                mapView.addAnnotation(annotationEnd)
+                
+                APIGoogle.getFunc.getPlaceFromLatitudeAndLongitude(latitude: detail!.endLatitude, longitude: detail!.endLongitude) { (response) in
+                    if response != nil {
+                        self.endPlaceLabel.text = response
+                    } else {
+                        self.endPlaceLabel.text = RSC_NOT_DEFINED
+                    }
+                }
+            } else {
+                self.endPlaceLabel.text = RSC_NOT_DEFINED
+            }
         }
-        
     }
 
 }

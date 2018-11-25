@@ -40,9 +40,9 @@ class APITypicalDays {
                         if let jsonArray = jsonResponse as? [[String: Any]] {
                             for dic in jsonArray{
                                 model.append(TypicalDayAPI(dic))
-                                completion(model[0])
-                                return
                             }
+                            completion(model[0])
+                            return
                         } else {
                             if let jsonArray2 = jsonResponse as? [String: Any] {
                                 model.append(TypicalDayAPI(jsonArray2))
@@ -94,9 +94,9 @@ class APITypicalDays {
                         if let jsonArray = jsonResponse as? [[String: Any]] {
                             for dic in jsonArray{
                                 model.append(TypicalDayAPI(dic))
-                                completion(model)
-                                return
                             }
+                            completion(model)
+                            return
                         } else {
                             if let jsonArray2 = jsonResponse as? [String: Any] {
                                 model.append(TypicalDayAPI(jsonArray2))
@@ -209,9 +209,9 @@ class APITypicalDays {
                         if let jsonArray = jsonResponse as? [[String: Any]] {
                             for dic in jsonArray{
                                 model.append(TypicalDayAPI(dic))
-                                completion(model[0])
-                                return
                             }
+                            completion(model[0])
+                            return
                         } else {
                             if let jsonArray2 = jsonResponse as? [String: Any] {
                                 model.append(TypicalDayAPI(jsonArray2))

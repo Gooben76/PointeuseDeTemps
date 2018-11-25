@@ -49,8 +49,8 @@ class TimeScoreActivityTableCell: UITableViewCell, CLLocationManagerDelegate {
         var totalDuration: Double = 0
         for elm in timeScoreActivity.timeScoreActivityDetails!.allObjects {
             if let element = elm as? TimeScoreActivityDetails {
-                if !element.running {
-                    totalDuration += DateHelper.getFunc.getDurationBetween2Dates(startDate: element.startDateTime!, endDate: element.endDateTime!)
+                if element.startDateTime != nil && element.endDateTime != nil {
+                    totalDuration += element.duration
                 }
             }
         }

@@ -27,7 +27,7 @@ class UsersDataHelpers {
     }
     
     func setNewUser(login: String, password: String, firstName: String?, lastName: String?, mail: String?, image: UIImage?, synchronization: Bool, allowMessages: Bool) -> Bool {
-        if login != "" && password != "" {
+        if login != "" && password != "" && mail != "" {
             let elm = searchUserByLogin(login: login)
             guard elm == nil else {return false}
             let newUser = Users(context: context)
@@ -88,6 +88,32 @@ class UsersDataHelpers {
         }
     }
     
+    func setNewUserFromUserAPI(userAPI: UserAPI!) -> Bool {
+        if userAPI.login != "" && userAPI.password != "" && userAPI.mail != "" {
+            let newUser = Users(context: context)
+            newUser.id = Int32(userAPI.id)
+            newUser.login = userAPI.login
+            newUser.password = userAPI.password
+            if userAPI.firstName != "" {
+                newUser.firstName = userAPI.firstName
+            }
+            if userAPI.lastName != "" {
+                newUser.lastName = userAPI.lastName
+            }
+            if userAPI.mail != "" {
+                newUser.mail = userAPI.mail
+            }
+            newUser.synchronization = userAPI.synchronization
+            newUser.allowMessages = userAPI.allowMessages
+            newUser.modifiedDate = Date()
+            appDelegate.saveContext()
+            
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func setUser(user: Users!) -> Bool {
         if user != nil {
             let elm = searchUserByLogin(login: user.login!)
@@ -102,7 +128,7 @@ class UsersDataHelpers {
                 try context.save()
                 
                 if user.synchronization {
-                    APIUsers.getFunc.updateUserToAPI(userId: user, token: "", completion: { (httpcode) in
+                    APIUsers.getFunc.updateUserToAPI(userId: elm!, token: "", completion: { (httpcode) in
                         print("http response code : \(httpcode)")
                     })
                 }
@@ -116,9 +142,26 @@ class UsersDataHelpers {
         }
     }
     
-    func searchUserByLogin(login : String) -> Users? {
+    func searchUserByLogin(login: String) -> Users? {
         let query: NSFetchRequest<Users> = Users.fetchRequest()
         query.predicate = NSPredicate(format: "login like %@", login)
+        do {
+            var foundRecordsArray = [Users]()
+            try foundRecordsArray = context.fetch(query)
+            if foundRecordsArray.count > 0 {
+                return foundRecordsArray[0]
+            } else {
+                return nil
+            }
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    func searchUserByMail(mail: String) -> Users? {
+        let query: NSFetchRequest<Users> = Users.fetchRequest()
+        query.predicate = NSPredicate(format: "mail like %@", mail)
         do {
             var foundRecordsArray = [Users]()
             try foundRecordsArray = context.fetch(query)

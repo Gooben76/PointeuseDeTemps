@@ -26,6 +26,9 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var allowMessagesSwitch: UISwitch!
     @IBOutlet weak var widthConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topOfImageConstraint: NSLayoutConstraint!
+    
+    let screenSize:CGRect = UIScreen.main.bounds
     
     var navigationBar: UINavigationBar?
     
@@ -62,6 +65,8 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         allowMessagesLabel.text = RSC_ALLOW_MESSAGES
         
         scroll.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
+        
+        synchronizationSwitch.addTarget(self, action: #selector(self.synchronizationSwitchValueDidChange), for: .valueChanged)
     }
 
     @objc func hideKeyboard() {
@@ -70,14 +75,27 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        widthConstraint.constant = view.frame.width - 20
-        scroll.contentSize = CGSize(width: widthConstraint.constant, height: view.frame.height)
+        if view.frame.width != screenSize.width {
+            widthConstraint.constant = screenSize.width - 20
+            topOfImageConstraint.constant = 40
+            //bottomConstraint.constant = 800
+            scroll.contentSize = CGSize(width: widthConstraint.constant, height: 800)
+        } else {
+            widthConstraint.constant = view.frame.width - 20
+            topOfImageConstraint.constant = 20
+            //bottomConstraint.constant = 800
+            scroll.contentSize = CGSize(width: widthConstraint.constant, height: 800)
+        }
         
         if !selectImage {
             if !userCreation {
+                loginTF.isEnabled = false
+                mailTF.isEnabled = false
+                
                 let usr = UserDefaults.standard.object(forKey: "connectedUser")
                 if usr != nil, let login = usr as? String {
-                    if let user = UsersDataHelpers.getFunc.searchUserByLogin(login: login), user != nil {
+                    
+                    if let user = UsersDataHelpers.getFunc.searchUserByLogin(login: login) {
                         userConnected = user
                         loginTF.text = userConnected!.login
                         passwordTF.text = userConnected!.password
@@ -90,8 +108,6 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                             imageView.image = img
                         }
                     } else {
-                        deleteButton.isEnabled = false
-                        deconnectionButton.isEnabled = false
                         UserDefaults.standard.removeObject(forKey: "connectedUser")
                         loginTF.text = ""
                         passwordTF.text = ""
@@ -104,6 +120,8 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                         userCreation = true
                     }
                 }
+                deconnectionButton.isHidden = false
+                deleteButton.isHidden = false
             } else {
                 loginTF.text = ""
                 passwordTF.text = ""
@@ -113,7 +131,18 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                 imageView.image = nil
                 synchronizationSwitch.isOn = false
                 allowMessagesSwitch.isOn = false
+                deconnectionButton.isHidden = true
+                deleteButton.isHidden = true
             }
+        }
+        
+        if synchronizationSwitch.isOn{
+            allowMessagesSwitch.isEnabled = true
+            allowMessagesLabel.isEnabled = true
+        } else {
+            allowMessagesSwitch.isOn = false
+            allowMessagesSwitch.isEnabled = false
+            allowMessagesLabel.isEnabled = false
         }
     }
 
@@ -164,75 +193,64 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     
     @IBAction func saveButton_Click(_ sender: Any) {
         view.endEditing(true)
-        var saveOk: Bool = false
-        if synchronizationSwitch.isOn && mailTF.text == "" {
-            Alert.show.error(message: RSC_MAIL_REQUIRED, controller: self)
-            return
-        }
         if loginTF.text != nil, loginTF.text != "" {
-            if passwordTF.text != nil, passwordTF.text != "" {
-                let mail: String = ""
-                if !userCreation {
-                    if userConnected != nil {
-                        userConnected!.password = passwordTF.text
-                        userConnected!.mail = mailTF.text
-                        userConnected!.firstName = firstNameTF.text
-                        userConnected!.lastName = nameTF.text
-                        userConnected!.image = imageView.image
-                        userConnected!.synchronization = synchronizationSwitch.isOn
-                        userConnected!.allowMessages = allowMessagesSwitch.isOn
-                        if !UsersDataHelpers.getFunc.setUser(user: userConnected!) {
-                            Alert.show.error(message: RSC_SAVE_ERROR, controller: self)
+            if mailTF.text != nil, mailTF.text != "" {
+                if passwordTF.text != nil, passwordTF.text != "" {
+                    if !userCreation {
+                        if userConnected != nil {
+                            userConnected!.password = passwordTF.text
+                            userConnected!.mail = mailTF.text
+                            userConnected!.firstName = firstNameTF.text
+                            userConnected!.lastName = nameTF.text
+                            userConnected!.image = imageView.image
+                            userConnected!.synchronization = synchronizationSwitch.isOn
+                            userConnected!.allowMessages = allowMessagesSwitch.isOn
+                            if !UsersDataHelpers.getFunc.setUser(user: userConnected!) {
+                                Alert.show.error(message: RSC_SAVE_ERROR, controller: self)
+                            } else {
+                                Alert.show.success(message: RSC_SAVE_OK, controller: self)
+                            }
+                        }
+                    } else {
+                        if UsersDataHelpers.getFunc.searchUserByLogin(login: loginTF.text!) != nil {
+                            Alert.show.error(message: RSC_USER_LOGIN_EXIST_LOCALLY, controller: self)
+                            return
+                        }
+                        if UsersDataHelpers.getFunc.searchUserByMail(mail: passwordTF.text!) != nil {
+                            Alert.show.error(message: RSC_USER_MAIL_EXIST_LOCALLY, controller: self)
+                            return
+                        }
+                        
+                        // recherche sur le serveur si le login et/ou le mail existe
+                        
+                        if UsersDataHelpers.getFunc.setNewUser(login: loginTF.text!, password: passwordTF.text!, firstName: firstNameTF.text, lastName: nameTF.text, mail: mailTF.text, image: imageView.image, synchronization: synchronizationSwitch.isOn, allowMessages: allowMessagesSwitch.isOn) {
+                            UserDefaults.standard.set(loginTF.text!, forKey: "connectedUser")
+                            UserDefaults.standard.set(passwordTF.text!, forKey: "connectedUserPassword")
+                            userCreation = false
+                            deleteButton.isEnabled = true
+                            deconnectionButton.isEnabled = true
+                            userConnected = UsersDataHelpers.getFunc.searchUserByLogin(login: loginTF.text!)
+                            let controller = TabBarController()
+                            self.present(controller, animated: true, completion: nil)
                         } else {
-                            saveOk = true
-                            Alert.show.success(message: RSC_SAVE_OK, controller: self)
+                            Alert.show.error(message: RSC_ERR_USERCREATIONFAILED, controller: self)
                         }
                     }
                 } else {
-                    if UsersDataHelpers.getFunc.setNewUser(login: loginTF.text!, password: passwordTF.text!, firstName: firstNameTF.text, lastName: nameTF.text, mail: mail, image: imageView.image, synchronization: synchronizationSwitch.isOn, allowMessages: allowMessagesSwitch.isOn) {
-                        UserDefaults.standard.set(loginTF.text!, forKey: "connectedUser")
-                        saveOk = true
-                        userCreation = false
-                        deleteButton.isEnabled = true
-                        deconnectionButton.isEnabled = true
-                        userConnected = UsersDataHelpers.getFunc.searchUserByLogin(login: loginTF.text!)
-                        let controller = TabBarController()
-                        self.present(controller, animated: true, completion: nil)
-                    } else {
-                        Alert.show.error(message: RSC_ERR_USERCREATIONFAILED, controller: self)
-                    }
+                    Alert.show.error(message: RSC_PASSWORD_REQUIRED, controller: self)
                 }
             } else {
-                Alert.show.error(message: RSC_PASSWORD_REQUIRED, controller: self)
+                Alert.show.error(message: RSC_MAIL_REQUIRED, controller: self)
             }
         } else {
             Alert.show.error(message: RSC_LOGIN_REQUIRED, controller: self)
-        }
-        if saveOk && userConnected != nil {
-            if userConnected!.synchronization {
-                if userConnected!.id == 0 {
-                    APIUsers.getFunc.createUserToAPI(userId: userConnected!, token: "") { (userAPI) in
-                        if userAPI != nil {
-                            self.userConnected!.id = Int32(userAPI!.id)
-                            if UsersDataHelpers.getFunc.setUser(user: self.userConnected!) {
-                                Alert.show.success(message: "Synchro ok, id = \(userAPI!.id)", controller: self)
-                            }
-                        } else {
-                            Alert.show.error(message: RSC_SYNCHRONIZATION_ERROR, controller: self)
-                        }
-                    }
-                } else {
-                    APIUsers.getFunc.updateUserToAPI(userId: userConnected!, token: "") { (status) in
-                        print("Statut : \(status)")
-                    }
-                }
-            }
         }
     }
     
     @IBAction func deconnectionButton_Click(_ sender: Any) {
         view.endEditing(true)
         UserDefaults.standard.removeObject(forKey: "connectedUser")
+        UserDefaults.standard.removeObject(forKey: "connectedUserPassword")
         let controller = ConnectionController()
         self.present(controller, animated: true, completion: nil)
     }
@@ -242,6 +260,7 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         if userConnected != nil {
             if UsersDataHelpers.getFunc.delUser(user: userConnected!) {
                 UserDefaults.standard.removeObject(forKey: "connectedUser")
+                UserDefaults.standard.removeObject(forKey: "connectedUserPassword")
                 let controller = ConnectionController()
                 self.present(controller, animated: true, completion: nil)
             } else {
@@ -250,4 +269,14 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         }
     }
     
+    @objc func synchronizationSwitchValueDidChange(sender: UISwitch!) {
+        if sender.isOn{
+            allowMessagesSwitch.isEnabled = true
+            allowMessagesLabel.isEnabled = true
+        } else {
+            allowMessagesSwitch.isOn = false
+            allowMessagesSwitch.isEnabled = false
+            allowMessagesLabel.isEnabled = false
+        }
+    }
 }

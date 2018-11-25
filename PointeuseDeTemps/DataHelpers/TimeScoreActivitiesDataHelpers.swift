@@ -14,6 +14,13 @@ class TimeScoreActivitiesDataHelpers {
     
     static let getFunc = TimeScoreActivitiesDataHelpers()
     
+    func getAllTimeScoreActivities(userConnected: Users!) -> [TimeScoreActivities]? {
+        if let result = userConnected.timeScoresActivities?.allObjects as? [TimeScoreActivities] {
+            return result
+        }
+        return nil
+    }
+    
     func getTimeScoreActivitiesForATimeScore(timeScore: TimeScores, userConnected: Users) -> [TimeScoreActivities]? {
         if let result = userConnected.timeScoresActivities?.allObjects as? [TimeScoreActivities] {
             let predicate1 = NSPredicate(format: "timeScoreId == %@", timeScore)
@@ -30,13 +37,23 @@ class TimeScoreActivitiesDataHelpers {
     func setNewTimeScoreActivity(timeScore: TimeScores, activity: Activities, userConnected: Users) -> Bool {
         let elm = searchTimeScoreActivityByTimeScoreAndActivity(timeScore: timeScore, activity: activity, userConnected: userConnected)
         guard elm == nil else {return false}
-        let newData = TimeScoreActivities(context: context)
-        newData.timeScoreId = timeScore
-        newData.activityId = activity
-        newData.running = false
-        newData.userId = userConnected
-        newData.modifiedDate = Date()
+        let newElm = TimeScoreActivities(context: context)
+        newElm.timeScoreId = timeScore
+        newElm.activityId = activity
+        newElm.running = false
+        newElm.userId = userConnected
+        newElm.modifiedDate = Date()
         appDelegate.saveContext()
+        
+        if userConnected.synchronization {
+            APITimeScoreActivities.getFunc.createToAPI(timeScoreActivityId: newElm, token: "") { (newAPI) in
+                if newAPI != nil, newAPI!.id != -1 {
+                    newElm.id = Int32(newAPI!.id)
+                    newElm.modifiedDate = Date()
+                    appDelegate.saveContext()
+                }
+            }
+        }
         return true
     }
     
@@ -47,6 +64,12 @@ class TimeScoreActivitiesDataHelpers {
         elm!.setValue(Date(), forKey: "modifiedDate")
         do {
             try context.save()
+            
+            if userConnected.synchronization {
+                APITimeScoreActivities.getFunc.updateToAPI(timeScoreActivityId: elm!, token: "", completion: { (httpcode) in
+                    print("http response code : \(httpcode)")
+                })
+            }
             return true
         } catch {
             print(error.localizedDescription)
@@ -70,6 +93,12 @@ class TimeScoreActivitiesDataHelpers {
         elm!.setValue(Date(), forKey: "modifiedDate")
         do {
             try context.save()
+            
+            if userConnected.synchronization {
+                APITimeScoreActivities.getFunc.updateToAPI(timeScoreActivityId: elm!, token: "", completion: { (httpcode) in
+                    print("http response code : \(httpcode)")
+                })
+            }
             return true
         } catch {
             print(error.localizedDescription)
@@ -89,16 +118,51 @@ class TimeScoreActivitiesDataHelpers {
         return nil
     }
     
-    func delTimeScoreActivity(timeScoreActivity: TimeScoreActivities!) -> Bool {
+    func delTimeScoreActivity(timeScoreActivity: TimeScoreActivities!, userConnected: Users!) -> Bool {
         if timeScoreActivity != nil {
+            let deleteId = timeScoreActivity.id
             context.delete(timeScoreActivity)
             do {
                 try context.save()
+                
+                if userConnected.synchronization {
+                    APIActivities.getFunc.deleteToAPI(id: deleteId, token: "") { (httpcode) in
+                        print("http response code : \(httpcode)")
+                    }
+                }
                 return true
             } catch {
                 print(error.localizedDescription)
                 return false
             }
+        } else {
+            return false
+        }
+    }
+    
+    func searchTimeScoreActivityById(id: Int, userConnected: Users!) -> TimeScoreActivities? {
+        if let result = userConnected.timeScoresActivities?.allObjects as? [TimeScoreActivities] {
+            let predicate1 = NSPredicate(format: "id == \(id)")
+            if let resultNS = (result as NSArray).filtered(using: predicate1) as? [TimeScoreActivities] {
+                if resultNS.count > 0 {
+                    return resultNS[0]
+                }
+            }
+        }
+        return nil
+    }
+    
+    func setNewTimeScoreActivityFromTimeScoreActivityAPI(timeScoreActivityAPI: TimeScoreActivityAPI!, userConnected: Users) -> Bool {
+        if timeScoreActivityAPI.timeScoreId > 0 && timeScoreActivityAPI.activityId > 0 {
+            let newElm = TimeScoreActivities(context: context)
+            newElm.id = Int32(timeScoreActivityAPI.id)
+            newElm.timeScoreId = TimeScoresDataHelpers.getFunc.searchTimeScoreById(id: timeScoreActivityAPI.timeScoreId, userConnected: userConnected)
+            newElm.activityId = ActivitiesDataHelpers.getFunc.searchActivityById(id: timeScoreActivityAPI.activityId, userConnected: userConnected)
+            newElm.running = timeScoreActivityAPI.running
+            newElm.modifiedDate = timeScoreActivityAPI.modifiedDate
+            newElm.userId = userConnected
+            appDelegate.saveContext()
+            return true
         } else {
             return false
         }

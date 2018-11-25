@@ -18,15 +18,6 @@ class TypicalDaysDataHelpers {
             let sortedResult = result.sorted(by: { $0.typicalDayName! < $1.typicalDayName!})
             return sortedResult
         }
-        /*let query: NSFetchRequest<TypicalDays> = TypicalDays.fetchRequest()
-        query.predicate = NSPredicate(format: "userId like %@", userConnected)
-        
-        query.sortDescriptors?.append(sortDescriptor)
-        do {
-            days = try context.fetch(query)
-        } catch {
-            print(error.localizedDescription)
-        }*/
         return nil
     }
     
@@ -34,23 +25,42 @@ class TypicalDaysDataHelpers {
         if typicalDayName != "" {
             let elm = searchTypicalDayByName(typicalDayName: typicalDayName, userConnected: userConnected)
             guard elm == nil else {return false}
-            let newDay = TypicalDays(context: context)
-            newDay.typicalDayName = typicalDayName
-            newDay.modifiedDate = Date()
-            newDay.userID = userConnected
+            let newElm = TypicalDays(context: context)
+            newElm.typicalDayName = typicalDayName
+            newElm.modifiedDate = Date()
+            newElm.userID = userConnected
             appDelegate.saveContext()
+            
+            if userConnected.synchronization {
+                APITypicalDays.getFunc.createToAPI(typicalDayId: newElm, token: "") { (newAPI) in
+                    if newAPI != nil, newAPI!.id != -1 {
+                        newElm.id = Int32(newAPI!.id)
+                        newElm.modifiedDate = Date()
+                        appDelegate.saveContext()
+                    }
+                }
+            }
+            
             return true
         } else {
             return false
         }
     }
     
-    func delTypicalDay(typicalDay: TypicalDays!) -> Bool {
+    func delTypicalDay(typicalDay: TypicalDays!, userConnected: Users) -> Bool {
         if typicalDay != nil {
-            if TypicalDayActivitiesDataHelpers.getFunc.delTypicalDayActivitiesFromTypicalDay(typicalDay: typicalDay) {
+            let deleteId = typicalDay.id
+            if TypicalDayActivitiesDataHelpers.getFunc.delTypicalDayActivitiesFromTypicalDay(typicalDay: typicalDay, userConnected: userConnected) {
                 context.delete(typicalDay)
                 do {
                     try context.save()
+                    
+                    if userConnected.synchronization {
+                        APITypicalDays.getFunc.deleteToAPI(id: deleteId, token: "") { (httpcode) in
+                            print("http response code : \(httpcode)")
+                        }
+                    }
+                    
                     return true
                 } catch {
                     print(error.localizedDescription)
@@ -68,6 +78,11 @@ class TypicalDaysDataHelpers {
             elm!.setValue(Date(), forKey: "modifiedDate")
             do {
                 try context.save()
+                if userConnected.synchronization {
+                    APITypicalDays.getFunc.updateToAPI(typicalDayId: elm!, token: "", completion: { (httpcode) in
+                        print("http response code : \(httpcode)")
+                    })
+                }
                 return true
             } catch {
                 print(error.localizedDescription)
@@ -92,22 +107,31 @@ class TypicalDaysDataHelpers {
             return nil
         }
         return nil
-        /*let query: NSFetchRequest<TypicalDays> = TypicalDays.fetchRequest()
-        let predicate1 = NSPredicate(format: "typicalDayName like %@", typicalDayName)
-        let predicate2 = NSPredicate(format: "userId like %@", userConnected)
-        let predicateCompount = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1,predicate2])
-        query.predicate = predicateCompount
-        do {
-            var foundRecordsArray = [TypicalDays]()
-            try foundRecordsArray = context.fetch(query)
-            if foundRecordsArray.count > 0 {
-                return foundRecordsArray[0]
-            } else {
-                return nil
+    }
+    
+    func searchTypicalDayById(id: Int, userConnected: Users!) -> TypicalDays? {
+        if let result = userConnected.typicalDays?.allObjects as? [TypicalDays] {
+            let predicate1 = NSPredicate(format: "id == \(id)")
+            if let resultNS = (result as NSArray).filtered(using: predicate1) as? [TypicalDays] {
+                if resultNS.count > 0 {
+                    return resultNS[0]
+                }
             }
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }*/
+        }
+        return nil
+    }
+    
+    func setNewTypicalDayFromTypicalDayAPI(typicalDayAPI: TypicalDayAPI!, userConnected: Users) -> Bool {
+        if typicalDayAPI.typicalDayName != "" {
+            let newElm = TypicalDays(context: context)
+            newElm.id = Int32(typicalDayAPI.id)
+            newElm.typicalDayName = typicalDayAPI.typicalDayName
+            newElm.modifiedDate = typicalDayAPI.modifiedDate
+            newElm.userID = userConnected
+            appDelegate.saveContext()
+            return true
+        } else {
+            return false
+        }
     }
 }

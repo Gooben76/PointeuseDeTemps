@@ -50,8 +50,8 @@ class TimeScoresController: UIViewController {
             self.navigationItem.setRightBarButtonItems([rightAddBarButtonItem!], animated: true)
             leftAddBarButtonItem = UIBarButtonItem(image: UIImage(named: "del-16px"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(delButtonAction))
             leftAddBarButtonItem!.tintColor = UIColor.black
-            let apiBarButtonItem = UIBarButtonItem(title: "API", style: UIBarButtonItemStyle.done, target: self, action: #selector(apiButtonAction))
-            self.navigationItem.setLeftBarButtonItems([leftAddBarButtonItem!, apiBarButtonItem], animated: true)
+            //let apiBarButtonItem = UIBarButtonItem(title: "API", style: UIBarButtonItemStyle.done, target: self, action: #selector(apiButtonAction))
+            //self.navigationItem.setLeftBarButtonItems([leftAddBarButtonItem!, apiBarButtonItem], animated: true)
         }
         
         let usr = UserDefaults.standard.object(forKey: "connectedUser")
@@ -84,7 +84,7 @@ class TimeScoresController: UIViewController {
                     print("Token : \(token.token)")
                     APIUsers.getFunc.getUserFromId(id: token.id, token: token.token, completion: { (userAPI) in
                         if userAPI != nil {
-                            print(userAPI)
+                            print("")
                         } else {
                             print("Pas de User")
                         }
@@ -234,7 +234,7 @@ class TimeScoresController: UIViewController {
     
     @objc func delButtonAction(_ sender: Any) {
         if timeScore != nil {
-            if TimeScoresDataHelpers.getFunc.delTimeScore(timeScore: timeScore) {
+            if TimeScoresDataHelpers.getFunc.delTimeScore(timeScore: timeScore, userConnected: userConnected!) {
                 timeScore = nil
                 typicalDayTF.text = ""
                 Alert.show.success(message: RSC_DELETE_OK, controller: self)

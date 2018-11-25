@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1707386E2156B05B0092C3C8 /* TimeScoresDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1707386D2156B05B0092C3C8 /* TimeScoresDataHelpers.swift */; };
 		170738702156C5C80092C3C8 /* TimeScoresControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1707386F2156C5C80092C3C8 /* TimeScoresControllerExtension.swift */; };
+		17087AD121A040900059C20A /* Synchronization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17087AD021A040900059C20A /* Synchronization.swift */; };
 		1712F18E21673BF2003EE77C /* LabelH1TS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1712F18D21673BF2003EE77C /* LabelH1TS.swift */; };
 		1712F19021673C30003EE77C /* LabelH2TS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1712F18F21673C30003EE77C /* LabelH2TS.swift */; };
 		1712F19221673C4C003EE77C /* LabelH3TS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1712F19121673C4C003EE77C /* LabelH3TS.swift */; };
@@ -61,6 +62,12 @@
 		1774E88B212486C200A65415 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E88A212486C200A65415 /* Resources.swift */; };
 		17795D06218AF47F00C0A33B /* APIStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17795D05218AF47F00C0A33B /* APIStructs.swift */; };
 		17BA3A462193584E0004FA13 /* APIActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BA3A452193584E0004FA13 /* APIActivities.swift */; };
+		17BD4B8A2196F9640040F58B /* APITipicalDayActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BD4B892196F9640040F58B /* APITipicalDayActivities.swift */; };
+		17BD4B8C21970C640040F58B /* APITimeScores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BD4B8B21970C640040F58B /* APITimeScores.swift */; };
+		17BD4B8E2197150F0040F58B /* APITimeScoreActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BD4B8D2197150F0040F58B /* APITimeScoreActivities.swift */; };
+		17BD4B9021971FAB0040F58B /* APITimeScoreActivityDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BD4B8F21971FAB0040F58B /* APITimeScoreActivityDetails.swift */; };
+		17BD4B93219730130040F58B /* APIGoogle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BD4B92219730130040F58B /* APIGoogle.swift */; };
+		17BD4B95219733290040F58B /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BD4B94219733290040F58B /* DoubleExtension.swift */; };
 		17C989A42177C18300CAF776 /* MapControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C989A22177C18300CAF776 /* MapControllerViewController.swift */; };
 		17C989A52177C18300CAF776 /* MapControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17C989A32177C18300CAF776 /* MapControllerViewController.xib */; };
 		17CCCCBB2194DBEB003E9A50 /* APITypicalDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CCCCBA2194DBEB003E9A50 /* APITypicalDays.swift */; };
@@ -75,6 +82,7 @@
 		17E0F7322121FD3D00F5DD1E /* ParametersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E0F7302121FD3D00F5DD1E /* ParametersController.swift */; };
 		17E0F7332121FD3D00F5DD1E /* ParametersController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17E0F7312121FD3D00F5DD1E /* ParametersController.xib */; };
 		17E0F7352121FD6200F5DD1E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E0F7342121FD6200F5DD1E /* TabBarController.swift */; };
+		17F1792F21A9C0F7007682B0 /* ButtonSmallTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F1792E21A9C0F7007682B0 /* ButtonSmallTS.swift */; };
 		17F8C5B821221AAE00CB312E /* TimeScoresController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F8C5B621221AAE00CB312E /* TimeScoresController.swift */; };
 		17F8C5B921221AAE00CB312E /* TimeScoresController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17F8C5B721221AAE00CB312E /* TimeScoresController.xib */; };
 		17FC842A2168A182000BDEB8 /* LabelH2TitleTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FC84292168A182000BDEB8 /* LabelH2TitleTS.swift */; };
@@ -86,6 +94,7 @@
 /* Begin PBXFileReference section */
 		1707386D2156B05B0092C3C8 /* TimeScoresDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScoresDataHelpers.swift; sourceTree = "<group>"; };
 		1707386F2156C5C80092C3C8 /* TimeScoresControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScoresControllerExtension.swift; sourceTree = "<group>"; };
+		17087AD021A040900059C20A /* Synchronization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronization.swift; sourceTree = "<group>"; };
 		1712F18D21673BF2003EE77C /* LabelH1TS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelH1TS.swift; sourceTree = "<group>"; };
 		1712F18F21673C30003EE77C /* LabelH2TS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelH2TS.swift; sourceTree = "<group>"; };
 		1712F19121673C4C003EE77C /* LabelH3TS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelH3TS.swift; sourceTree = "<group>"; };
@@ -140,6 +149,12 @@
 		1774E88A212486C200A65415 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		17795D05218AF47F00C0A33B /* APIStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStructs.swift; sourceTree = "<group>"; };
 		17BA3A452193584E0004FA13 /* APIActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIActivities.swift; sourceTree = "<group>"; };
+		17BD4B892196F9640040F58B /* APITipicalDayActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITipicalDayActivities.swift; sourceTree = "<group>"; };
+		17BD4B8B21970C640040F58B /* APITimeScores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITimeScores.swift; sourceTree = "<group>"; };
+		17BD4B8D2197150F0040F58B /* APITimeScoreActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITimeScoreActivities.swift; sourceTree = "<group>"; };
+		17BD4B8F21971FAB0040F58B /* APITimeScoreActivityDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITimeScoreActivityDetails.swift; sourceTree = "<group>"; };
+		17BD4B92219730130040F58B /* APIGoogle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIGoogle.swift; sourceTree = "<group>"; };
+		17BD4B94219733290040F58B /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		17C989A22177C18300CAF776 /* MapControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapControllerViewController.swift; sourceTree = "<group>"; };
 		17C989A32177C18300CAF776 /* MapControllerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapControllerViewController.xib; sourceTree = "<group>"; };
 		17CCCCBA2194DBEB003E9A50 /* APITypicalDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITypicalDays.swift; sourceTree = "<group>"; };
@@ -154,6 +169,7 @@
 		17E0F7302121FD3D00F5DD1E /* ParametersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersController.swift; sourceTree = "<group>"; };
 		17E0F7312121FD3D00F5DD1E /* ParametersController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParametersController.xib; sourceTree = "<group>"; };
 		17E0F7342121FD6200F5DD1E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		17F1792E21A9C0F7007682B0 /* ButtonSmallTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSmallTS.swift; sourceTree = "<group>"; };
 		17F8C5B621221AAE00CB312E /* TimeScoresController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScoresController.swift; sourceTree = "<group>"; };
 		17F8C5B721221AAE00CB312E /* TimeScoresController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeScoresController.xib; sourceTree = "<group>"; };
 		17FC84292168A182000BDEB8 /* LabelH2TitleTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelH2TitleTS.swift; sourceTree = "<group>"; };
@@ -184,6 +200,7 @@
 				17FC84292168A182000BDEB8 /* LabelH2TitleTS.swift */,
 				1712F18D21673BF2003EE77C /* LabelH1TS.swift */,
 				1767F35F21347E0700BF17DA /* ButtonTS.swift */,
+				17F1792E21A9C0F7007682B0 /* ButtonSmallTS.swift */,
 				1712F19321673E57003EE77C /* TextFieldSmallTS.swift */,
 				1774E88821244A3500A65415 /* TextFieldTS.swift */,
 				1774E8802124108900A65415 /* ImageViewTS.swift */,
@@ -195,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				1767F35B213404C100BF17DA /* UIViewExtension.swift */,
+				17BD4B94219733290040F58B /* DoubleExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -315,6 +333,11 @@
 				1732D279218E28CE0038B356 /* APIUsers.swift */,
 				17BA3A452193584E0004FA13 /* APIActivities.swift */,
 				17CCCCBA2194DBEB003E9A50 /* APITypicalDays.swift */,
+				17BD4B892196F9640040F58B /* APITipicalDayActivities.swift */,
+				17BD4B8B21970C640040F58B /* APITimeScores.swift */,
+				17BD4B8D2197150F0040F58B /* APITimeScoreActivities.swift */,
+				17BD4B8F21971FAB0040F58B /* APITimeScoreActivityDetails.swift */,
+				17087AD021A040900059C20A /* Synchronization.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -339,9 +362,11 @@
 			isa = PBXGroup;
 			children = (
 				175FC090211782B500B6A3E5 /* AppDelegate.swift */,
-				175F19412185F82600761450 /* API */,
 				1774E8852124249400A65415 /* DataHelpers */,
+				175F19412185F82600761450 /* API */,
+				17BD4B9121972FAB0040F58B /* APIExternal */,
 				1774E8822124218D00A65415 /* Utilities */,
+				1744366A2184FF74009A5E36 /* Extensions */,
 				17BAAC49211C9C760035DF40 /* Models */,
 				17BAAC48211C9C5E0035DF40 /* Views */,
 				17BAAC47211C9C4A0035DF40 /* Controllers */,
@@ -401,7 +426,6 @@
 				17443673218500E2009A5E36 /* TimeScores */,
 				17443672218500C0009A5E36 /* TypicalDays */,
 				17443671218500A7009A5E36 /* Activities */,
-				1744366A2184FF74009A5E36 /* Extensions */,
 				174436692184FF34009A5E36 /* CustomControls */,
 			);
 			path = Views;
@@ -421,6 +445,14 @@
 				175FC09F211782B600B6A3E5 /* Info.plist */,
 			);
 			path = Plists;
+			sourceTree = "<group>";
+		};
+		17BD4B9121972FAB0040F58B /* APIExternal */ = {
+			isa = PBXGroup;
+			children = (
+				17BD4B92219730130040F58B /* APIGoogle.swift */,
+			);
+			path = APIExternal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -526,8 +558,11 @@
 				172AC028213B26C8007E254F /* ConnectionController.swift in Sources */,
 				1712F19221673C4C003EE77C /* LabelH3TS.swift in Sources */,
 				1712F18E21673BF2003EE77C /* LabelH1TS.swift in Sources */,
+				17BD4B8C21970C640040F58B /* APITimeScores.swift in Sources */,
 				1712F19421673E57003EE77C /* TextFieldSmallTS.swift in Sources */,
 				175FC099211782B500B6A3E5 /* PointeuseDeTemps.xcdatamodeld in Sources */,
+				17F1792F21A9C0F7007682B0 /* ButtonSmallTS.swift in Sources */,
+				17BD4B9021971FAB0040F58B /* APITimeScoreActivityDetails.swift in Sources */,
 				1712F19021673C30003EE77C /* LabelH2TS.swift in Sources */,
 				1723ACF021580A45007F63DC /* PickerViewSelection.swift in Sources */,
 				1714C21C2165551C003FBDFB /* TimeScoreActivityDetailsDataHelpers.swift in Sources */,
@@ -537,9 +572,11 @@
 				1767F35E2134490500BF17DA /* ActivitiesControllerExtension.swift in Sources */,
 				172E0BF121669303006A8039 /* HistoryTimeScoreActivityTableCell.swift in Sources */,
 				17C989A42177C18300CAF776 /* MapControllerViewController.swift in Sources */,
+				17BD4B8A2196F9640040F58B /* APITipicalDayActivities.swift in Sources */,
 				1723ACE62157A01B007F63DC /* NotificationNameExtension.swift in Sources */,
 				1767F36021347E0700BF17DA /* ButtonTS.swift in Sources */,
 				1732D27A218E28CE0038B356 /* APIUsers.swift in Sources */,
+				17BD4B93219730130040F58B /* APIGoogle.swift in Sources */,
 				1774E8842124222C00A65415 /* Constants.swift in Sources */,
 				175B28A8216A5A6800BB4028 /* LabelStatusTS.swift in Sources */,
 				17F8C5B821221AAE00CB312E /* TimeScoresController.swift in Sources */,
@@ -552,6 +589,7 @@
 				17CFDF8B21235B3800EC4F1A /* DaysController.swift in Sources */,
 				1774E88B212486C200A65415 /* Resources.swift in Sources */,
 				175FC091211782B500B6A3E5 /* AppDelegate.swift in Sources */,
+				17087AD121A040900059C20A /* Synchronization.swift in Sources */,
 				172E0BE9216685EC006A8039 /* HistoryTimeScoreTableCell.swift in Sources */,
 				172E0BF521669655006A8039 /* HistoryActivityDetailsController.swift in Sources */,
 				17795D06218AF47F00C0A33B /* APIStructs.swift in Sources */,
@@ -561,9 +599,11 @@
 				17FC842A2168A182000BDEB8 /* LabelH2TitleTS.swift in Sources */,
 				1723ACE82157AD4A007F63DC /* TimeScoreActivitiesDataHelpers.swift in Sources */,
 				170738702156C5C80092C3C8 /* TimeScoresControllerExtension.swift in Sources */,
+				17BD4B8E2197150F0040F58B /* APITimeScoreActivities.swift in Sources */,
 				172E0BED21668E86006A8039 /* HistoryActivitiesController.swift in Sources */,
 				174436682184F1D3009A5E36 /* Character.swift in Sources */,
 				1774E8812124108900A65415 /* ImageViewTS.swift in Sources */,
+				17BD4B95219733290040F58B /* DoubleExtension.swift in Sources */,
 				17E0F72E2121FCBC00F5DD1E /* ActivitiesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

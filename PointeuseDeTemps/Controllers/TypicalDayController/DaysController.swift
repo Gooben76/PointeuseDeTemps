@@ -78,7 +78,7 @@ class DaysController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
             case .delete:
-                if TypicalDaysDataHelpers.getFunc.delTypicalDay(typicalDay: typicalDays[indexPath.row]) {
+                if TypicalDaysDataHelpers.getFunc.delTypicalDay(typicalDay: typicalDays[indexPath.row], userConnected: userConnected!) {
                     typicalDays.remove(at: indexPath.row)
                     self.daysTableView.deleteRows(at: [indexPath], with: .fade)
                 }

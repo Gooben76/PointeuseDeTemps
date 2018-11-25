@@ -39,12 +39,16 @@ class HistoryController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let nib = UINib(nibName: cellID, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: cellID)
-        
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if let allData = TimeScoresDataHelpers.getFunc.getAllTimeScores(userConnected: userConnected!) {
             timeScores = allData
         }
+        tableView.reloadData()
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return timeScores.count
     }

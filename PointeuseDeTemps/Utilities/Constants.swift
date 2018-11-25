@@ -13,3 +13,6 @@ let context = appDelegate.persistentContainer.viewContext
 
 //let url = "http://timescore.benoitg.net/api/"
 let url = "http://timescoreunsecure.benoitg.net/api/"
+
+let googleAPIKey = "AIzaSyCpQ1nrEPqBVqWUmHKU_V2vuw65Po5-l2o"
+let urlAPIGeocoding = "https://maps.googleapis.com/maps/api/geocode/"

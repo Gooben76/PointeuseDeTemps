@@ -33,7 +33,7 @@ extension TimeScoresController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            if TimeScoreActivitiesDataHelpers.getFunc.delTimeScoreActivity(timeScoreActivity: timeScoreActivities![indexPath.row]) {
+            if TimeScoreActivitiesDataHelpers.getFunc.delTimeScoreActivity(timeScoreActivity: timeScoreActivities![indexPath.row], userConnected: userConnected!) {
                 timeScoreActivities!.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
             }

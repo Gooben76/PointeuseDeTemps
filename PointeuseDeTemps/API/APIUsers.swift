@@ -13,7 +13,7 @@ class APIUsers {
     static let getFunc = APIUsers()
     
     func getUserFromId(id: Int, token: String, completion: @escaping (UserAPI?) -> ()) {
-        let fullURL = url + "users"
+        let fullURL = url + "users/\(id)"
         let urlToGet = URL(string: fullURL)
         var model = [UserAPI]()
         if urlToGet != nil {
@@ -44,9 +44,125 @@ class APIUsers {
                             for dic in jsonArray{
                                 model.append(UserAPI(dic))
                                 model[0].password = EncodeHelpers.getFunc.decrypte(key: model[0].password)
+                            }
+                            completion(model[0])
+                            return
+                        } else {
+                            if let jsonArray2 = jsonResponse as? [String: Any] {
+                                model.append(UserAPI(jsonArray2))
+                                model[0].password = EncodeHelpers.getFunc.decrypte(key: model[0].password)
                                 completion(model[0])
                                 return
+                            } else {
+                                completion(nil)
+                                return
                             }
+                        }
+                    } catch let parsingError {
+                        print("Error", parsingError)
+                        completion(nil)
+                    }
+                } else {
+                    completion(nil)
+                    return
+                }
+            }.resume()
+        }
+    }
+    
+    func getUserFromLoginAndMail(login: String, mail: String, token: String, completion: @escaping (UserAPI?) -> ()) {
+        let fullURL = url + "users/loginandmail/\(login)/\(mail)"
+        let urlToGet = URL(string: fullURL)
+        var model = [UserAPI]()
+        if urlToGet != nil {
+            var request = URLRequest(url: urlToGet!) //requestURL( (string: fullURL)
+            request.httpMethod = "GET"
+            if token.count > 0 {
+                //request.setValue("token=\"\(token)\"", forHTTPHeaderField: "Authorization")
+                request.setValue(token, forHTTPHeaderField: "Authorization: Bearer")
+            }
+            let session = URLSession.shared
+            session.dataTask(with: request) { (data, response, error) in
+                guard let dataResponse = data, error == nil else {
+                    print(error?.localizedDescription ?? "Response Error")
+                    completion(nil)
+                    return
+                }
+                
+                let httpStatus = response as? HTTPURLResponse
+                let httpStatusCode:Int = (httpStatus?.statusCode)!
+                print("Statut : \(httpStatusCode)")
+                
+                if httpStatusCode < 400 {
+                    do {
+                        let jsonResponse = try JSONSerialization.jsonObject(with:
+                            dataResponse, options: [])
+                        
+                        if let jsonArray = jsonResponse as? [[String: Any]] {
+                            for dic in jsonArray{
+                                model.append(UserAPI(dic))
+                                model[0].password = EncodeHelpers.getFunc.decrypte(key: model[0].password)
+                            }
+                            completion(model[0])
+                            return
+                        } else {
+                            if let jsonArray2 = jsonResponse as? [String: Any] {
+                                model.append(UserAPI(jsonArray2))
+                                model[0].password = EncodeHelpers.getFunc.decrypte(key: model[0].password)
+                                completion(model[0])
+                                return
+                            } else {
+                                completion(nil)
+                                return
+                            }
+                        }
+                    } catch let parsingError {
+                        print("Error", parsingError)
+                        completion(nil)
+                    }
+                } else {
+                    completion(nil)
+                    return
+                }
+                }.resume()
+        }
+    }
+    
+    func getUserFromLoginOrMailExists(login: String, mail: String, token: String, completion: @escaping (UserAPI?) -> ()) {
+        let fullURL = url + "users/loginormailexists/\(login)/\(mail)"
+        let urlToGet = URL(string: fullURL)
+        var model = [UserAPI]()
+        if urlToGet != nil {
+            var request = URLRequest(url: urlToGet!) //requestURL( (string: fullURL)
+            request.httpMethod = "GET"
+            if token.count > 0 {
+                //request.setValue("token=\"\(token)\"", forHTTPHeaderField: "Authorization")
+                request.setValue(token, forHTTPHeaderField: "Authorization: Bearer")
+            }
+            let session = URLSession.shared
+            session.dataTask(with: request) { (data, response, error) in
+                guard let dataResponse = data, error == nil else {
+                    print(error?.localizedDescription ?? "Response Error")
+                    completion(nil)
+                    return
+                }
+                
+                let httpStatus = response as? HTTPURLResponse
+                let httpStatusCode:Int = (httpStatus?.statusCode)!
+                print("Statut : \(httpStatusCode)")
+                
+                if httpStatusCode < 400 {
+                    do {
+                        let jsonResponse = try JSONSerialization.jsonObject(with:
+                            dataResponse, options: [])
+                        
+                        if let jsonArray = jsonResponse as? [[String: Any]] {
+                            for dic in jsonArray{
+                                model.append(UserAPI(dic))
+                                model[0].password = EncodeHelpers.getFunc.decrypte(key: model[0].password)
+                            }
+                            completion(model[0])
+                            return
                         } else {
                             if let jsonArray2 = jsonResponse as? [String: Any] {
                                 model.append(UserAPI(jsonArray2))
@@ -163,13 +279,15 @@ class APIUsers {
                         
                         if let jsonArray = jsonResponse as? [[String: Any]] {
                             for dic in jsonArray{
-                                model.append(UserAPI(dic)) // adding now value in Model array
-                                completion(model[0])
-                                return
+                                model.append(UserAPI(dic))
+                                model[0].password = EncodeHelpers.getFunc.decrypte(key: model[0].password)
                             }
+                            completion(model[0])
+                            return
                         } else {
                             if let jsonArray2 = jsonResponse as? [String: Any] {
                                 model.append(UserAPI(jsonArray2))
+                                model[0].password = EncodeHelpers.getFunc.decrypte(key: model[0].password)
                                 completion(model[0])
                                 return
                             } else {

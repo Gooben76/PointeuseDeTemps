@@ -29,6 +29,8 @@ class EncodeHelpers {
         var outData: String = ""
         var i = 0
         while i < key.count {
+            print("key1 : \(key.index(key.startIndex, offsetBy: i))")
+            print("key2 : \(key.index(key.startIndex, offsetBy: i+3))")
             let value = key[key.index(key.startIndex, offsetBy: i)..<key.index(key.startIndex, offsetBy: i+3)]
             let intValue = Int(value)
             let c = Character(UnicodeScalar(intValue!)!)

@@ -27,8 +27,8 @@ class HistoryTimeScoreTableCell: UITableViewCell {
             if let element = elm as? TimeScoreActivities {
                 for elm2 in element.timeScoreActivityDetails!.allObjects {
                     if let element2 = elm2 as? TimeScoreActivityDetails {
-                        if !element2.running {
-                            totalDuration += DateHelper.getFunc.getDurationBetween2Dates(startDate: element2.startDateTime!, endDate: element2.endDateTime!)
+                        if element2.startDateTime != nil && element2.endDateTime != nil {
+                            totalDuration += element2.duration
                         }
                     }
                 

@@ -29,7 +29,10 @@ class HistoryActivitiesController: UIViewController, UITableViewDataSource, UITa
         
         let nib = UINib(nibName: cellID, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: cellID)
-        
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if timeScore != nil && userConnected != nil {
             dateLabel.text = DateHelper.getFunc.convertDateToString(timeScore!.date!)
             
@@ -38,7 +41,7 @@ class HistoryActivitiesController: UIViewController, UITableViewDataSource, UITa
             }
         }
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return timeScoreActivities.count
     }

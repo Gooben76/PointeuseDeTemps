@@ -32,6 +32,21 @@ class DateHelper {
         }
     }
     
+    func convertStringDateTimeJsonToDate(_ string: String) -> Date? {
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        if let date = format.date(from: string) {
+            return date
+        } else {
+            format.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            if let date = format.date(from: string) {
+                return date
+            } else {
+                return nil
+            }
+        }
+    }
+    
     func convertDateToString(_ date: Date) -> String? {
         let format = DateFormatter()
         format.dateFormat = "dd/MM/yyyy"

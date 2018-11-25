@@ -1,4 +1,3 @@
-//
 //  APIUsers.swift
 //  PointeuseDeTemps
 //
@@ -8,14 +7,14 @@
 
 import Foundation
 
-class APIActivities {
+class APITimeScoreActivityDetails {
     
-    static let getFunc = APIActivities()
+    static let getFunc = APITimeScoreActivityDetails()
     
-    func getOneFromAPI(id: Int, token: String, completion: @escaping (ActivityAPI?) -> ()) {
-        let fullURL = url + "activities/\(id)"
+    func getOneFromAPI(id: Int, token: String, completion: @escaping (TimeScoreActivityDetailAPI?) -> ()) {
+        let fullURL = url + "timescoreactivitydetails/\(id)"
         let urlToGet = URL(string: fullURL)
-        var model = [ActivityAPI]()
+        var model = [TimeScoreActivityDetailAPI]()
         if urlToGet != nil {
             var request = URLRequest(url: urlToGet!)
             request.httpMethod = "GET"
@@ -40,13 +39,13 @@ class APIActivities {
                         
                         if let jsonArray = jsonResponse as? [[String: Any]] {
                             for dic in jsonArray{
-                                model.append(ActivityAPI(dic))
+                                model.append(TimeScoreActivityDetailAPI(dic))
                             }
                             completion(model[0])
                             return
                         } else {
                             if let jsonArray2 = jsonResponse as? [String: Any] {
-                                model.append(ActivityAPI(jsonArray2))
+                                model.append(TimeScoreActivityDetailAPI(jsonArray2))
                                 completion(model[0])
                                 return
                             } else {
@@ -62,14 +61,14 @@ class APIActivities {
                     completion(nil)
                     return
                 }
-            }.resume()
+                }.resume()
         }
     }
     
-    func getAllFromAPI(userId: Int, token: String, completion: @escaping ([ActivityAPI]?) -> ()) {
-        let fullURL = url + "activities/fromuserid/\(userId)"
+    func getAllFromAPI(userId: Int, token: String, completion: @escaping ([TimeScoreActivityDetailAPI]?) -> ()) {
+        let fullURL = url + "timescoreactivitydetails/fromuserid/\(userId)"
         let urlToGet = URL(string: fullURL)
-        var model = [ActivityAPI]()
+        var model = [TimeScoreActivityDetailAPI]()
         if urlToGet != nil {
             var request = URLRequest(url: urlToGet!)
             request.httpMethod = "GET"
@@ -94,13 +93,13 @@ class APIActivities {
                         
                         if let jsonArray = jsonResponse as? [[String: Any]] {
                             for dic in jsonArray{
-                                model.append(ActivityAPI(dic))
+                                model.append(TimeScoreActivityDetailAPI(dic))
                             }
                             completion(model)
                             return
                         } else {
                             if let jsonArray2 = jsonResponse as? [String: Any] {
-                                model.append(ActivityAPI(jsonArray2))
+                                model.append(TimeScoreActivityDetailAPI(jsonArray2))
                                 completion(model)
                                 return
                             } else {
@@ -120,10 +119,10 @@ class APIActivities {
         }
     }
     
-    func updateToAPI(activityId: Activities, token: String, completion: @escaping (Int) -> ()) {
-        let fullURL = url + "activities/\(activityId.id)"
+    func updateToAPI(timeScoreActivityDetailId: TimeScoreActivityDetails, token: String, completion: @escaping (Int) -> ()) {
+        let fullURL = url + "timescoreactivitydetails/\(timeScoreActivityDetailId.id)"
         let urlToGet = URL(string: fullURL)
-        let modelToSend = ActivityAPI(activityId: activityId)
+        let modelToSend = TimeScoreActivityDetailAPI(timeScoreActivityDetailId: timeScoreActivityDetailId)
         var jsonData: Data
         
         do {
@@ -163,11 +162,11 @@ class APIActivities {
         }
     }
     
-    func createToAPI(activityId: Activities, token: String, completion: @escaping (ActivityAPI?) -> ()) {
-        let fullURL = url + "activities"
+    func createToAPI(timeScoreActivityDetailId: TimeScoreActivityDetails, token: String, completion: @escaping (TimeScoreActivityDetailAPI?) -> ()) {
+        let fullURL = url + "timescoreactivitydetails"
         let urlToGet = URL(string: fullURL)
-        var model = [ActivityAPI]()
-        let modelToSend = ActivityAPI(activityId: activityId)
+        var model = [TimeScoreActivityDetailAPI]()
+        let modelToSend = TimeScoreActivityDetailAPI(timeScoreActivityDetailId: timeScoreActivityDetailId)
         var jsonData: Data
         
         do {
@@ -209,13 +208,13 @@ class APIActivities {
                         
                         if let jsonArray = jsonResponse as? [[String: Any]] {
                             for dic in jsonArray{
-                                model.append(ActivityAPI(dic))
+                                model.append(TimeScoreActivityDetailAPI(dic))
                             }
                             completion(model[0])
                             return
                         } else {
                             if let jsonArray2 = jsonResponse as? [String: Any] {
-                                model.append(ActivityAPI(jsonArray2))
+                                model.append(TimeScoreActivityDetailAPI(jsonArray2))
                                 completion(model[0])
                                 return
                             } else {
@@ -236,7 +235,7 @@ class APIActivities {
     }
     
     func deleteToAPI(id: Int32, token: String, completion: @escaping (Int) -> ()) {
-        let fullURL = url + "activities/\(id)"
+        let fullURL = url + "timescoreactivitydetails/\(id)"
         let urlToGet = URL(string: fullURL)
         
         if urlToGet != nil {

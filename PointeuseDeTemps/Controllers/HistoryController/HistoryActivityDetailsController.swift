@@ -30,7 +30,10 @@ class HistoryActivityDetailsController: UIViewController, UITableViewDelegate, U
         
         let nib = UINib(nibName: cellID, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: cellID)
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if timeScoreActivity != nil && userConnected != nil {
             dateLabel.text = DateHelper.getFunc.convertDateToString(timeScoreActivity!.timeScoreId!.date!)
             activityLabel.text = timeScoreActivity?.activityId?.activityName
@@ -40,13 +43,13 @@ class HistoryActivityDetailsController: UIViewController, UITableViewDelegate, U
             }
         }
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return timeScoreActivityDetails.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 130
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,9 +61,7 @@ class HistoryActivityDetailsController: UIViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if timeScoreActivityDetails[indexPath.row].startLatitude != 0 && timeScoreActivityDetails[indexPath.row].startLongitude != 0 &&
-            timeScoreActivityDetails[indexPath.row].endLatitude != 0 &&
-            timeScoreActivityDetails[indexPath.row].endLongitude != 0 {
+        if timeScoreActivityDetails[indexPath.row].startLatitude != 0 && timeScoreActivityDetails[indexPath.row].startLongitude != 0 {
             let controller = MapControllerViewController()
             controller.detail = timeScoreActivityDetails[indexPath.row]
             self.navigationController?.pushViewController(controller, animated: true)
