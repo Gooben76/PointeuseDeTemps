@@ -216,24 +216,29 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                             Alert.show.error(message: RSC_USER_LOGIN_EXIST_LOCALLY, controller: self)
                             return
                         }
-                        if UsersDataHelpers.getFunc.searchUserByMail(mail: passwordTF.text!) != nil {
+                        if UsersDataHelpers.getFunc.searchUserByMail(mail: mailTF.text!) != nil {
                             Alert.show.error(message: RSC_USER_MAIL_EXIST_LOCALLY, controller: self)
                             return
                         }
                         
-                        // recherche sur le serveur si le login et/ou le mail existe
-                        
-                        if UsersDataHelpers.getFunc.setNewUser(login: loginTF.text!, password: passwordTF.text!, firstName: firstNameTF.text, lastName: nameTF.text, mail: mailTF.text, image: imageView.image, synchronization: synchronizationSwitch.isOn, allowMessages: allowMessagesSwitch.isOn) {
-                            UserDefaults.standard.set(loginTF.text!, forKey: "connectedUser")
-                            UserDefaults.standard.set(passwordTF.text!, forKey: "connectedUserPassword")
-                            userCreation = false
-                            deleteButton.isEnabled = true
-                            deconnectionButton.isEnabled = true
-                            userConnected = UsersDataHelpers.getFunc.searchUserByLogin(login: loginTF.text!)
-                            let controller = TabBarController()
-                            self.present(controller, animated: true, completion: nil)
-                        } else {
-                            Alert.show.error(message: RSC_ERR_USERCREATIONFAILED, controller: self)
+                        APIUsers.getFunc.getUserFromLoginOrMailExists(login: loginTF.text!, mail: mailTF.text!, token: "") { (response) in
+                            if response == nil {
+                                if UsersDataHelpers.getFunc.setNewUser(login: self.loginTF.text!, password: self.passwordTF.text!, firstName: self.firstNameTF.text, lastName: self.nameTF.text, mail: self.mailTF.text, image: self.imageView.image, synchronization: self.synchronizationSwitch.isOn, allowMessages: self.allowMessagesSwitch.isOn) {
+                                    UserDefaults.standard.set(self.loginTF.text!, forKey: "connectedUser")
+                                    UserDefaults.standard.set(self.passwordTF.text!, forKey: "connectedUserPassword")
+                                    self.userCreation = false
+                                    self.deleteButton.isEnabled = true
+                                    self.deconnectionButton.isEnabled = true
+                                    self.userConnected = UsersDataHelpers.getFunc.searchUserByLogin(login: self.loginTF.text!)
+                                    let controller = TabBarController()
+                                    self.present(controller, animated: true, completion: nil)
+                                } else {
+                                    Alert.show.error(message: RSC_ERR_USERCREATIONFAILED, controller: self)
+                                }
+                            } else {
+                                Alert.show.error(message: RSC_USER_MAIL_EXIST_ONSERVER, controller: self)
+                                return
+                            }
                         }
                     }
                 } else {
