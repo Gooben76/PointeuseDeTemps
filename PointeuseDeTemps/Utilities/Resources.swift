@@ -81,3 +81,4 @@ let RSC_USERCREATIONFROMSERVERSUCCEED = "La création de l'utilisateur a réussi
 let RSC_NOT_DEFINED = "Non dédini"
 let RSC_USER_LOGIN_EXIST_LOCALLY = "Un utilisateur existe déjà sur l'appareil avec ce login"
 let RSC_USER_MAIL_EXIST_LOCALLY = "Un utilisateur existe déjà sur l'appareil avec ce mail"
+let RSC_CREATION = "Création"

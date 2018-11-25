@@ -53,12 +53,11 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         imageView.addGestureRecognizer(tap)
         imageView.isUserInteractionEnabled = true
         
-        loginTF.placeholder = RSC_LOGIN
-        passwordTF.placeholder = RSC_PASSWORD
-        mailTF.placeholder = RSC_EMAIL
+        loginTF.placeholder = RSC_LOGIN + "*"
+        passwordTF.placeholder = RSC_PASSWORD + "*"
+        mailTF.placeholder = RSC_EMAIL + "*"
         nameTF.placeholder = RSC_LASTNAME
         firstNameTF.placeholder = RSC_FIRSTNAME
-        saveButton.setTitle(RSC_SAVE, for: .normal)
         deconnectionButton.setTitle(RSC_DECONNECTION, for: .normal)
         deleteButton.setTitle(RSC_DELETE, for: .normal)
         synchronizationLabel.text = RSC_SYNCHRONIZATION
@@ -77,20 +76,20 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         super.viewWillAppear(animated)
         if view.frame.width != screenSize.width {
             widthConstraint.constant = screenSize.width - 20
-            topOfImageConstraint.constant = 40
-            //bottomConstraint.constant = 800
+            topOfImageConstraint.constant = 30
             scroll.contentSize = CGSize(width: widthConstraint.constant, height: 800)
         } else {
             widthConstraint.constant = view.frame.width - 20
             topOfImageConstraint.constant = 20
-            //bottomConstraint.constant = 800
             scroll.contentSize = CGSize(width: widthConstraint.constant, height: 800)
         }
+        scroll.isScrollEnabled = true
         
         if !selectImage {
             if !userCreation {
                 loginTF.isEnabled = false
                 mailTF.isEnabled = false
+                saveButton.setTitle(RSC_SAVE, for: .normal)
                 
                 let usr = UserDefaults.standard.object(forKey: "connectedUser")
                 if usr != nil, let login = usr as? String {
@@ -133,6 +132,7 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
                 allowMessagesSwitch.isOn = false
                 deconnectionButton.isHidden = true
                 deleteButton.isHidden = true
+                saveButton.setTitle(RSC_CREATION, for: .normal)
             }
         }
         
@@ -279,4 +279,5 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
             allowMessagesLabel.isEnabled = false
         }
     }
+    
 }
