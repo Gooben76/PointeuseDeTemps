@@ -305,3 +305,86 @@ struct TimeScoreActivityDetailAPI: Codable {
         self.modifiedDate = timeScoreActivityDetailId.modifiedDate!
     }
 }
+
+struct FriendAPI: Codable {
+    var id: Int
+    var userId: Int
+    var friendId: Int
+    var friendLogin : String
+    var friendMail: String
+    var friendLastName: String
+    var friendFirstName: String
+    var active: Bool
+    var modifiedDate: Date
+    
+    init(_ dictionary: [String: Any]) {
+        let modifiedDateAny = dictionary["modifiedDate"]
+        let modifiedDateString: String = String(describing: modifiedDateAny!)
+        var modifiedDate: Date? = nil
+        if modifiedDateString != "<null>" {
+            modifiedDate = DateHelper.getFunc.convertStringDateTimeJsonToDate(modifiedDateString)!
+        }
+        
+        self.id = dictionary["id"] as? Int ?? -1
+        self.userId = dictionary["userId"] as? Int ?? 0
+        self.friendId = dictionary["friendId"] as? Int ?? 0
+        self.friendLogin = dictionary["friendLogin"] as? String ?? ""
+        self.friendMail = dictionary["friendMail"] as? String ?? ""
+        self.friendLastName = dictionary["friendLastName"] as? String ?? ""
+        self.friendFirstName = dictionary["friendFirstName"] as? String ?? ""
+        self.active = dictionary["active"] as? Bool ?? false
+        self.modifiedDate = modifiedDate!
+    }
+    
+    init(friendId: Friends) {
+        self.id = Int(friendId.id)
+        self.userId = Int(friendId.userId!.id)
+        self.friendId = Int(friendId.friendId)
+        self.friendLogin = friendId.friendLogin!
+        self.friendMail = friendId.friendMail!
+        self.friendLastName = friendId.friendLastName ?? ""
+        self.friendFirstName = friendId.friendFirstName ?? ""
+        self.active = friendId.active
+        self.modifiedDate = friendId.modifiedDate!
+    }
+}
+
+struct MessageAPI: Codable {
+    var id: Int
+    var userId: Int
+    var friendId: Int
+    var fromMe: Bool
+    var message: String
+    var read: Bool
+    var sms: Bool
+    var modifiedDate: Date
+    
+    init(_ dictionary: [String: Any]) {
+        let modifiedDateAny = dictionary["modifiedDate"]
+        let modifiedDateString: String = String(describing: modifiedDateAny!)
+        var modifiedDate: Date? = nil
+        if modifiedDateString != "<null>" {
+            modifiedDate = DateHelper.getFunc.convertStringDateTimeJsonToDate(modifiedDateString)!
+        }
+        
+        self.id = dictionary["id"] as? Int ?? -1
+        self.userId = dictionary["userId"] as? Int ?? 0
+        self.friendId = dictionary["friendId"] as? Int ?? 0
+        self.fromMe = dictionary["fromMe"] as? Bool ?? false
+        self.message = dictionary["message"] as? String ?? ""
+        self.read = dictionary["read"] as? Bool ?? false
+        self.sms = dictionary["sms"] as? Bool ?? false
+        self.modifiedDate = modifiedDate!
+    }
+    
+    init(messageId: Messages) {
+        self.id = Int(messageId.id)
+        self.userId = Int(messageId.userId!.id)
+        self.friendId = Int(messageId.friendId!.id)
+        self.fromMe = messageId.fromMe
+        self.message = messageId.message!
+        self.read = messageId.read
+        self.sms = messageId.sms
+        self.modifiedDate = messageId.modifiedDate!
+    }
+}

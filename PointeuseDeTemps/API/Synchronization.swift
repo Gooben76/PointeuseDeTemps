@@ -79,6 +79,8 @@ class Synchronization {
             timeScoresSynchronization(userConnected: userConnected)
             timeScoreActivitiesSynchronization(userConnected: userConnected)
             timeScoreActivityDetailsSynchronization(userConnected: userConnected)
+            friendsSynchronization(userConnected: userConnected)
+            messagesSynchronization(userConnected: userConnected)
         }
     }
     
@@ -503,6 +505,116 @@ class Synchronization {
                                     if !TimeScoreActivityDetailsDataHelpers.getFunc.setTimeScoreActivityDetail(timeScoreActivityDetail: data, userConnected: userConnected) {
                                         print("Erreur de synchronisation de TimeScoreActivityDetails")
                                     }
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func friendsSynchronization(userConnected: Users!) {
+        APIFriends.getFunc.getAllFromAPI(userId: Int(userConnected.id), token: "") { (dataAPIs) in
+            if dataAPIs != nil {
+                //Création dans données dans la base portable à partir du serveur
+                for dataAPI in dataAPIs!{
+                    var search: Friends? = FriendsDataHelpers.getFunc.searchFriendById(id: dataAPI.id, userConnected: userConnected)
+                    if search == nil {
+                        search = FriendsDataHelpers.getFunc.searchFriendByFriendId(id: Int32(dataAPI.friendId), userConnected: userConnected)
+                        if search == nil  {
+                            if !FriendsDataHelpers.getFunc.setNewFriendFromFriendAPI(friendAPI: dataAPI, userConnected: userConnected) {
+                                print("Erreur de synchronisation de Friends")
+                            }
+                        } else {
+                            search!.id = Int32(dataAPI.id)
+                            if search!.modifiedDate! < dataAPI.modifiedDate {
+                                search!.friendId = Int32(dataAPI.friendId)
+                                search!.friendLogin = dataAPI.friendLogin
+                                search!.friendMail = dataAPI.friendMail
+                                search!.friendLastName = dataAPI.friendLastName
+                                search!.friendFirstName = dataAPI.friendFirstName
+                                search!.active = dataAPI.active
+                                search!.modifiedDate = dataAPI.modifiedDate
+                                if !FriendsDataHelpers.getFunc.setFriend(friend: search, userConnected: userConnected) {
+                                    print("Erreur de synchronisation de Friends")
+                                }
+                            } else if search!.modifiedDate! > dataAPI.modifiedDate {
+                                if !FriendsDataHelpers.getFunc.setFriend(friend: search, userConnected: userConnected) {
+                                    print("Erreur de synchronisation de Friends")
+                                }
+                                APIFriends.getFunc.updateToAPI(friendId: search!, token: "", completion: { (httpCode) in
+                                    print("HTTP Code : \(httpCode)")
+                                })
+                            }
+                        }
+                    } else {
+                        if search!.modifiedDate! < dataAPI.modifiedDate {
+                            search!.friendId = Int32(dataAPI.friendId)
+                            search!.friendLogin = dataAPI.friendLogin
+                            search!.friendMail = dataAPI.friendMail
+                            search!.friendLastName = dataAPI.friendLastName
+                            search!.friendFirstName = dataAPI.friendFirstName
+                            search!.active = dataAPI.active
+                            search!.modifiedDate = dataAPI.modifiedDate
+                            if !FriendsDataHelpers.getFunc.setFriend(friend: search, userConnected: userConnected) {
+                                print("Erreur de synchronisation de Friends")
+                            }
+                        } else if search!.modifiedDate! > dataAPI.modifiedDate {
+                            if !FriendsDataHelpers.getFunc.setFriend(friend: search, userConnected: userConnected) {
+                                print("Erreur de synchronisation de Friends")
+                            }
+                            APIFriends.getFunc.updateToAPI(friendId: search!, token: "", completion: { (httpCode) in
+                                print("HTTP Code (friends) : \(httpCode)")
+                            })
+                        }
+                    }
+                }
+                
+                //Création des données sur le serveur à partir de la base portable
+                let datas = FriendsDataHelpers.getFunc.getAllFriends(userConnected: userConnected)
+                if datas != nil {
+                    for data in datas! {
+                        if data.id == 0 {
+                            APIFriends.getFunc.createToAPI(friendId: data, token: "", completion: { (newData) in
+                                if newData != nil {
+                                    data.id = Int32(newData!.id)
+                                    if !FriendsDataHelpers.getFunc.setFriend(friend: data, userConnected: userConnected) {
+                                        print("Erreur de synchronisation de Friends")
+                                    }
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func messagesSynchronization(userConnected: Users!) {
+        APIMessages.getFunc.getAllFromAPI(userId: Int(userConnected.id), token: "") { (dataAPIs) in
+            if dataAPIs != nil {
+                //Création dans données dans la base portable à partir du serveur
+                for dataAPI in dataAPIs!{
+                    let search: Messages? = MessagesDataHelpers.getFunc.searchMessageById(id: dataAPI.id, userConnected: userConnected)
+                    if search == nil {
+                        if !MessagesDataHelpers.getFunc.setNewMessageFromMessageAPI(messageAPI: dataAPI, userConnected: userConnected) {
+                                print("Erreur de synchronisation de Messages")
+                        }
+                    }
+                }
+                
+                //Création des données sur le serveur à partir de la base portable
+                let datas = MessagesDataHelpers.getFunc.getAllMessages(userConnected: userConnected)
+                if datas != nil {
+                    for data in datas! {
+                        if data.id == 0 {
+                            APIMessages.getFunc.createToAPI(messageId: data, token: "", completion: { (newData) in
+                                if newData != nil {
+                                    data.id = Int32(newData!.id)
+                                    /*if !MessagesDataHelpers.getFunc.setMessage(message: data, userConnected: userConnected) {
+                                        print("Erreur de synchronisation de Messages")
+                                    }*/
                                 }
                             })
                         }

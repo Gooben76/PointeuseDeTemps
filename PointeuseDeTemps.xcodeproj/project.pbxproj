@@ -41,6 +41,7 @@
 		172E0BF621669655006A8039 /* HistoryActivityDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172E0BF421669655006A8039 /* HistoryActivityDetailsController.xib */; };
 		172E0BF9216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172E0BF7216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift */; };
 		172E0BFA216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172E0BF8216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib */; };
+		17313DC421B2F25500BA31BC /* FriendsDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17313DC321B2F25500BA31BC /* FriendsDataHelpers.swift */; };
 		1732D27A218E28CE0038B356 /* APIUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1732D279218E28CE0038B356 /* APIUsers.swift */; };
 		174436662184EB50009A5E36 /* EncodeHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174436652184EB50009A5E36 /* EncodeHelpers.swift */; };
 		174436682184F1D3009A5E36 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174436672184F1D3009A5E36 /* Character.swift */; };
@@ -54,6 +55,13 @@
 		1767F35C213404C100BF17DA /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767F35B213404C100BF17DA /* UIViewExtension.swift */; };
 		1767F35E2134490500BF17DA /* ActivitiesControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767F35D2134490500BF17DA /* ActivitiesControllerExtension.swift */; };
 		1767F36021347E0700BF17DA /* ButtonTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1767F35F21347E0700BF17DA /* ButtonTS.swift */; };
+		176C3AD321B3FAEA00442996 /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176C3AD121B3FAEA00442996 /* FriendsController.swift */; };
+		176C3AD421B3FAEA00442996 /* FriendsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 176C3AD221B3FAEA00442996 /* FriendsController.xib */; };
+		176C3AD821B411D500442996 /* FriendTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176C3AD621B411D500442996 /* FriendTableCell.swift */; };
+		176C3AD921B411D500442996 /* FriendTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 176C3AD721B411D500442996 /* FriendTableCell.xib */; };
+		176C3ADB21B42ABD00442996 /* MessagesDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176C3ADA21B42ABD00442996 /* MessagesDataHelpers.swift */; };
+		176C3ADD21B433F800442996 /* APIFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176C3ADC21B433F800442996 /* APIFriends.swift */; };
+		176C3ADF21B4406900442996 /* APIMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176C3ADE21B4406900442996 /* APIMessages.swift */; };
 		176C627D214C39E3008FA263 /* TypicalDayActivitiesDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176C627C214C39E3008FA263 /* TypicalDayActivitiesDataHelpers.swift */; };
 		1774E8812124108900A65415 /* ImageViewTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E8802124108900A65415 /* ImageViewTS.swift */; };
 		1774E8842124222C00A65415 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774E8832124222C00A65415 /* Constants.swift */; };
@@ -126,6 +134,7 @@
 		172E0BF421669655006A8039 /* HistoryActivityDetailsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryActivityDetailsController.xib; sourceTree = "<group>"; };
 		172E0BF7216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTimeScoreActivityDetailTableCell.swift; sourceTree = "<group>"; };
 		172E0BF8216699C7006A8039 /* HistoryTimeScoreActivityDetailTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTimeScoreActivityDetailTableCell.xib; sourceTree = "<group>"; };
+		17313DC321B2F25500BA31BC /* FriendsDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsDataHelpers.swift; sourceTree = "<group>"; };
 		1732D279218E28CE0038B356 /* APIUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUsers.swift; sourceTree = "<group>"; };
 		174436652184EB50009A5E36 /* EncodeHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodeHelpers.swift; sourceTree = "<group>"; };
 		174436672184F1D3009A5E36 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
@@ -141,6 +150,13 @@
 		1767F35B213404C100BF17DA /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		1767F35D2134490500BF17DA /* ActivitiesControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesControllerExtension.swift; sourceTree = "<group>"; };
 		1767F35F21347E0700BF17DA /* ButtonTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTS.swift; sourceTree = "<group>"; };
+		176C3AD121B3FAEA00442996 /* FriendsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsController.swift; sourceTree = "<group>"; };
+		176C3AD221B3FAEA00442996 /* FriendsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsController.xib; sourceTree = "<group>"; };
+		176C3AD621B411D500442996 /* FriendTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableCell.swift; sourceTree = "<group>"; };
+		176C3AD721B411D500442996 /* FriendTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendTableCell.xib; sourceTree = "<group>"; };
+		176C3ADA21B42ABD00442996 /* MessagesDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDataHelpers.swift; sourceTree = "<group>"; };
+		176C3ADC21B433F800442996 /* APIFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFriends.swift; sourceTree = "<group>"; };
+		176C3ADE21B4406900442996 /* APIMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMessages.swift; sourceTree = "<group>"; };
 		176C627C214C39E3008FA263 /* TypicalDayActivitiesDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypicalDayActivitiesDataHelpers.swift; sourceTree = "<group>"; };
 		1774E8802124108900A65415 /* ImageViewTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewTS.swift; sourceTree = "<group>"; };
 		1774E8832124222C00A65415 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -337,6 +353,8 @@
 				17BD4B8B21970C640040F58B /* APITimeScores.swift */,
 				17BD4B8D2197150F0040F58B /* APITimeScoreActivities.swift */,
 				17BD4B8F21971FAB0040F58B /* APITimeScoreActivityDetails.swift */,
+				176C3ADC21B433F800442996 /* APIFriends.swift */,
+				176C3ADE21B4406900442996 /* APIMessages.swift */,
 				17087AD021A040900059C20A /* Synchronization.swift */,
 			);
 			path = API;
@@ -378,6 +396,24 @@
 			path = PointeuseDeTemps;
 			sourceTree = "<group>";
 		};
+		176C3AD021B3FA8800442996 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				176C3AD121B3FAEA00442996 /* FriendsController.swift */,
+				176C3AD221B3FAEA00442996 /* FriendsController.xib */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
+		176C3AD521B4118F00442996 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				176C3AD621B411D500442996 /* FriendTableCell.swift */,
+				176C3AD721B411D500442996 /* FriendTableCell.xib */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
 		1774E8822124218D00A65415 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,6 +437,8 @@
 				1707386D2156B05B0092C3C8 /* TimeScoresDataHelpers.swift */,
 				1723ACE72157AD4A007F63DC /* TimeScoreActivitiesDataHelpers.swift */,
 				1714C21B2165551C003FBDFB /* TimeScoreActivityDetailsDataHelpers.swift */,
+				17313DC321B2F25500BA31BC /* FriendsDataHelpers.swift */,
+				176C3ADA21B42ABD00442996 /* MessagesDataHelpers.swift */,
 			);
 			path = DataHelpers;
 			sourceTree = "<group>";
@@ -408,6 +446,7 @@
 		17BAAC47211C9C4A0035DF40 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				176C3AD021B3FA8800442996 /* Friends */,
 				1744367021850083009A5E36 /* HistoryController */,
 				1744366F2185005D009A5E36 /* TimeScoresController */,
 				1744366E21850039009A5E36 /* ParametersController */,
@@ -422,6 +461,7 @@
 		17BAAC48211C9C5E0035DF40 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				176C3AD521B4118F00442996 /* Friends */,
 				17443674218500F5009A5E36 /* History */,
 				17443673218500E2009A5E36 /* TimeScores */,
 				17443672218500C0009A5E36 /* TypicalDays */,
@@ -522,6 +562,8 @@
 				172E0BF621669655006A8039 /* HistoryActivityDetailsController.xib in Resources */,
 				17FE60E6214E55BD00B27954 /* TypicalDayDetailTableCell.xib in Resources */,
 				17E0F7332121FD3D00F5DD1E /* ParametersController.xib in Resources */,
+				176C3AD421B3FAEA00442996 /* FriendsController.xib in Resources */,
+				176C3AD921B411D500442996 /* FriendTableCell.xib in Resources */,
 				175FC09B211782B600B6A3E5 /* Assets.xcassets in Resources */,
 				172E0BF221669303006A8039 /* HistoryTimeScoreActivityTableCell.xib in Resources */,
 				17E0F72F2121FCBC00F5DD1E /* ActivitiesController.xib in Resources */,
@@ -543,6 +585,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				175F19432185F84A00761450 /* APIConnection.swift in Sources */,
+				176C3ADB21B42ABD00442996 /* MessagesDataHelpers.swift in Sources */,
 				17CCCCBB2194DBEB003E9A50 /* APITypicalDays.swift in Sources */,
 				1767F35C213404C100BF17DA /* UIViewExtension.swift in Sources */,
 				1729E2CF214539C1004297F7 /* DayTableCell.swift in Sources */,
@@ -553,9 +596,12 @@
 				176C627D214C39E3008FA263 /* TypicalDayActivitiesDataHelpers.swift in Sources */,
 				1774E887212424D900A65415 /* ActivitiesDataHelpers.swift in Sources */,
 				1723ACEA2157B246007F63DC /* TimeScoresControllerExtension2.swift in Sources */,
+				17313DC421B2F25500BA31BC /* FriendsDataHelpers.swift in Sources */,
 				172BF550213AAD08007CB7A7 /* UsersDataHelpers.swift in Sources */,
 				1774E88921244A3500A65415 /* TextFieldTS.swift in Sources */,
 				172AC028213B26C8007E254F /* ConnectionController.swift in Sources */,
+				176C3ADD21B433F800442996 /* APIFriends.swift in Sources */,
+				176C3AD821B411D500442996 /* FriendTableCell.swift in Sources */,
 				1712F19221673C4C003EE77C /* LabelH3TS.swift in Sources */,
 				1712F18E21673BF2003EE77C /* LabelH1TS.swift in Sources */,
 				17BD4B8C21970C640040F58B /* APITimeScores.swift in Sources */,
@@ -582,11 +628,13 @@
 				17F8C5B821221AAE00CB312E /* TimeScoresController.swift in Sources */,
 				17E0F7322121FD3D00F5DD1E /* ParametersController.swift in Sources */,
 				171A2264213C193E00A72DCE /* DateHelper.swift in Sources */,
+				176C3AD321B3FAEA00442996 /* FriendsController.swift in Sources */,
 				17CFDF8721235A6200EC4F1A /* HistoryController.swift in Sources */,
 				17FE60E5214E55BD00B27954 /* TypicalDayDetailTableCell.swift in Sources */,
 				17CFDF8F212363C200EC4F1A /* ActivityTableCell.swift in Sources */,
 				1723ACED2157B513007F63DC /* TimeScoreActivityTableCell.swift in Sources */,
 				17CFDF8B21235B3800EC4F1A /* DaysController.swift in Sources */,
+				176C3ADF21B4406900442996 /* APIMessages.swift in Sources */,
 				1774E88B212486C200A65415 /* Resources.swift in Sources */,
 				175FC091211782B500B6A3E5 /* AppDelegate.swift in Sources */,
 				17087AD121A040900059C20A /* Synchronization.swift in Sources */,

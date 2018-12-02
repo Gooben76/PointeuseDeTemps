@@ -83,3 +83,4 @@ let RSC_USER_LOGIN_EXIST_LOCALLY = "Un utilisateur existe déjà sur l'appareil 
 let RSC_USER_MAIL_EXIST_LOCALLY = "Un utilisateur existe déjà sur l'appareil avec ce mail"
 let RSC_CREATION = "Création"
 let RSC_USER_MAIL_EXIST_ONSERVER = "Un utilisateur existe déjà sur le serveur avec ce login et/ou ce mot de passe"
+let RSC_FRIENDS = "Amis"

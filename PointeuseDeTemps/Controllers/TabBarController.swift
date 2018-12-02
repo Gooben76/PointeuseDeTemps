@@ -33,7 +33,11 @@ class TabBarController: UITabBarController {
         history.title = RSC_HISTORY
         history.tabBarItem.image = #imageLiteral(resourceName: "history-30")
         
-        viewControllers = [activities, days, timeScores, history, parameters]
+        let friends = UINavigationController(rootViewController: FriendsController())
+        friends.title = RSC_FRIENDS
+        friends.tabBarItem.image = UIImage(named: "message-24")
+        
+        viewControllers = [activities, days, timeScores, history, friends, parameters]
         
         selectedViewController = timeScores
     }
