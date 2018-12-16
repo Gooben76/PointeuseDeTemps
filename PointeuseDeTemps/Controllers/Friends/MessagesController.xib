@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MessagesController" customModule="PointeuseDeTemps" customModuleProvider="target">
+            <connections>
+                <outlet property="collectView" destination="6oK-qm-xYU" id="xx6-jl-vnG"/>
+                <outlet property="messageTextView" destination="8L6-kt-vFA" id="Rfb-EA-sO6"/>
+                <outlet property="messageTextViewHeightConstraint" destination="lwb-ja-OHx" id="JoX-UR-Kdr"/>
+                <outlet property="messageView" destination="bNj-Qz-gDJ" id="2LZ-sR-7ws"/>
+                <outlet property="messageViewHeightConstraint" destination="gaz-cp-tz3" id="yac-J7-o7w"/>
+                <outlet property="sendButton" destination="6sM-ze-WD9" id="wnp-Rm-3iy"/>
+                <outlet property="smsButton" destination="AQY-Ac-334" id="kXs-B0-yFj"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bNj-Qz-gDJ">
+                    <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sM-ze-WD9" customClass="ButtonSmallTS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                            <rect key="frame" x="265" y="10" width="50" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="VEC-ab-gzr"/>
+                                <constraint firstAttribute="height" constant="30" id="dhy-Zr-dhj"/>
+                            </constraints>
+                            <state key="normal" title="Envoi"/>
+                            <connections>
+                                <action selector="sendButton_Click:" destination="-1" eventType="touchUpInside" id="Ved-Qm-OOp"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQY-Ac-334" customClass="ButtonSmallTS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                            <rect key="frame" x="325" y="10" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="D91-PY-Xw3"/>
+                                <constraint firstAttribute="height" constant="30" id="bbk-m0-IjU"/>
+                            </constraints>
+                            <state key="normal" title="Sms"/>
+                            <connections>
+                                <action selector="smsButton_Click:" destination="-1" eventType="touchUpInside" id="UQp-t1-88K"/>
+                            </connections>
+                        </button>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8L6-kt-vFA" customClass="TextViewChat" customModule="PointeuseDeTemps" customModuleProvider="target">
+                            <rect key="frame" x="20" y="10" width="235" height="30"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="lwb-ja-OHx"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="6sM-ze-WD9" firstAttribute="top" secondItem="bNj-Qz-gDJ" secondAttribute="top" constant="10" id="5TD-YO-tws"/>
+                        <constraint firstItem="8L6-kt-vFA" firstAttribute="top" secondItem="bNj-Qz-gDJ" secondAttribute="top" constant="10" id="8lV-I5-VYm"/>
+                        <constraint firstItem="AQY-Ac-334" firstAttribute="leading" secondItem="6sM-ze-WD9" secondAttribute="trailing" constant="10" id="N0f-jA-qAj"/>
+                        <constraint firstAttribute="trailing" secondItem="AQY-Ac-334" secondAttribute="trailing" constant="20" id="ORZ-C0-yhC"/>
+                        <constraint firstItem="6sM-ze-WD9" firstAttribute="leading" secondItem="8L6-kt-vFA" secondAttribute="trailing" constant="10" id="cEu-Sh-jXc"/>
+                        <constraint firstAttribute="height" constant="50" id="gaz-cp-tz3"/>
+                        <constraint firstItem="8L6-kt-vFA" firstAttribute="leading" secondItem="bNj-Qz-gDJ" secondAttribute="leading" constant="20" id="qjc-bk-XOT"/>
+                        <constraint firstItem="AQY-Ac-334" firstAttribute="top" secondItem="bNj-Qz-gDJ" secondAttribute="top" constant="10" id="rCA-ZH-t6o"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KOI-me-2UZ">
+                    <rect key="frame" x="30" y="614" width="315" height="3"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="3" id="M4p-Cd-g2y"/>
+                    </constraints>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="6oK-qm-xYU">
+                    <rect key="frame" x="0.0" y="20" width="375" height="594"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Cld-Yh-mbg">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="KOI-me-2UZ" firstAttribute="top" secondItem="6oK-qm-xYU" secondAttribute="bottom" id="KUl-ep-qgD"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="bNj-Qz-gDJ" secondAttribute="bottom" id="Msb-hz-8Kr"/>
+                <constraint firstItem="bNj-Qz-gDJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="SQs-0t-lTD"/>
+                <constraint firstItem="6oK-qm-xYU" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="YQD-iu-xSB"/>
+                <constraint firstItem="KOI-me-2UZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="dDN-QC-mZq"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6oK-qm-xYU" secondAttribute="trailing" id="izk-Po-FrL"/>
+                <constraint firstItem="bNj-Qz-gDJ" firstAttribute="top" secondItem="KOI-me-2UZ" secondAttribute="bottom" id="mfh-D0-GfD"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bNj-Qz-gDJ" secondAttribute="trailing" id="n31-hO-4VQ"/>
+                <constraint firstItem="6oK-qm-xYU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="r4W-1l-Tc5"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="KOI-me-2UZ" secondAttribute="trailing" constant="30" id="zQl-1f-uTS"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="40.799999999999997" y="46.326836581709152"/>
+        </view>
+    </objects>
+</document>

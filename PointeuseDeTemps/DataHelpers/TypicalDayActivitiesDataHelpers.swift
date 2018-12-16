@@ -33,7 +33,7 @@ class TypicalDayActivitiesDataHelpers {
         return nil
     }
     
-    func setNewTypicalDayActivity(typicalDay: TypicalDays?, activity: Activities?,userConnected: Users) -> Bool {
+    func setNewTypicalDayActivity(typicalDay: TypicalDays?, activity: Activities?,userConnected: Users, withoutSynchronization: Bool = false) -> Bool {
         if typicalDay != nil && activity != nil {
             let elm = searchTypicalDayActivityByTypicalDayAndActivity(typicalDay: typicalDay!, activity: activity!, userConnected: userConnected)
             guard elm == nil else {return false}
@@ -44,7 +44,7 @@ class TypicalDayActivitiesDataHelpers {
             newElm.modifiedDate = Date()
             appDelegate.saveContext()
             
-            if userConnected.synchronization {
+            if userConnected.synchronization && !withoutSynchronization {
                 APITypicalDayActivities.getFunc.createToAPI(typicalDayAvtivityId: newElm, token: "") { (newAPI) in
                     if newAPI != nil, newAPI!.id != -1 {
                         newElm.id = Int32(newAPI!.id)
@@ -53,14 +53,13 @@ class TypicalDayActivitiesDataHelpers {
                     }
                 }
             }
-            
             return true
         } else {
             return false
         }
     }
     
-    func setTypicalDayActivity(typicalDay: TypicalDays!, activity: Activities!, userConnected: Users!) -> Bool {
+    func setTypicalDayActivity(typicalDay: TypicalDays!, activity: Activities!, userConnected: Users!, withoutSynchronization: Bool = false) -> Bool {
         if typicalDay != nil && activity != nil && userConnected != nil {
             let elm = searchTypicalDayActivityByTypicalDayAndActivity(typicalDay: typicalDay, activity: activity, userConnected: userConnected)
             guard elm != nil else {return false}
@@ -68,12 +67,11 @@ class TypicalDayActivitiesDataHelpers {
             do {
                 try context.save()
                 
-                if userConnected.synchronization {
+                if userConnected.synchronization && !withoutSynchronization {
                     APITypicalDayActivities.getFunc.updateToAPI(typicalDayAvtivityId: elm!, token: "", completion: { (httpcode) in
-                        print("http response code : \(httpcode)")
+                        //
                     })
                 }
-                
                 return true
             } catch {
                 print(error.localizedDescription)
@@ -93,7 +91,7 @@ class TypicalDayActivitiesDataHelpers {
                 
                 if userConnected.synchronization {
                     APITypicalDayActivities.getFunc.deleteToAPI(id: deleteId, token: "") { (httpcode) in
-                        print("http response code : \(httpcode)")
+                        //
                     }
                 }
                 return true
@@ -131,7 +129,7 @@ class TypicalDayActivitiesDataHelpers {
                     if userConnected.synchronization {
                         for deleteId in deleteIds {
                             APITypicalDayActivities.getFunc.deleteToAPI(id: deleteId, token: "") { (httpcode) in
-                                print("http response code : \(httpcode)")
+                                //
                             }
                         }
                     }

@@ -12,14 +12,48 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="FriendTableCell" customModule="PointeuseDeTemps" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="106" id="KGk-i7-Jjw" customClass="FriendTableCell" customModule="PointeuseDeTemps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="411" height="106"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="411" height="105.5"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wUj-vp-Qbf" customClass="LabelH2TS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="30" y="21" width="301" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="2hD-Pk-Oql"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whL-f9-Qi7" customClass="LabelH4TS" customModule="PointeuseDeTemps" customModuleProvider="target">
+                        <rect key="frame" x="341" y="11" width="40" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="Tw4-cg-llI"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="bCv-hM-Y5w"/>
+                            <constraint firstAttribute="height" constant="30" id="ycd-aW-537"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="whL-f9-Qi7" firstAttribute="leading" secondItem="wUj-vp-Qbf" secondAttribute="trailing" constant="10" id="6dD-QC-fO6"/>
+                    <constraint firstItem="wUj-vp-Qbf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="6uQ-BN-ahf"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="whL-f9-Qi7" secondAttribute="trailing" constant="10" id="bld-qN-m33"/>
+                    <constraint firstItem="wUj-vp-Qbf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="lL0-Cy-XfG"/>
+                    <constraint firstItem="whL-f9-Qi7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="vrx-77-RgB"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="activeLabel" destination="whL-f9-Qi7" id="8MT-aQ-KVX"/>
+                <outlet property="loginLabel" destination="wUj-vp-Qbf" id="OE7-tl-3yc"/>
+            </connections>
+            <point key="canvasLocation" x="29.600000000000001" y="60.26986506746627"/>
         </tableViewCell>
     </objects>
 </document>

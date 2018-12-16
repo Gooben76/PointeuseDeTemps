@@ -34,7 +34,7 @@ class TimeScoreActivitiesDataHelpers {
         return nil
     }
     
-    func setNewTimeScoreActivity(timeScore: TimeScores, activity: Activities, userConnected: Users) -> Bool {
+    func setNewTimeScoreActivity(timeScore: TimeScores, activity: Activities, userConnected: Users, withoutSynchronization: Bool = false) -> Bool {
         let elm = searchTimeScoreActivityByTimeScoreAndActivity(timeScore: timeScore, activity: activity, userConnected: userConnected)
         guard elm == nil else {return false}
         let newElm = TimeScoreActivities(context: context)
@@ -45,7 +45,7 @@ class TimeScoreActivitiesDataHelpers {
         newElm.modifiedDate = Date()
         appDelegate.saveContext()
         
-        if userConnected.synchronization {
+        if userConnected.synchronization && !withoutSynchronization {
             APITimeScoreActivities.getFunc.createToAPI(timeScoreActivityId: newElm, token: "") { (newAPI) in
                 if newAPI != nil, newAPI!.id != -1 {
                     newElm.id = Int32(newAPI!.id)
@@ -57,7 +57,7 @@ class TimeScoreActivitiesDataHelpers {
         return true
     }
     
-    func setTimeScoreActivity(timeScoreActivity: TimeScoreActivities, userConnected: Users!) -> Bool {
+    func setTimeScoreActivity(timeScoreActivity: TimeScoreActivities, userConnected: Users!, withoutSynchronization: Bool = false) -> Bool {
         let elm = searchTimeScoreActivityByTimeScoreAndActivity(timeScore: timeScoreActivity.timeScoreId!, activity: timeScoreActivity.activityId!, userConnected: userConnected)
         guard elm != nil else {return false}
         elm!.setValue(timeScoreActivity.running, forKey: "running")
@@ -65,9 +65,9 @@ class TimeScoreActivitiesDataHelpers {
         do {
             try context.save()
             
-            if userConnected.synchronization {
+            if userConnected.synchronization && !withoutSynchronization {
                 APITimeScoreActivities.getFunc.updateToAPI(timeScoreActivityId: elm!, token: "", completion: { (httpcode) in
-                    print("http response code : \(httpcode)")
+                    //
                 })
             }
             return true
@@ -77,16 +77,16 @@ class TimeScoreActivitiesDataHelpers {
         }
     }
     
-    func setTimeScoreActivityRunning(timeScoreActivity: TimeScoreActivities, running: Bool, coordinates: CLLocationCoordinate2D?, userConnected: Users!) -> Bool {
+    func setTimeScoreActivityRunning(timeScoreActivity: TimeScoreActivities, running: Bool, coordinates: CLLocationCoordinate2D?, userConnected: Users!, withoutSynchronization: Bool = false) -> Bool {
         let elm = searchTimeScoreActivityByTimeScoreAndActivity(timeScore: timeScoreActivity.timeScoreId!, activity: timeScoreActivity.activityId!, userConnected: userConnected)
         guard elm != nil else {return false}
         if running {
             if !TimeScoreActivityDetailsDataHelpers.getFunc.setNewTimeScoreActivityDetail(timeScoreActivity: timeScoreActivity, coordinates: coordinates, userConnected: userConnected) {
-                print("Erreur de sauvegarde TimeScoreActivityDetail 2")
+                //
             }
         } else {
             if !TimeScoreActivityDetailsDataHelpers.getFunc.updateTimeScoreActivityDetail(timeScoreActivity: timeScoreActivity, coordinates: coordinates, userConnected: userConnected) {
-                print("Erreur de sauvegarde TimeScoreActivityDetail 3")
+                //
             }
         }
         elm!.setValue(running, forKey: "running")
@@ -94,9 +94,9 @@ class TimeScoreActivitiesDataHelpers {
         do {
             try context.save()
             
-            if userConnected.synchronization {
+            if userConnected.synchronization && !withoutSynchronization {
                 APITimeScoreActivities.getFunc.updateToAPI(timeScoreActivityId: elm!, token: "", completion: { (httpcode) in
-                    print("http response code : \(httpcode)")
+                    //
                 })
             }
             return true
@@ -118,16 +118,16 @@ class TimeScoreActivitiesDataHelpers {
         return nil
     }
     
-    func delTimeScoreActivity(timeScoreActivity: TimeScoreActivities!, userConnected: Users!) -> Bool {
+    func delTimeScoreActivity(timeScoreActivity: TimeScoreActivities!, userConnected: Users!, withoutSynchronization: Bool = false) -> Bool {
         if timeScoreActivity != nil {
             let deleteId = timeScoreActivity.id
             context.delete(timeScoreActivity)
             do {
                 try context.save()
                 
-                if userConnected.synchronization {
+                if userConnected.synchronization && !withoutSynchronization {
                     APIActivities.getFunc.deleteToAPI(id: deleteId, token: "") { (httpcode) in
-                        print("http response code : \(httpcode)")
+                        //
                     }
                 }
                 return true

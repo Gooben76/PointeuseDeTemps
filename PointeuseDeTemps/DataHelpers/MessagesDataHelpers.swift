@@ -14,26 +14,43 @@ class MessagesDataHelpers {
     static let getFunc = MessagesDataHelpers()
     
     func getAllMessages(userConnected: Users!) -> [Messages]? {
-        if let result = userConnected.messages!.allObjects as? [Messages] {
-            let sortedResult = result.sorted(by: { $0.modifiedDate! < $1.modifiedDate!})
-            return sortedResult
+        if let resultFrom = userConnected.messagesFrom?.allObjects as? [Messages] {
+            if let resultTo = userConnected.messagesTo?.allObjects as? [Messages] {
+                var result = [Messages]()
+                result.append(contentsOf: resultFrom)
+                result.append(contentsOf: resultTo)
+                let sortedResult = result.sorted(by: { $0.modifiedDate! < $1.modifiedDate!})
+                return sortedResult
+            }
         }
         return nil
     }
     
-    func setNewMessage(friendId: Friends, fromMe: Bool, message: String, sms: Bool, userConnected: Users) -> Bool {
+    func getAllMessageForAUser(friend: Users!, userConnected: Users!) -> [Messages]? {
+        if let result = getAllMessages(userConnected: userConnected) {
+            let predicate1 = NSPredicate(format: "userFromId == %@ OR userToId == %@", friend, friend)
+            if let resultNS = (result as NSArray).filtered(using: predicate1) as? [Messages] {
+                if resultNS.count > 0 {
+                    let sortedResult = resultNS.sorted(by: { $0.modifiedDate! < $1.modifiedDate!})
+                    return sortedResult
+                }
+            }
+        }
+        return nil
+    }
+    
+    func setNewMessage(userFromId: Users, userToId: Users, message: String, sms: Bool, userConnected: Users, withoutSynchronization: Bool = false) -> Bool {
         if message.count > 0 {
             let newElm = Messages(context: context)
-            newElm.friendId = friendId
-            newElm.fromMe = fromMe
+            newElm.userFromId = userFromId
+            newElm.userToId = userToId
             newElm.sms = sms
-            newElm.message! = message
+            newElm.message = message
             newElm.read = false
             newElm.modifiedDate = Date()
-            newElm.userId = userConnected
             appDelegate.saveContext()
             
-            if userConnected.synchronization {
+            if userConnected.synchronization && !withoutSynchronization {
                 APIMessages.getFunc.createToAPI(messageId: newElm, token: "") { (newAPI) in
                     if newAPI != nil, newAPI!.id != -1 {
                         newElm.id = Int32(newAPI!.id)
@@ -42,7 +59,6 @@ class MessagesDataHelpers {
                     }
                 }
             }
-            
             return true
         } else {
             return false
@@ -53,30 +69,62 @@ class MessagesDataHelpers {
         if messageAPI.id != 0 {
             let newElm = Messages(context: context)
             newElm.id = Int32(messageAPI.id)
-            newElm.friendId = FriendsDataHelpers.getFunc.searchFriendById(id: messageAPI.friendId, userConnected: userConnected)
-            newElm.fromMe = messageAPI.fromMe
+            newElm.userFromId = UsersDataHelpers.getFunc.searchUserById(id: Int32(messageAPI.userFromId))
+            newElm.userToId = UsersDataHelpers.getFunc.searchUserById(id: Int32(messageAPI.userToId))
             newElm.sms = messageAPI.sms
             newElm.read = messageAPI.read
             newElm.message = messageAPI.message
             newElm.modifiedDate = messageAPI.modifiedDate
-            newElm.userId = userConnected
             appDelegate.saveContext()
+            
+            NotificationCenter.default.post(name: .newMessageForAFriendMessage, object: nil)
+            NotificationCenter.default.post(name: .newMessageForAFriendFriend, object: nil)
+            
             return true
         } else {
             return false
         }
     }
     
-    func delMessage(message: Messages!, userConnected: Users) -> Bool {
+    func setMessage(message: Messages!, userConnected: Users!, withoutSynchronization: Bool = false) -> Bool {
+        if message != nil {
+            let elm = searchMessageByUserFromIdAndUserToIdAndDate(userFromId: message.userFromId!, userToId: message.userToId!, date: message.modifiedDate!, userConnected: userConnected)
+            guard elm != nil else {return false}
+            elm!.setValue(message.id, forKey: "id")
+            elm!.setValue(message.userFromId, forKey: "userFromId")
+            elm!.setValue(message.userToId, forKey: "userToId")
+            elm!.setValue(message.sms, forKey: "sms")
+            elm!.setValue(message.read, forKey: "read")
+            elm!.setValue(message.message, forKey: "message")
+            elm!.setValue(message.modifiedDate, forKey: "modifiedDate")
+            do {
+                try context.save()
+                
+                if userConnected.synchronization && !withoutSynchronization {
+                    APIMessages.getFunc.updateToAPI(messageId: elm!, token: "", completion: { (httpcode) in
+                        //
+                    })
+                }
+                return true
+            } catch {
+                print(error.localizedDescription)
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+    
+    func delMessage(message: Messages!, userConnected: Users, withoutSynchronization: Bool = false) -> Bool {
         if message != nil {
             let deleteId = message.id
             context.delete(message)
             do {
                 try context.save()
                 
-                if userConnected.synchronization {
+                if userConnected.synchronization && !withoutSynchronization {
                     APIMessages.getFunc.deleteToAPI(id: deleteId, token: "") { (httpcode) in
-                     print("http response code : \(httpcode)")
+                     //
                      }
                 }
                 return true
@@ -90,8 +138,21 @@ class MessagesDataHelpers {
     }
     
     func searchMessageById(id: Int, userConnected: Users!) -> Messages? {
-        if let result = userConnected.messages?.allObjects as? [Messages] {
+        if let result = getAllMessages(userConnected: userConnected) {
             let predicate1 = NSPredicate(format: "id == \(id)")
+            if let resultNS = (result as NSArray).filtered(using: predicate1) as? [Messages] {
+                if resultNS.count > 0 {
+                    let sortedResult = resultNS.sorted(by: { $0.modifiedDate! < $1.modifiedDate!})
+                    return sortedResult[0]
+                }
+            }
+        }
+        return nil
+    }
+    
+    func searchMessageByUserFromIdAndUserToIdAndDate(userFromId: Users, userToId: Users, date: Date, userConnected: Users!) -> Messages? {
+        if let result = getAllMessages(userConnected: userConnected) {
+            let predicate1 = NSPredicate(format: "userFromId == %@ AND userToId == %@ AND modifiedDate == %@", userFromId, userToId, date as CVarArg)
             if let resultNS = (result as NSArray).filtered(using: predicate1) as? [Messages] {
                 if resultNS.count > 0 {
                     let sortedResult = resultNS.sorted(by: { $0.modifiedDate! < $1.modifiedDate!})

@@ -19,7 +19,7 @@ class TimeScoresController: UIViewController {
     
     @IBOutlet weak var blurVisualEffectView: UIVisualEffectView!
     @IBOutlet weak var popupView: PickerViewSelection!
-    @IBOutlet weak var popTitleLabel: UILabel!
+    @IBOutlet weak var popTitleLabel: LabelH2TitleTS!
     @IBOutlet weak var popSaveButton: ButtonTS!
     @IBOutlet weak var popPickerView: UIPickerView!
     
@@ -38,6 +38,7 @@ class TimeScoresController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        keyboardManagementInTableView()
         saveButton.setTitle(RSC_SAVE, for: .normal)
         actvititiesLabel.text = RSC_LISTOFACTIVITIES
         
@@ -50,8 +51,9 @@ class TimeScoresController: UIViewController {
             self.navigationItem.setRightBarButtonItems([rightAddBarButtonItem!], animated: true)
             leftAddBarButtonItem = UIBarButtonItem(image: UIImage(named: "del-16px"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(delButtonAction))
             leftAddBarButtonItem!.tintColor = UIColor.black
-            //let apiBarButtonItem = UIBarButtonItem(title: "API", style: UIBarButtonItemStyle.done, target: self, action: #selector(apiButtonAction))
-            //self.navigationItem.setLeftBarButtonItems([leftAddBarButtonItem!, apiBarButtonItem], animated: true)
+            let parameterBarButtonItem = UIBarButtonItem(image: UIImage(named: "user-30"), style: UIBarButtonItemStyle.done, target: self, action: #selector(parameterButtonAction))
+            parameterBarButtonItem.tintColor = UIColor.black
+            self.navigationItem.setLeftBarButtonItems([parameterBarButtonItem, leftAddBarButtonItem!], animated: true)
         }
         
         let usr = UserDefaults.standard.object(forKey: "connectedUser")
@@ -77,22 +79,9 @@ class TimeScoresController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handler_DetailUpdate), name: .changeRunningStatusInTimeScoreActivity, object: nil)
     }
 
-    @objc func apiButtonAction() {
+    @objc func parameterButtonAction() {
         if userConnected != nil {
-            APIConnection.getFunc.getToken(login: userConnected!.login!, mail: userConnected!.mail!, password: userConnected!.password!) { (token) in
-                if token.id > 0 {
-                    print("Token : \(token.token)")
-                    APIUsers.getFunc.getUserFromId(id: token.id, token: token.token, completion: { (userAPI) in
-                        if userAPI != nil {
-                            print("")
-                        } else {
-                            print("Pas de User")
-                        }
-                    })
-                } else {
-                    print("Pas de retour")
-                }
-            }
+            self.navigationController?.pushViewController(ParametersController(), animated: true)
         }
     }
     

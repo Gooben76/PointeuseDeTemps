@@ -33,7 +33,6 @@ class APIUsers {
                 
                 let httpStatus = response as? HTTPURLResponse
                 let httpStatusCode:Int = (httpStatus?.statusCode)!
-                print("Statut : \(httpStatusCode)")
                 
                 if httpStatusCode < 400 {
                     do {
@@ -91,7 +90,6 @@ class APIUsers {
                 
                 let httpStatus = response as? HTTPURLResponse
                 let httpStatusCode:Int = (httpStatus?.statusCode)!
-                print("Statut : \(httpStatusCode)")
                 
                 if httpStatusCode < 400 {
                     do {
@@ -149,7 +147,6 @@ class APIUsers {
                 
                 let httpStatus = response as? HTTPURLResponse
                 let httpStatusCode:Int = (httpStatus?.statusCode)!
-                print("Statut : \(httpStatusCode)")
                 
                 if httpStatusCode < 400 {
                     do {
@@ -195,10 +192,12 @@ class APIUsers {
         
         do {
             let jsonEncoder = JSONEncoder()
-            jsonEncoder.dateEncodingStrategy = .iso8601
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            jsonEncoder.dateEncodingStrategy = .formatted(dateFormatter)
+            //jsonEncoder.dateEncodingStrategy = .iso8601
             jsonData = try jsonEncoder.encode(modelToSend)
         } catch let encodingError {
-            print("Erreur d'encodage")
             print(encodingError.localizedDescription)
             return
         }
@@ -241,10 +240,12 @@ class APIUsers {
         
         do {
             let jsonEncoder = JSONEncoder()
-            jsonEncoder.dateEncodingStrategy = .iso8601
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            jsonEncoder.dateEncodingStrategy = .formatted(dateFormatter)
+            //jsonEncoder.dateEncodingStrategy = .iso8601
             jsonData = try jsonEncoder.encode(modelToSend)
         } catch let encodingError {
-            print("Erreur d'encodage")
             print(encodingError.localizedDescription)
             return
         }
@@ -270,7 +271,6 @@ class APIUsers {
                 
                 let httpStatus = response as? HTTPURLResponse
                 let httpStatusCode:Int = (httpStatus?.statusCode)!
-                print("Statut : \(httpStatusCode)")
                 
                 if httpStatusCode < 400 {
                     do {
@@ -332,6 +332,118 @@ class APIUsers {
                 
                 completion(httpStatusCode)
                 return
+            }.resume()
+        }
+    }
+    
+    func getAllFriendsFromAPI(userId: Int, token: String, completion: @escaping ([UserAPI]?) -> ()) {
+        let fullURL = url + "users/allfriendsforid/\(userId)"
+        let urlToGet = URL(string: fullURL)
+        var model = [UserAPI]()
+        if urlToGet != nil {
+            var request = URLRequest(url: urlToGet!)
+            request.httpMethod = "GET"
+            if token.count > 0 {
+                request.setValue(token, forHTTPHeaderField: "Authorization: Bearer")
+            }
+            let session = URLSession.shared
+            session.dataTask(with: request) { (data, response, error) in
+                guard let dataResponse = data, error == nil else {
+                    print(error?.localizedDescription ?? "Response Error")
+                    completion(nil)
+                    return
+                }
+                
+                let httpStatus = response as? HTTPURLResponse
+                let httpStatusCode:Int = (httpStatus?.statusCode)!
+                
+                if httpStatusCode < 400 {
+                    do {
+                        let jsonResponse = try JSONSerialization.jsonObject(with:
+                            dataResponse, options: [])
+                        
+                        if let jsonArray = jsonResponse as? [[String: Any]] {
+                            for dic in jsonArray{
+                                var usrAPI = UserAPI(dic)
+                                usrAPI.password = EncodeHelpers.getFunc.decrypte(key: usrAPI.password)
+                                model.append(usrAPI)
+                            }
+                            completion(model)
+                            return
+                        } else {
+                            if let jsonArray2 = jsonResponse as? [String: Any] {
+                                model.append(UserAPI(jsonArray2))
+                                completion(model)
+                                return
+                            } else {
+                                completion(nil)
+                                return
+                            }
+                        }
+                    } catch let parsingError {
+                        print("Error", parsingError)
+                        completion(nil)
+                    }
+                } else {
+                    completion(nil)
+                    return
+                }
+            }.resume()
+        }
+    }
+    
+    func getAllUsersForAListFromAPI(listOfUserId: String, token: String, completion: @escaping ([UserAPI]?) -> ()) {
+        let fullURL = url + "users/fromlistofid/" + listOfUserId
+        let urlToGet = URL(string: fullURL)
+        var model = [UserAPI]()
+        if urlToGet != nil {
+            var request = URLRequest(url: urlToGet!)
+            request.httpMethod = "GET"
+            if token.count > 0 {
+                request.setValue(token, forHTTPHeaderField: "Authorization: Bearer")
+            }
+            let session = URLSession.shared
+            session.dataTask(with: request) { (data, response, error) in
+                guard let dataResponse = data, error == nil else {
+                    print(error?.localizedDescription ?? "Response Error")
+                    completion(nil)
+                    return
+                }
+                
+                let httpStatus = response as? HTTPURLResponse
+                let httpStatusCode:Int = (httpStatus?.statusCode)!
+                
+                if httpStatusCode < 400 {
+                    do {
+                        let jsonResponse = try JSONSerialization.jsonObject(with:
+                            dataResponse, options: [])
+                        
+                        if let jsonArray = jsonResponse as? [[String: Any]] {
+                            for dic in jsonArray{
+                                var usrAPI = UserAPI(dic)
+                                usrAPI.password = EncodeHelpers.getFunc.decrypte(key: usrAPI.password)
+                                model.append(usrAPI)
+                            }
+                            completion(model)
+                            return
+                        } else {
+                            if let jsonArray2 = jsonResponse as? [String: Any] {
+                                model.append(UserAPI(jsonArray2))
+                                completion(model)
+                                return
+                            } else {
+                                completion(nil)
+                                return
+                            }
+                        }
+                    } catch let parsingError {
+                        print("Error", parsingError)
+                        completion(nil)
+                    }
+                } else {
+                    completion(nil)
+                    return
+                }
             }.resume()
         }
     }

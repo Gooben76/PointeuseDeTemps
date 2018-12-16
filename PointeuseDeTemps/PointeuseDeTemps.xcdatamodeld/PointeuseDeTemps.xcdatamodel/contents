@@ -12,27 +12,14 @@
         <relationship name="typicalDayActivities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TypicalDayActivities" inverseName="activityId" inverseEntity="TypicalDayActivities" syncable="YES"/>
         <relationship name="userID" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="activities" inverseEntity="Users" syncable="YES"/>
     </entity>
-    <entity name="Friends" representedClassName="Friends" syncable="YES" codeGenerationType="class">
-        <attribute name="active" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="friendFirstName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="friendId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="friendLastName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="friendLogin" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="friendMail" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="modifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Messages" inverseName="friendId" inverseEntity="Messages" syncable="YES"/>
-        <relationship name="userId" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="friends" inverseEntity="Users" syncable="YES"/>
-    </entity>
     <entity name="Messages" representedClassName="Messages" syncable="YES" codeGenerationType="class">
-        <attribute name="fromMe" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="read" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sms" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="friendId" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Friends" inverseName="messages" inverseEntity="Friends" syncable="YES"/>
-        <relationship name="userId" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="messages" inverseEntity="Users" syncable="YES"/>
+        <relationship name="userFromId" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="messagesFrom" inverseEntity="Users" syncable="YES"/>
+        <relationship name="userToId" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="messagesTo" inverseEntity="Users" syncable="YES"/>
     </entity>
     <entity name="TimeScoreActivities" representedClassName="TimeScoreActivities" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -93,8 +80,8 @@
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="synchronization" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="activities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Activities" inverseName="userID" inverseEntity="Activities" syncable="YES"/>
-        <relationship name="friends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Friends" inverseName="userId" inverseEntity="Friends" syncable="YES"/>
-        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Messages" inverseName="userId" inverseEntity="Messages" syncable="YES"/>
+        <relationship name="messagesFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Messages" inverseName="userFromId" inverseEntity="Messages" syncable="YES"/>
+        <relationship name="messagesTo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Messages" inverseName="userToId" inverseEntity="Messages" syncable="YES"/>
         <relationship name="timeScoreActivityDetails" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimeScoreActivityDetails" inverseName="userId" inverseEntity="TimeScoreActivityDetails" syncable="YES"/>
         <relationship name="timeScores" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimeScores" inverseName="userId" inverseEntity="TimeScores" syncable="YES"/>
         <relationship name="timeScoresActivities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimeScoreActivities" inverseName="userId" inverseEntity="TimeScoreActivities" syncable="YES"/>
@@ -103,13 +90,12 @@
     </entity>
     <elements>
         <element name="Activities" positionX="13.296875" positionY="-90.50390625" width="128" height="195"/>
-        <element name="Friends" positionX="-270" positionY="54" width="128" height="195"/>
+        <element name="Messages" positionX="-270" positionY="54" width="128" height="148"/>
         <element name="TimeScoreActivities" positionX="-227.3984375" positionY="-54.23046875" width="128" height="150"/>
         <element name="TimeScoreActivityDetails" positionX="-465.01171875" positionY="-73.375" width="128" height="225"/>
         <element name="TimeScores" positionX="-113.13671875" positionY="205.81640625" width="128" height="135"/>
         <element name="TypicalDayActivities" positionX="229.73046875" positionY="250.609375" width="128" height="120"/>
         <element name="TypicalDays" positionX="-316.50390625" positionY="207.8203125" width="128" height="135"/>
-        <element name="Users" positionX="234" positionY="-72" width="128" height="330"/>
-        <element name="Messages" positionX="-270" positionY="54" width="128" height="165"/>
+        <element name="Users" positionX="234" positionY="-72" width="128" height="328"/>
     </elements>
 </model>

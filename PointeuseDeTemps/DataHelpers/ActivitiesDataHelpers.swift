@@ -21,7 +21,7 @@ class ActivitiesDataHelpers {
         return nil
     }
     
-    func setNewActivity(activityName: String, userConnected: Users) -> Bool {
+    func setNewActivity(activityName: String, userConnected: Users, withoutSynchronization: Bool = false) -> Bool {
         if activityName != "" {
             let elm = searchActivityByName(activityName: activityName, userConnected: userConnected)
             guard elm == nil else {return false}
@@ -34,7 +34,7 @@ class ActivitiesDataHelpers {
             newElm.userID = userConnected
             appDelegate.saveContext()
             
-            if userConnected.synchronization {
+            if userConnected.synchronization && !withoutSynchronization {
                 APIActivities.getFunc.createToAPI(activityId: newElm, token: "") { (newAPI) in
                     if newAPI != nil, newAPI!.id != -1 {
                         newElm.id = Int32(newAPI!.id)
@@ -75,7 +75,7 @@ class ActivitiesDataHelpers {
                 
                 if userConnected.synchronization {
                     APIActivities.getFunc.deleteToAPI(id: deleteId, token: "") { (httpcode) in
-                        print("http response code : \(httpcode)")
+                        //
                     }
                 }
                 return true
@@ -88,7 +88,7 @@ class ActivitiesDataHelpers {
         }
     }
     
-    func setActivity(activity: Activities!, userConnected: Users!) -> Bool {
+    func setActivity(activity: Activities!, userConnected: Users!, withoutSynchronization: Bool = false) -> Bool {
         if activity != nil {
             let elm = searchActivityByName(activityName: activity.activityName!, userConnected: userConnected)
             guard elm != nil else {return false}
@@ -100,9 +100,9 @@ class ActivitiesDataHelpers {
             do {
                 try context.save()
                 
-                if userConnected.synchronization {
+                if userConnected.synchronization && !withoutSynchronization {
                     APIActivities.getFunc.updateToAPI(activityId: elm!, token: "", completion: { (httpcode) in
-                        print("http response code : \(httpcode)")
+                        //
                     })
                 }
                 return true

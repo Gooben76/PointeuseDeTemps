@@ -73,6 +73,18 @@ struct UserAPI: Codable {
         self.allowMessages  = userId.allowMessages
         self.modifiedDate = userId.modifiedDate!
     }
+    
+    init(intId: Int) {
+        self.id = intId
+        self.login = ""
+        self.password = ""
+        self.mail = ""
+        self.firstName = ""
+        self.lastName = ""
+        self.synchronization = false
+        self.allowMessages  = false
+        self.modifiedDate = Date()
+    }
 }
 
 struct ActivityAPI: Codable {
@@ -306,54 +318,10 @@ struct TimeScoreActivityDetailAPI: Codable {
     }
 }
 
-struct FriendAPI: Codable {
-    var id: Int
-    var userId: Int
-    var friendId: Int
-    var friendLogin : String
-    var friendMail: String
-    var friendLastName: String
-    var friendFirstName: String
-    var active: Bool
-    var modifiedDate: Date
-    
-    init(_ dictionary: [String: Any]) {
-        let modifiedDateAny = dictionary["modifiedDate"]
-        let modifiedDateString: String = String(describing: modifiedDateAny!)
-        var modifiedDate: Date? = nil
-        if modifiedDateString != "<null>" {
-            modifiedDate = DateHelper.getFunc.convertStringDateTimeJsonToDate(modifiedDateString)!
-        }
-        
-        self.id = dictionary["id"] as? Int ?? -1
-        self.userId = dictionary["userId"] as? Int ?? 0
-        self.friendId = dictionary["friendId"] as? Int ?? 0
-        self.friendLogin = dictionary["friendLogin"] as? String ?? ""
-        self.friendMail = dictionary["friendMail"] as? String ?? ""
-        self.friendLastName = dictionary["friendLastName"] as? String ?? ""
-        self.friendFirstName = dictionary["friendFirstName"] as? String ?? ""
-        self.active = dictionary["active"] as? Bool ?? false
-        self.modifiedDate = modifiedDate!
-    }
-    
-    init(friendId: Friends) {
-        self.id = Int(friendId.id)
-        self.userId = Int(friendId.userId!.id)
-        self.friendId = Int(friendId.friendId)
-        self.friendLogin = friendId.friendLogin!
-        self.friendMail = friendId.friendMail!
-        self.friendLastName = friendId.friendLastName ?? ""
-        self.friendFirstName = friendId.friendFirstName ?? ""
-        self.active = friendId.active
-        self.modifiedDate = friendId.modifiedDate!
-    }
-}
-
 struct MessageAPI: Codable {
     var id: Int
-    var userId: Int
-    var friendId: Int
-    var fromMe: Bool
+    var userFromId: Int
+    var userToId: Int
     var message: String
     var read: Bool
     var sms: Bool
@@ -368,9 +336,8 @@ struct MessageAPI: Codable {
         }
         
         self.id = dictionary["id"] as? Int ?? -1
-        self.userId = dictionary["userId"] as? Int ?? 0
-        self.friendId = dictionary["friendId"] as? Int ?? 0
-        self.fromMe = dictionary["fromMe"] as? Bool ?? false
+        self.userFromId = dictionary["userFromId"] as? Int ?? 0
+        self.userToId = dictionary["userToId"] as? Int ?? 0
         self.message = dictionary["message"] as? String ?? ""
         self.read = dictionary["read"] as? Bool ?? false
         self.sms = dictionary["sms"] as? Bool ?? false
@@ -379,9 +346,8 @@ struct MessageAPI: Codable {
     
     init(messageId: Messages) {
         self.id = Int(messageId.id)
-        self.userId = Int(messageId.userId!.id)
-        self.friendId = Int(messageId.friendId!.id)
-        self.fromMe = messageId.fromMe
+        self.userFromId = Int(messageId.userFromId!.id)
+        self.userToId = Int(messageId.userToId!.id)
         self.message = messageId.message!
         self.read = messageId.read
         self.sms = messageId.sms

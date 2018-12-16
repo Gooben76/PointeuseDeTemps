@@ -34,7 +34,7 @@ class TimeScoreActivityDetailsDataHelpers {
         return nil
     }
     
-    func setNewTimeScoreActivityDetail(timeScoreActivity: TimeScoreActivities, coordinates: CLLocationCoordinate2D?, userConnected: Users) -> Bool {
+    func setNewTimeScoreActivityDetail(timeScoreActivity: TimeScoreActivities, coordinates: CLLocationCoordinate2D?, userConnected: Users, withoutSynchronization: Bool = false) -> Bool {
         let newElm = TimeScoreActivityDetails(context: context)
         newElm.timeScoreActivityId = timeScoreActivity
         newElm.startDateTime = Date()
@@ -47,7 +47,7 @@ class TimeScoreActivityDetailsDataHelpers {
         newElm.modifiedDate = Date()
         appDelegate.saveContext()
         
-        if userConnected.synchronization {
+        if userConnected.synchronization && !withoutSynchronization {
             APITimeScoreActivityDetails.getFunc.createToAPI(timeScoreActivityDetailId: newElm, token: "") { (newAPI) in
                 if newAPI != nil, newAPI!.id != -1 {
                     newElm.id = Int32(newAPI!.id)
@@ -59,7 +59,7 @@ class TimeScoreActivityDetailsDataHelpers {
         return true
     }
     
-    func updateTimeScoreActivityDetail(timeScoreActivity: TimeScoreActivities, coordinates: CLLocationCoordinate2D?, userConnected: Users) -> Bool {
+    func updateTimeScoreActivityDetail(timeScoreActivity: TimeScoreActivities, coordinates: CLLocationCoordinate2D?, userConnected: Users, withoutSynchronization: Bool = false) -> Bool {
         if let result = userConnected.timeScoreActivityDetails?.allObjects as? [TimeScoreActivityDetails] {
             let predicate1 = NSPredicate(format: "timeScoreActivityId == %@ AND running == true", timeScoreActivity)
             if let filterResult = (result as NSArray).filtered(using: predicate1) as? [TimeScoreActivityDetails] {
@@ -77,9 +77,9 @@ class TimeScoreActivityDetailsDataHelpers {
                     do {
                         try context.save()
                         
-                        if userConnected.synchronization {
+                        if userConnected.synchronization && !withoutSynchronization {
                             APITimeScoreActivityDetails.getFunc.updateToAPI(timeScoreActivityDetailId: filterResult[0], token: "", completion: { (httpcode) in
-                                print("http response code : \(httpcode)")
+                                //
                             })
                         }
                         return true
@@ -139,7 +139,7 @@ class TimeScoreActivityDetailsDataHelpers {
         }
     }
     
-    func setTimeScoreActivityDetail(timeScoreActivityDetail: TimeScoreActivityDetails, userConnected: Users!) -> Bool {
+    func setTimeScoreActivityDetail(timeScoreActivityDetail: TimeScoreActivityDetails, userConnected: Users!, withoutSynchronization: Bool = false) -> Bool {
         let elm = searchTimeScoreActivityDetailByTimeScoreActivityAndStartDateTime(timeScoreActivity: timeScoreActivityDetail.timeScoreActivityId!, startDateTime: timeScoreActivityDetail.startDateTime!, userConnected: userConnected)
         guard elm != nil else {return false}
         elm!.setValue(timeScoreActivityDetail.running, forKey: "running")
@@ -153,9 +153,9 @@ class TimeScoreActivityDetailsDataHelpers {
         do {
             try context.save()
             
-            if userConnected.synchronization {
+            if userConnected.synchronization && !withoutSynchronization {
                 APITimeScoreActivityDetails.getFunc.updateToAPI(timeScoreActivityDetailId: elm!, token: "", completion: { (httpcode) in
-                    print("http response code : \(httpcode)")
+                    //
                 })
             }
             return true

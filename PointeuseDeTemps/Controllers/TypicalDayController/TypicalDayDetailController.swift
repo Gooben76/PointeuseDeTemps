@@ -25,6 +25,7 @@ class TypicalDayDetailController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //keyboardManagement()
         
         typicalDayTF.placeholder = RSC_TYPICAL_DAY
         saveButton.setTitle(RSC_SAVE, for: .normal)
@@ -66,10 +67,6 @@ class TypicalDayDetailController: UIViewController, UITableViewDelegate, UITable
         
         NotificationCenter.default.addObserver(self, selector: #selector(handler_DetailUpdate), name: .numberActivitiesInTypicalDay, object: nil)
     }
-
-    @objc func hideKeyboard() {
-        view.endEditing(true)
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return typicalDayActivitiesDetails.count
@@ -89,12 +86,12 @@ class TypicalDayDetailController: UIViewController, UITableViewDelegate, UITable
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == typicalDayTF {
-            if let text = textField.text {
+            if let text = textField.text, text != "" {
                 typicalDay!.typicalDayName = text
+                if !TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: typicalDay!, userConnected: userConnected!) {
+                    print("Erreur de sauvegarde de la journée type")
+                }
             }
-        }
-        if !TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: typicalDay!, userConnected: userConnected!) {
-            print("Erreur de sauvegarde de la journée type")
         }
     }
     

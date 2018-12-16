@@ -39,6 +39,7 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        keyboardManagement()
         
         if let nav = navigationController {
             navigationBar = nav.navigationBar
@@ -63,17 +64,19 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         synchronizationLabel.text = RSC_SYNCHRONIZATION
         allowMessagesLabel.text = RSC_ALLOW_MESSAGES
         
-        scroll.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
-        
         synchronizationSwitch.addTarget(self, action: #selector(self.synchronizationSwitchValueDidChange), for: .valueChanged)
     }
 
-    @objc func hideKeyboard() {
-        view.endEditing(true)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = true
+        
         if view.frame.width != screenSize.width {
             widthConstraint.constant = screenSize.width - 20
             topOfImageConstraint.constant = 30

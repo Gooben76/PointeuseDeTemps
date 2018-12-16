@@ -23,6 +23,7 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        keyboardManagementInTableView()
         
         if let nav = navigationController {
             navigationBar = nav.navigationBar
@@ -31,6 +32,9 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
             let rightAddBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "add-16px"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(addButtonAction))
             rightAddBarButtonItem.tintColor = UIColor.black
             self.navigationItem.setRightBarButtonItems([rightAddBarButtonItem], animated: true)
+            let parameterBarButtonItem = UIBarButtonItem(image: UIImage(named: "user-30"), style: UIBarButtonItemStyle.done, target: self, action: #selector(parameterButtonAction))
+            parameterBarButtonItem.tintColor = UIColor.black
+            self.navigationItem.setLeftBarButtonItems([parameterBarButtonItem], animated: true)
         }
         
         let usr = UserDefaults.standard.object(forKey: "connectedUser")
@@ -52,8 +56,6 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         
         NotificationCenter.default.addObserver(self, selector: #selector(handler_ErrorMessageToShow), name: .showErrorMessageInActivitiesController, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handler_RefreshData), name: .refreshActivitiesController, object: nil)
-        
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -66,10 +68,6 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
             activities = allData
         }
         tableView.reloadData()
-    }
-    
-    @objc func hideKeyboard() {
-        view.endEditing(true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -138,5 +136,11 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @objc func handler_RefreshData(notification: Notification) {
         loadData()
+    }
+    
+    @objc func parameterButtonAction() {
+        if userConnected != nil {
+            self.navigationController?.pushViewController(ParametersController(), animated: true)
+        }
     }
 }

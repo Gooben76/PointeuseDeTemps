@@ -127,10 +127,12 @@ class APITimeScoreActivities {
         
         do {
             let jsonEncoder = JSONEncoder()
-            jsonEncoder.dateEncodingStrategy = .iso8601
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            jsonEncoder.dateEncodingStrategy = .formatted(dateFormatter)
+            //jsonEncoder.dateEncodingStrategy = .iso8601
             jsonData = try jsonEncoder.encode(modelToSend)
         } catch let encodingError {
-            print("Erreur d'encodage")
             print(encodingError.localizedDescription)
             return
         }
@@ -171,11 +173,12 @@ class APITimeScoreActivities {
         
         do {
             let jsonEncoder = JSONEncoder()
-            jsonEncoder.dateEncodingStrategy = .iso8601
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            jsonEncoder.dateEncodingStrategy = .formatted(dateFormatter)
+            //jsonEncoder.dateEncodingStrategy = .iso8601
             jsonData = try jsonEncoder.encode(modelToSend)
-            print((String(data: jsonData, encoding: .isoLatin1)) ?? "")
         } catch let encodingError {
-            print("Erreur d'encodage")
             print(encodingError.localizedDescription)
             return
         }

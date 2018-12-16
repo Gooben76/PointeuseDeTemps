@@ -13,9 +13,10 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let parameters = UINavigationController(rootViewController: ParametersController())
+        /*let parameters = UINavigationController(rootViewController: ParametersController())
         parameters.title = RSC_USER
         parameters.tabBarItem.image = #imageLiteral(resourceName: "user-30")
+        */
         
         let activities = UINavigationController(rootViewController: ActivitiesController())
         activities.title = RSC_ACTIVITIES
@@ -37,7 +38,7 @@ class TabBarController: UITabBarController {
         friends.title = RSC_FRIENDS
         friends.tabBarItem.image = UIImage(named: "message-24")
         
-        viewControllers = [activities, days, timeScores, history, friends, parameters]
+        viewControllers = [activities, days, timeScores, friends, history]
         
         selectedViewController = timeScores
     }

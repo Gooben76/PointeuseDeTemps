@@ -12,15 +12,49 @@ class Synchronization {
     
     static let getFunc = Synchronization()
     
-    func userSynchronization(userConnected: Users!) -> String {
+    func startTimers(userConnected: Users) {
+        timerMessages = Timer(timeInterval: timerMessagesInterval, target: self, selector: #selector(updateMessages), userInfo: ["userConnected": userConnected], repeats: true)
+        timerUsersUpdate = Timer(timeInterval: timerUsersUpdateInterval, target: self, selector: #selector(updateUsers), userInfo: ["userConnected": userConnected], repeats: true)
+        
+        let mainLoop = RunLoop.main
+        mainLoop.add(timerMessages!, forMode: .defaultRunLoopMode)
+        mainLoop.add(timerUsersUpdate!, forMode: .defaultRunLoopMode)
+    }
+    
+    @objc func updateMessages() {
+        if let userInfo = timerMessages!.userInfo as? Dictionary<String, AnyObject> {
+            if let userConnected = userInfo["userConnected"] as? Users {
+                messagesSynchronization(userConnected: userConnected)
+            }
+        }
+    }
+    
+    @objc func updateUsers() {
+        if let userInfo = timerMessages!.userInfo as? Dictionary<String, AnyObject> {
+            if let userConnected = userInfo["userConnected"] as? Users {
+                updateUsersSynchronization(userConnected: userConnected)
+            }
+        }
+    }
+    
+    func getUsersForMessages(userConnected: Users) {
+        usersForMessages.removeAll()
+        APIUsers.getFunc.getAllFriendsFromAPI(userId: Int(userConnected.id), token: "", completion: { (allData) in
+            if allData != nil {
+                usersForMessages = allData!
+            }
+        })
+    }
+    
+    func userSynchronization(userConnected: Users!, completion: @escaping (String) -> ()) {
         if userConnected.synchronization {
             if userConnected.id == 0 {
                 //si utilisateur n'existe pas sur le serveur, on le crée
                 APIUsers.getFunc.createUserToAPI(userId: userConnected, token: "") { (data) in
                     if data != nil {
                         userConnected.id = Int32(data!.id)
-                        if !UsersDataHelpers.getFunc.setUser(user: userConnected) {
-                            print("Erreur de synchronisation de Users")
+                        if !UsersDataHelpers.getFunc.setUser(user: userConnected, withoutSynchronization: true) {
+                            //
                         }
                     }
                 }
@@ -32,15 +66,15 @@ class Synchronization {
                             // on synchronise les données de l'utilisateur
                             if data!.modifiedDate < userConnected.modifiedDate! {
                                 APIUsers.getFunc.updateUserToAPI(userId: userConnected, token: "", completion: { (httpCode) in
-                                    print("HTTP Code (users) : \(httpCode)")
+                                    //
                                 })
                             } else if data!.modifiedDate > userConnected.modifiedDate! {
                                 userConnected.password = data!.password
                                 userConnected.allowMessages = data!.allowMessages
                                 userConnected.firstName = data!.firstName
                                 userConnected.lastName = data!.lastName
-                                if !UsersDataHelpers.getFunc.setUser(user: userConnected) {
-                                    print("Erreur de synchronisation de Users")
+                                if !UsersDataHelpers.getFunc.setUser(user: userConnected, withoutSynchronization: true) {
+                                    //
                                 }
                             }
                         } else {
@@ -48,39 +82,48 @@ class Synchronization {
                             APIUsers.getFunc.getUserFromLoginAndMail(login: userConnected.login!, mail: userConnected.password!, token: "", completion: { (data) in
                                 if data != nil {
                                     userConnected.id = Int32(data!.id)
-                                    if !UsersDataHelpers.getFunc.setUser(user: userConnected) {
-                                        print("Erreur de synchronisation de Users")
+                                    if !UsersDataHelpers.getFunc.setUser(user: userConnected, withoutSynchronization: true) {
+                                        //
                                     }
                                 } else {
                                     // si le login et le mail n'existe pas, on crée un nouvel utilisateur
                                     APIUsers.getFunc.createUserToAPI(userId: userConnected, token: "") { (data) in
                                         if data != nil {
                                             userConnected.id = Int32(data!.id)
-                                            if !UsersDataHelpers.getFunc.setUser(user: userConnected) {
-                                                print("Erreur de synchronisation de Users")
+                                            if !UsersDataHelpers.getFunc.setUser(user: userConnected, withoutSynchronization: true) {
+                                                //
                                             }
                                         }
                                     }
                                 }
                             })
                         }
+                        completion(userConnected.password!)
+                        return
+                    } else {
+                        completion("")
+                        return
                     }
                 }
             }
+        } else {
+            completion(userConnected.password!)
+            return
         }
-        return userConnected.password!
     }
     
     func generalSynchronization(userConnected: Users!) {
         if userConnected.synchronization {
+            messagesSynchronization(userConnected: userConnected)
+            
             activitiesSynchronization(userConnected: userConnected)
             typicalDaysSynchronization(userConnected: userConnected)
             typicalDayActivitiesSynchronization(userConnected: userConnected)
             timeScoresSynchronization(userConnected: userConnected)
             timeScoreActivitiesSynchronization(userConnected: userConnected)
             timeScoreActivityDetailsSynchronization(userConnected: userConnected)
-            friendsSynchronization(userConnected: userConnected)
-            messagesSynchronization(userConnected: userConnected)
+            
+            startTimers(userConnected: userConnected)
         }
     }
     
@@ -94,7 +137,7 @@ class Synchronization {
                         search = ActivitiesDataHelpers.getFunc.searchActivityByName(activityName: dataAPI.activityName, userConnected: userConnected)
                         if search == nil  {
                             if !ActivitiesDataHelpers.getFunc.setNewActivityFromActivityAPI(activityAPI: dataAPI, userConnected: userConnected) {
-                                print("Erreur de synchronisation d'Activities")
+                                //
                             }
                         } else {
                             search!.id = Int32(dataAPI.id)
@@ -102,15 +145,15 @@ class Synchronization {
                                 search!.order = Int32(dataAPI.order)
                                 search!.gpsPosition = dataAPI.gpsPosition
                                 search!.modifiedDate = dataAPI.modifiedDate
-                                if !ActivitiesDataHelpers.getFunc.setActivity(activity: search, userConnected: userConnected) {
-                                    print("Erreur de synchronisation d'Activities")
+                                if !ActivitiesDataHelpers.getFunc.setActivity(activity: search, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
                                 }
                             } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                                if !ActivitiesDataHelpers.getFunc.setActivity(activity: search, userConnected: userConnected) {
-                                    print("Erreur de synchronisation d'Activities")
+                                if !ActivitiesDataHelpers.getFunc.setActivity(activity: search, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
                                 }
                                 APIActivities.getFunc.updateToAPI(activityId: search!, token: "", completion: { (httpCode) in
-                                    print("HTTP Code : \(httpCode)")
+                                    //
                                 })
                             }
                         }
@@ -119,15 +162,15 @@ class Synchronization {
                             search!.order = Int32(dataAPI.order)
                             search!.gpsPosition = dataAPI.gpsPosition
                             search!.modifiedDate = dataAPI.modifiedDate
-                            if !ActivitiesDataHelpers.getFunc.setActivity(activity: search, userConnected: userConnected) {
-                                print("Erreur de synchronisation d'Activities")
+                            if !ActivitiesDataHelpers.getFunc.setActivity(activity: search, userConnected: userConnected, withoutSynchronization: true) {
+                                //
                             }
                         } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                            if !ActivitiesDataHelpers.getFunc.setActivity(activity: search, userConnected: userConnected) {
-                                print("Erreur de synchronisation d'Activities")
+                            if !ActivitiesDataHelpers.getFunc.setActivity(activity: search, userConnected: userConnected, withoutSynchronization: true) {
+                                //
                             }
                             APIActivities.getFunc.updateToAPI(activityId: search!, token: "", completion: { (httpCode) in
-                                print("HTTP Code (activities) : \(httpCode)")
+                                //
                             })
                         }
                     }
@@ -141,8 +184,8 @@ class Synchronization {
                             APIActivities.getFunc.createToAPI(activityId: data, token: "", completion: { (newData) in
                                 if newData != nil {
                                     data.id = Int32(newData!.id)
-                                    if !ActivitiesDataHelpers.getFunc.setActivity(activity: data, userConnected: userConnected) {
-                                        print("Erreur de synchronisation d'Activities")
+                                    if !ActivitiesDataHelpers.getFunc.setActivity(activity: data, userConnected: userConnected, withoutSynchronization: true) {
+                                        //
                                     }
                                 }
                             })
@@ -163,36 +206,36 @@ class Synchronization {
                         search = TypicalDaysDataHelpers.getFunc.searchTypicalDayByName(typicalDayName: dataAPI.typicalDayName, userConnected: userConnected)
                         if search == nil  {
                             if !TypicalDaysDataHelpers.getFunc.setNewTypicalDayFromTypicalDayAPI(typicalDayAPI: dataAPI, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TypicalDays")
+                                //
                             }
                         } else {
                             search!.id = Int32(dataAPI.id)
                             if search!.modifiedDate! < dataAPI.modifiedDate {
                                 search!.modifiedDate = dataAPI.modifiedDate
-                                if !TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: search, userConnected: userConnected) {
-                                    print("Erreur de synchronisation de TypicalDays")
+                                if !TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: search, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
                                 }
                             } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                                if !TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: search, userConnected: userConnected) {
-                                    print("Erreur de synchronisation de TypicalDays")
+                                if !TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: search, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
                                 }
                                 APITypicalDays.getFunc.updateToAPI(typicalDayId: search!, token: "", completion: { (httpCode) in
-                                    print("HTTP Code : \(httpCode)")
+                                    //
                                 })
                             }
                         }
                     } else {
                         if search!.modifiedDate! < dataAPI.modifiedDate {
                             search!.modifiedDate = dataAPI.modifiedDate
-                            if !TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: search, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TypicalDays")
+                            if !TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: search, userConnected: userConnected, withoutSynchronization: true) {
+                                //
                             }
                         } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                            if !TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: search, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TypicalDays")
+                            if !TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: search, userConnected: userConnected, withoutSynchronization: true) {
+                                //
                             }
                             APITypicalDays.getFunc.updateToAPI(typicalDayId: search!, token: "", completion: { (httpCode) in
-                                print("HTTP Code (TypicalDays) : \(httpCode)")
+                                //
                             })
                         }
                     }
@@ -206,8 +249,8 @@ class Synchronization {
                             APITypicalDays.getFunc.createToAPI(typicalDayId: data, token: "", completion: { (newData) in
                                 if newData != nil {
                                     data.id = Int32(newData!.id)
-                                    if !TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: data, userConnected: userConnected) {
-                                        print("Erreur de synchronisation de TypicalDays")
+                                    if !TypicalDaysDataHelpers.getFunc.setTypicalDay(typicalDay: data, userConnected: userConnected, withoutSynchronization: true) {
+                                        //
                                     }
                                 }
                             })
@@ -234,36 +277,36 @@ class Synchronization {
                         }
                         if search == nil  {
                             if !TypicalDayActivitiesDataHelpers.getFunc.setNewTypicalDayActivityFromTypicalDayActivityAPI(typicalDayActivityAPI: dataAPI, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TypicalDayActivities")
+                                //
                             }
                         } else {
                             search!.id = Int32(dataAPI.id)
                             if search!.modifiedDate! < dataAPI.modifiedDate {
                                 search!.modifiedDate = dataAPI.modifiedDate
-                                if !TypicalDayActivitiesDataHelpers.getFunc.setTypicalDayActivity(typicalDay: search!.typicalDayId, activity: search!.activityId, userConnected: userConnected) {
-                                    print("Erreur de synchronisation de TypicalDayActivities")
+                                if !TypicalDayActivitiesDataHelpers.getFunc.setTypicalDayActivity(typicalDay: search!.typicalDayId, activity: search!.activityId, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
                                 }
                             } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                                if !TypicalDayActivitiesDataHelpers.getFunc.setTypicalDayActivity(typicalDay: search!.typicalDayId, activity: search!.activityId, userConnected: userConnected) {
-                                    print("Erreur de synchronisation de TypicalDayActivities")
+                                if !TypicalDayActivitiesDataHelpers.getFunc.setTypicalDayActivity(typicalDay: search!.typicalDayId, activity: search!.activityId, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
                                 }
                                 APITypicalDayActivities.getFunc.updateToAPI(typicalDayAvtivityId: search!, token: "", completion: { (httpCode) in
-                                    print("HTTP Code : \(httpCode)")
+                                    //
                                 })
                             }
                         }
                     } else {
                         if search!.modifiedDate! < dataAPI.modifiedDate {
                             search!.modifiedDate = dataAPI.modifiedDate
-                           if !TypicalDayActivitiesDataHelpers.getFunc.setTypicalDayActivity(typicalDay: search!.typicalDayId, activity: search!.activityId, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TypicalDayActivities")
+                           if !TypicalDayActivitiesDataHelpers.getFunc.setTypicalDayActivity(typicalDay: search!.typicalDayId, activity: search!.activityId, userConnected: userConnected, withoutSynchronization: true) {
+                                //
                             }
                         } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                            if !TypicalDayActivitiesDataHelpers.getFunc.setTypicalDayActivity(typicalDay: search!.typicalDayId, activity: search!.activityId, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TypicalDayActivities")
+                            if !TypicalDayActivitiesDataHelpers.getFunc.setTypicalDayActivity(typicalDay: search!.typicalDayId, activity: search!.activityId, userConnected: userConnected, withoutSynchronization: true) {
+                                //
                             }
                             APITypicalDayActivities.getFunc.updateToAPI(typicalDayAvtivityId: search!, token: "", completion: { (httpCode) in
-                                print("HTTP Code (TypicalDayActivities) : \(httpCode)")
+                                //
                             })
                         }
                     }
@@ -277,8 +320,8 @@ class Synchronization {
                             APITypicalDayActivities.getFunc.createToAPI(typicalDayAvtivityId: data, token: "", completion: { (newData) in
                                 if newData != nil {
                                     data.id = Int32(newData!.id)
-                                    if !TypicalDayActivitiesDataHelpers.getFunc.setTypicalDayActivity(typicalDay: data.typicalDayId, activity: data.activityId, userConnected: userConnected) {
-                                        print("Erreur de synchronisation de TypicalDays")
+                                    if !TypicalDayActivitiesDataHelpers.getFunc.setTypicalDayActivity(typicalDay: data.typicalDayId, activity: data.activityId, userConnected: userConnected, withoutSynchronization: true) {
+                                        //
                                     }
                                 }
                             })
@@ -300,22 +343,22 @@ class Synchronization {
                             , userConnected: userConnected)
                         if search == nil  {
                             if !TimeScoresDataHelpers.getFunc.setNewTimeScoreFromTimeScoreAPI(timeScoreAPI: dataAPI, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TimeScores")
+                                //
                             }
                         } else {
                             search!.id = Int32(dataAPI.id)
                             if search!.modifiedDate! < dataAPI.modifiedDate {
                                 search!.typicalDayId = TypicalDaysDataHelpers.getFunc.searchTypicalDayById(id: dataAPI.typicalDayId!, userConnected: userConnected)
                                 search!.modifiedDate = dataAPI.modifiedDate
-                                if !TimeScoresDataHelpers.getFunc.setTimeScore(timeScore: search, userConnected: userConnected) {
-                                    print("Erreur de synchronisation de TimeScores")
+                                if !TimeScoresDataHelpers.getFunc.setTimeScore(timeScore: search, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
                                 }
                             } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                                if !TimeScoresDataHelpers.getFunc.setTimeScore(timeScore: search, userConnected: userConnected) {
-                                    print("Erreur de synchronisation de TimeScores")
+                                if !TimeScoresDataHelpers.getFunc.setTimeScore(timeScore: search, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
                                 }
                                 APITimeScores.getFunc.updateToAPI(timeScoreId: search!, token: "", completion: { (httpCode) in
-                                    print("HTTP Code : \(httpCode)")
+                                    //
                                 })
                             }
                         }
@@ -323,15 +366,15 @@ class Synchronization {
                         if search!.modifiedDate! < dataAPI.modifiedDate {
                             search!.typicalDayId = TypicalDaysDataHelpers.getFunc.searchTypicalDayById(id: dataAPI.typicalDayId!, userConnected: userConnected)
                             search!.modifiedDate = dataAPI.modifiedDate
-                            if !TimeScoresDataHelpers.getFunc.setTimeScore(timeScore: search, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TimeScores")
+                            if !TimeScoresDataHelpers.getFunc.setTimeScore(timeScore: search, userConnected: userConnected, withoutSynchronization: true) {
+                                //
                             }
                         } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                            if !TimeScoresDataHelpers.getFunc.setTimeScore(timeScore: search, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TimeScores")
+                            if !TimeScoresDataHelpers.getFunc.setTimeScore(timeScore: search, userConnected: userConnected, withoutSynchronization: true) {
+                                //
                             }
                             APITimeScores.getFunc.updateToAPI(timeScoreId: search!, token: "", completion: { (httpCode) in
-                                print("HTTP Code (TimeScores) : \(httpCode)")
+                                //
                             })
                         }
                     }
@@ -345,8 +388,8 @@ class Synchronization {
                             APITimeScores.getFunc.createToAPI(timeScoreId: data, token: "", completion: { (newData) in
                                 if newData != nil {
                                     data.id = Int32(newData!.id)
-                                    if !TimeScoresDataHelpers.getFunc.setTimeScore(timeScore: data, userConnected: userConnected) {
-                                        print("Erreur de synchronisation de TimeScores")
+                                    if !TimeScoresDataHelpers.getFunc.setTimeScore(timeScore: data, userConnected: userConnected, withoutSynchronization: true) {
+                                        //
                                     }
                                 }
                             })
@@ -373,22 +416,22 @@ class Synchronization {
                         }
                         if search == nil  {
                             if !TimeScoreActivitiesDataHelpers.getFunc.setNewTimeScoreActivityFromTimeScoreActivityAPI(timeScoreActivityAPI: dataAPI, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TimeScoreActivities")
+                                //
                             }
                         } else {
                             search!.id = Int32(dataAPI.id)
                             if search!.modifiedDate! < dataAPI.modifiedDate {
                                 search!.running = dataAPI.running
                                 search!.modifiedDate = dataAPI.modifiedDate
-                                if !TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivity(timeScoreActivity: search!, userConnected: userConnected) {
-                                    print("Erreur de synchronisation de TimeScoreActivities")
+                                if !TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivity(timeScoreActivity: search!, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
                                 }
                             } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                                if !TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivity(timeScoreActivity: search!, userConnected: userConnected) {
-                                    print("Erreur de synchronisation de TimeScoreActivities")
+                                if !TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivity(timeScoreActivity: search!, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
                                 }
                                 APITimeScoreActivities.getFunc.updateToAPI(timeScoreActivityId: search!, token: "", completion: { (httpCode) in
-                                    print("HTTP Code : \(httpCode)")
+                                    //
                                 })
                             }
                         }
@@ -396,15 +439,15 @@ class Synchronization {
                         if search!.modifiedDate! < dataAPI.modifiedDate {
                             search!.running = dataAPI.running
                             search!.modifiedDate = dataAPI.modifiedDate
-                            if !TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivity(timeScoreActivity: search!, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TimeScoreActivities")
+                            if !TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivity(timeScoreActivity: search!, userConnected: userConnected, withoutSynchronization: true) {
+                                //
                             }
                         } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                            if !TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivity(timeScoreActivity: search!, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TimeScoreActivities")
+                            if !TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivity(timeScoreActivity: search!, userConnected: userConnected, withoutSynchronization: true) {
+                                //
                             }
                             APITimeScoreActivities.getFunc.updateToAPI(timeScoreActivityId: search!, token: "", completion: { (httpCode) in
-                                print("HTTP Code (TimeScoreActivities) : \(httpCode)")
+                                //
                             })
                         }
                     }
@@ -418,8 +461,8 @@ class Synchronization {
                             APITimeScoreActivities.getFunc.createToAPI(timeScoreActivityId: data, token: "", completion: { (newData) in
                                 if newData != nil {
                                     data.id = Int32(newData!.id)
-                                    if !TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivity(timeScoreActivity: data, userConnected: userConnected) {
-                                        print("Erreur de synchronisation de TimeScoreActivities")
+                                    if !TimeScoreActivitiesDataHelpers.getFunc.setTimeScoreActivity(timeScoreActivity: data, userConnected: userConnected, withoutSynchronization: true) {
+                                        //
                                     }
                                 }
                             })
@@ -445,7 +488,7 @@ class Synchronization {
                         }
                         if search == nil  {
                             if !TimeScoreActivityDetailsDataHelpers.getFunc.setNewTimeScoreActivityDetailFromTimeScoreActivityDetailAPI(timeScoreActivityDetailAPI: dataAPI, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TimeScoreActivityDetails")
+                                //
                             }
                         } else {
                             search!.id = Int32(dataAPI.id)
@@ -458,15 +501,15 @@ class Synchronization {
                                 search!.endLongitude = dataAPI.endLongitude
                                 search!.duration = dataAPI.duration
                                 search!.modifiedDate = dataAPI.modifiedDate
-                                if !TimeScoreActivityDetailsDataHelpers.getFunc.setTimeScoreActivityDetail(timeScoreActivityDetail: search!, userConnected: userConnected) {
-                                    print("Erreur de synchronisation de TimeScoreActivityDetails")
+                                if !TimeScoreActivityDetailsDataHelpers.getFunc.setTimeScoreActivityDetail(timeScoreActivityDetail: search!, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
                                 }
                             } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                                if !TimeScoreActivityDetailsDataHelpers.getFunc.setTimeScoreActivityDetail(timeScoreActivityDetail: search!, userConnected: userConnected) {
-                                    print("Erreur de synchronisation de TimeScoreActivityDetails")
+                                if !TimeScoreActivityDetailsDataHelpers.getFunc.setTimeScoreActivityDetail(timeScoreActivityDetail: search!, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
                                 }
                                 APITimeScoreActivityDetails.getFunc.updateToAPI(timeScoreActivityDetailId: search!, token: "", completion: { (httpCode) in
-                                    print("HTTP Code : \(httpCode)")
+                                    //
                                 })
                             }
                         }
@@ -480,15 +523,15 @@ class Synchronization {
                             search!.endLongitude = dataAPI.endLongitude
                             search!.duration = dataAPI.duration
                             search!.modifiedDate = dataAPI.modifiedDate
-                            if !TimeScoreActivityDetailsDataHelpers.getFunc.setTimeScoreActivityDetail(timeScoreActivityDetail: search!, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TimeScoreActivityDetails")
+                            if !TimeScoreActivityDetailsDataHelpers.getFunc.setTimeScoreActivityDetail(timeScoreActivityDetail: search!, userConnected: userConnected, withoutSynchronization: true) {
+                                //
                             }
                         } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                            if !TimeScoreActivityDetailsDataHelpers.getFunc.setTimeScoreActivityDetail(timeScoreActivityDetail: search!, userConnected: userConnected) {
-                                print("Erreur de synchronisation de TimeScoreActivityDetails")
+                            if !TimeScoreActivityDetailsDataHelpers.getFunc.setTimeScoreActivityDetail(timeScoreActivityDetail: search!, userConnected: userConnected, withoutSynchronization: true) {
+                                //
                             }
                             APITimeScoreActivityDetails.getFunc.updateToAPI(timeScoreActivityDetailId: search!, token: "", completion: { (httpCode) in
-                                print("HTTP Code (TimeScoreActivityDetails) : \(httpCode)")
+                                //
                             })
                         }
                     }
@@ -502,85 +545,8 @@ class Synchronization {
                             APITimeScoreActivityDetails.getFunc.createToAPI(timeScoreActivityDetailId: data, token: "", completion: { (newData) in
                                 if newData != nil {
                                     data.id = Int32(newData!.id)
-                                    if !TimeScoreActivityDetailsDataHelpers.getFunc.setTimeScoreActivityDetail(timeScoreActivityDetail: data, userConnected: userConnected) {
-                                        print("Erreur de synchronisation de TimeScoreActivityDetails")
-                                    }
-                                }
-                            })
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    func friendsSynchronization(userConnected: Users!) {
-        APIFriends.getFunc.getAllFromAPI(userId: Int(userConnected.id), token: "") { (dataAPIs) in
-            if dataAPIs != nil {
-                //Création dans données dans la base portable à partir du serveur
-                for dataAPI in dataAPIs!{
-                    var search: Friends? = FriendsDataHelpers.getFunc.searchFriendById(id: dataAPI.id, userConnected: userConnected)
-                    if search == nil {
-                        search = FriendsDataHelpers.getFunc.searchFriendByFriendId(id: Int32(dataAPI.friendId), userConnected: userConnected)
-                        if search == nil  {
-                            if !FriendsDataHelpers.getFunc.setNewFriendFromFriendAPI(friendAPI: dataAPI, userConnected: userConnected) {
-                                print("Erreur de synchronisation de Friends")
-                            }
-                        } else {
-                            search!.id = Int32(dataAPI.id)
-                            if search!.modifiedDate! < dataAPI.modifiedDate {
-                                search!.friendId = Int32(dataAPI.friendId)
-                                search!.friendLogin = dataAPI.friendLogin
-                                search!.friendMail = dataAPI.friendMail
-                                search!.friendLastName = dataAPI.friendLastName
-                                search!.friendFirstName = dataAPI.friendFirstName
-                                search!.active = dataAPI.active
-                                search!.modifiedDate = dataAPI.modifiedDate
-                                if !FriendsDataHelpers.getFunc.setFriend(friend: search, userConnected: userConnected) {
-                                    print("Erreur de synchronisation de Friends")
-                                }
-                            } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                                if !FriendsDataHelpers.getFunc.setFriend(friend: search, userConnected: userConnected) {
-                                    print("Erreur de synchronisation de Friends")
-                                }
-                                APIFriends.getFunc.updateToAPI(friendId: search!, token: "", completion: { (httpCode) in
-                                    print("HTTP Code : \(httpCode)")
-                                })
-                            }
-                        }
-                    } else {
-                        if search!.modifiedDate! < dataAPI.modifiedDate {
-                            search!.friendId = Int32(dataAPI.friendId)
-                            search!.friendLogin = dataAPI.friendLogin
-                            search!.friendMail = dataAPI.friendMail
-                            search!.friendLastName = dataAPI.friendLastName
-                            search!.friendFirstName = dataAPI.friendFirstName
-                            search!.active = dataAPI.active
-                            search!.modifiedDate = dataAPI.modifiedDate
-                            if !FriendsDataHelpers.getFunc.setFriend(friend: search, userConnected: userConnected) {
-                                print("Erreur de synchronisation de Friends")
-                            }
-                        } else if search!.modifiedDate! > dataAPI.modifiedDate {
-                            if !FriendsDataHelpers.getFunc.setFriend(friend: search, userConnected: userConnected) {
-                                print("Erreur de synchronisation de Friends")
-                            }
-                            APIFriends.getFunc.updateToAPI(friendId: search!, token: "", completion: { (httpCode) in
-                                print("HTTP Code (friends) : \(httpCode)")
-                            })
-                        }
-                    }
-                }
-                
-                //Création des données sur le serveur à partir de la base portable
-                let datas = FriendsDataHelpers.getFunc.getAllFriends(userConnected: userConnected)
-                if datas != nil {
-                    for data in datas! {
-                        if data.id == 0 {
-                            APIFriends.getFunc.createToAPI(friendId: data, token: "", completion: { (newData) in
-                                if newData != nil {
-                                    data.id = Int32(newData!.id)
-                                    if !FriendsDataHelpers.getFunc.setFriend(friend: data, userConnected: userConnected) {
-                                        print("Erreur de synchronisation de Friends")
+                                    if !TimeScoreActivityDetailsDataHelpers.getFunc.setTimeScoreActivityDetail(timeScoreActivityDetail: data, userConnected: userConnected, withoutSynchronization: true) {
+                                        //
                                     }
                                 }
                             })
@@ -592,35 +558,142 @@ class Synchronization {
     }
     
     func messagesSynchronization(userConnected: Users!) {
-        APIMessages.getFunc.getAllFromAPI(userId: Int(userConnected.id), token: "") { (dataAPIs) in
-            if dataAPIs != nil {
-                //Création dans données dans la base portable à partir du serveur
-                for dataAPI in dataAPIs!{
-                    let search: Messages? = MessagesDataHelpers.getFunc.searchMessageById(id: dataAPI.id, userConnected: userConnected)
-                    if search == nil {
-                        if !MessagesDataHelpers.getFunc.setNewMessageFromMessageAPI(messageAPI: dataAPI, userConnected: userConnected) {
-                                print("Erreur de synchronisation de Messages")
+        if userConnected.synchronization {
+            APIMessages.getFunc.getAllFromAPI(userId: Int(userConnected.id), token: "") { (dataAPIs) in
+                if dataAPIs != nil {
+                    var dicoUsersToCreate = [Int]()
+                    for dataAPI in dataAPIs!{
+                        if dataAPI.userFromId != userConnected.id && !dicoUsersToCreate.contains(dataAPI.userFromId) {
+                            if UsersDataHelpers.getFunc.searchUserById(id: Int32(dataAPI.userFromId)) == nil {
+                                dicoUsersToCreate.append(dataAPI.userFromId)
+                            }
+                        }
+                        if dataAPI.userToId != userConnected.id && !dicoUsersToCreate.contains(dataAPI.userToId) {
+                            if UsersDataHelpers.getFunc.searchUserById(id: Int32(dataAPI.userFromId)) == nil {
+                                dicoUsersToCreate.append(dataAPI.userToId)
+                            }
                         }
                     }
-                }
-                
-                //Création des données sur le serveur à partir de la base portable
-                let datas = MessagesDataHelpers.getFunc.getAllMessages(userConnected: userConnected)
-                if datas != nil {
-                    for data in datas! {
-                        if data.id == 0 {
-                            APIMessages.getFunc.createToAPI(messageId: data, token: "", completion: { (newData) in
-                                if newData != nil {
-                                    data.id = Int32(newData!.id)
-                                    /*if !MessagesDataHelpers.getFunc.setMessage(message: data, userConnected: userConnected) {
-                                        print("Erreur de synchronisation de Messages")
-                                    }*/
-                                }
-                            })
+                    
+                    if dicoUsersToCreate.count > 0 {
+                        var listOfUserId: String = ""
+                        for usr in dicoUsersToCreate {
+                            listOfUserId += String(usr) + "-"
                         }
+                        APIUsers.getFunc.getAllUsersForAListFromAPI(listOfUserId: listOfUserId, token: "", completion: { (users) in
+                            if users != nil {
+                                for user in users! {
+                                    if !UsersDataHelpers.getFunc.setNewUserFromUserAPI(userAPI: user) {
+                                        //
+                                    }
+                                }
+                                self.messagesTraetment(dataAPIs: dataAPIs!, userConnected: userConnected)
+                            }
+                        })
+                    } else {
+                        self.messagesTraetment(dataAPIs: dataAPIs!, userConnected: userConnected)
                     }
                 }
             }
+            
+            //Création des données sur le serveur à partir de la base portable
+            let datas = MessagesDataHelpers.getFunc.getAllMessages(userConnected: userConnected)
+            if datas != nil {
+                for data in datas! {
+                    if data.id == 0 {
+                        APIMessages.getFunc.createToAPI(messageId: data, token: "", completion: { (newData) in
+                            if newData != nil {
+                                data.id = Int32(newData!.id)
+                                if !MessagesDataHelpers.getFunc.setMessage(message: data, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
+                                }
+                            }
+                        })
+                    }
+                }
+            }
+        }
+    }
+    
+    func messagesTraetment(dataAPIs : [MessageAPI], userConnected: Users!) {
+        //Création dans données dans la base portable à partir du serveur
+        for dataAPI in dataAPIs{
+            let userFromId = UsersDataHelpers.getFunc.searchUserById(id: Int32(dataAPI.userFromId))
+            let userToId = UsersDataHelpers.getFunc.searchUserById(id: Int32(dataAPI.userToId))
+            var search: Messages? = MessagesDataHelpers.getFunc.searchMessageById(id: dataAPI.id, userConnected: userConnected)
+            if search == nil, userFromId != nil, userToId != nil {
+                search = MessagesDataHelpers.getFunc.searchMessageByUserFromIdAndUserToIdAndDate(userFromId: userFromId!, userToId: userToId!, date: dataAPI.modifiedDate, userConnected: userConnected)
+                if search == nil  {
+                    if !MessagesDataHelpers.getFunc.setNewMessageFromMessageAPI(messageAPI: dataAPI, userConnected: userConnected) {
+                        //
+                    }
+                } else {
+                    search!.id = Int32(dataAPI.id)
+                    if search!.modifiedDate! < dataAPI.modifiedDate {
+                        search!.userFromId = userFromId
+                        search!.userToId = userToId
+                        search!.sms = dataAPI.sms
+                        search!.read = dataAPI.read
+                        search!.message = dataAPI.message
+                        search!.modifiedDate = dataAPI.modifiedDate
+                        if !MessagesDataHelpers.getFunc.setMessage(message: search, userConnected: userConnected, withoutSynchronization: true) {
+                            //
+                        }
+                    } else if search!.modifiedDate! > dataAPI.modifiedDate {
+                        if !MessagesDataHelpers.getFunc.setMessage(message: search, userConnected: userConnected, withoutSynchronization: true) {
+                            //
+                        }
+                        APIMessages.getFunc.updateToAPI(messageId: search!, token: "", completion: { (httpCode) in
+                            //
+                        })
+                    }
+                }
+            } else {
+                if search!.modifiedDate! < dataAPI.modifiedDate {
+                    search!.userFromId = userFromId
+                    search!.userToId = userToId
+                    search!.sms = dataAPI.sms
+                    search!.read = dataAPI.read
+                    search!.message = dataAPI.message
+                    search!.modifiedDate = dataAPI.modifiedDate
+                    if !MessagesDataHelpers.getFunc.setMessage(message: search, userConnected: userConnected, withoutSynchronization: true) {
+                        //
+                    }
+                } else if search!.modifiedDate! > dataAPI.modifiedDate {
+                    if !MessagesDataHelpers.getFunc.setMessage(message: search, userConnected: userConnected, withoutSynchronization: true) {
+                        //
+                    }
+                    APIMessages.getFunc.updateToAPI(messageId: search!, token: "", completion: { (httpCode) in
+                        //
+                    })
+                }
+            }
+        }
+    }
+    
+    func updateUsersSynchronization(userConnected: Users) {
+        let allUsers = UsersDataHelpers.getFunc.getAllUsers()
+        if allUsers.count > 0 {
+            var listOfUserId: String = ""
+            for usr in allUsers {
+                if usr != userConnected {
+                    listOfUserId += String(usr.id) + "-"
+                }
+            }
+            APIUsers.getFunc.getAllUsersForAListFromAPI(listOfUserId: listOfUserId, token: "", completion: { (users) in
+                if users != nil {
+                    for usr in users! {
+                        let user = UsersDataHelpers.getFunc.searchUserById(id: Int32(usr.id))
+                        if user != nil {
+                            if usr.modifiedDate > user!.modifiedDate! {
+                                if !UsersDataHelpers.getFunc.setUserFromUserAPI(userAPI: usr, userConnected: userConnected, withoutSynchronization: true) {
+                                    //
+                                }
+                            }
+                        }
+                    }
+                }
+            })
         }
     }
 }

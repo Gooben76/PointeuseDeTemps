@@ -26,7 +26,7 @@ class UsersDataHelpers {
         return users
     }
     
-    func setNewUser(login: String, password: String, firstName: String?, lastName: String?, mail: String?, image: UIImage?, synchronization: Bool, allowMessages: Bool) -> Bool {
+    func setNewUser(login: String, password: String, firstName: String?, lastName: String?, mail: String?, image: UIImage?, synchronization: Bool, allowMessages: Bool, withoutSynchronization: Bool = false) -> Bool {
         if login != "" && password != "" && mail != "" {
             let elm = searchUserByLogin(login: login)
             guard elm == nil else {return false}
@@ -50,7 +50,7 @@ class UsersDataHelpers {
             newUser.modifiedDate = Date()
             appDelegate.saveContext()
             
-            if newUser.synchronization {
+            if newUser.synchronization && !withoutSynchronization {
                 APIUsers.getFunc.createUserToAPI(userId: newUser, token: "", completion: { (apiUser) in
                     if apiUser != nil, apiUser!.id != -1 {
                         newUser.id = Int32(apiUser!.id)
@@ -75,7 +75,7 @@ class UsersDataHelpers {
                 
                 if synchro {
                     APIUsers.getFunc.deleteUserToAPI(userId: deleteId, token: "") { (httpcode) in
-                        print("http response code : \(httpcode)")
+                        //
                     }
                 }
                 return true
@@ -114,7 +114,7 @@ class UsersDataHelpers {
         }
     }
     
-    func setUser(user: Users!) -> Bool {
+    func setUser(user: Users!, withoutSynchronization: Bool = false) -> Bool {
         if user != nil {
             let elm = searchUserByLogin(login: user.login!)
             guard elm != nil else {return false}
@@ -123,13 +123,15 @@ class UsersDataHelpers {
             elm!.setValue(user.lastName, forKey: "lastName")
             elm!.setValue(user.mail, forKey: "mail")
             elm!.setValue(user.image, forKey: "image")
+            elm!.setValue(user.synchronization, forKey: "synchronization")
+            elm!.setValue(user.allowMessages, forKey: "allowMessages")
             elm!.setValue(Date(), forKey: "modifiedDate")
             do {
                 try context.save()
                 
-                if user.synchronization {
+                if user.synchronization && !withoutSynchronization {
                     APIUsers.getFunc.updateUserToAPI(userId: elm!, token: "", completion: { (httpcode) in
-                        print("http response code : \(httpcode)")
+                        //
                     })
                 }
                 return true
@@ -139,6 +141,48 @@ class UsersDataHelpers {
             }
         } else {
             return false
+        }
+    }
+    
+    func setUserFromUserAPI(userAPI: UserAPI!, userConnected: Users, withoutSynchronization: Bool = false) -> Bool {
+        let elm = searchUserById(id: Int32(userAPI.id))
+        guard elm != nil else {return false}
+        elm!.setValue(userAPI.password, forKey: "password")
+        elm!.setValue(userAPI.firstName, forKey: "firstName")
+        elm!.setValue(userAPI.lastName, forKey: "lastName")
+        elm!.setValue(userAPI.mail, forKey: "mail")
+        elm!.setValue(userAPI.synchronization, forKey: "synchronization")
+        elm!.setValue(userAPI.allowMessages, forKey: "allowMessages")
+        elm!.setValue(userAPI.modifiedDate, forKey: "modifiedDate")
+        do {
+            try context.save()
+            
+            if userConnected.synchronization && !withoutSynchronization {
+                APIUsers.getFunc.updateUserToAPI(userId: elm!, token: "", completion: { (httpcode) in
+                    //
+                })
+            }
+            return true
+        } catch {
+            print(error.localizedDescription)
+            return false
+        }
+    }
+    
+    func searchUserById(id: Int32) -> Users? {
+        let query: NSFetchRequest<Users> = Users.fetchRequest()
+        query.predicate = NSPredicate(format: "id == \(id)")
+        do {
+            var foundRecordsArray = [Users]()
+            try foundRecordsArray = context.fetch(query)
+            if foundRecordsArray.count > 0 {
+                return foundRecordsArray[0]
+            } else {
+                return nil
+            }
+        } catch {
+            print(error.localizedDescription)
+            return nil
         }
     }
     

@@ -21,7 +21,7 @@ class TypicalDaysDataHelpers {
         return nil
     }
     
-    func setNewTypicalDay(typicalDayName: String, userConnected: Users) -> Bool {
+    func setNewTypicalDay(typicalDayName: String, userConnected: Users, withoutSynchronization: Bool = false) -> Bool {
         if typicalDayName != "" {
             let elm = searchTypicalDayByName(typicalDayName: typicalDayName, userConnected: userConnected)
             guard elm == nil else {return false}
@@ -31,7 +31,7 @@ class TypicalDaysDataHelpers {
             newElm.userID = userConnected
             appDelegate.saveContext()
             
-            if userConnected.synchronization {
+            if userConnected.synchronization && !withoutSynchronization {
                 APITypicalDays.getFunc.createToAPI(typicalDayId: newElm, token: "") { (newAPI) in
                     if newAPI != nil, newAPI!.id != -1 {
                         newElm.id = Int32(newAPI!.id)
@@ -57,10 +57,9 @@ class TypicalDaysDataHelpers {
                     
                     if userConnected.synchronization {
                         APITypicalDays.getFunc.deleteToAPI(id: deleteId, token: "") { (httpcode) in
-                            print("http response code : \(httpcode)")
+                            //
                         }
                     }
-                    
                     return true
                 } catch {
                     print(error.localizedDescription)
@@ -70,7 +69,7 @@ class TypicalDaysDataHelpers {
         return false
     }
     
-    func setTypicalDay(typicalDay: TypicalDays!, userConnected: Users!) -> Bool {
+    func setTypicalDay(typicalDay: TypicalDays!, userConnected: Users!, withoutSynchronization: Bool = false) -> Bool {
         if typicalDay != nil {
             let elm = searchTypicalDayByName(typicalDayName: typicalDay!.typicalDayName!, userConnected: userConnected)
             guard elm != nil else {return false}
@@ -78,9 +77,9 @@ class TypicalDaysDataHelpers {
             elm!.setValue(Date(), forKey: "modifiedDate")
             do {
                 try context.save()
-                if userConnected.synchronization {
+                if userConnected.synchronization && !withoutSynchronization {
                     APITypicalDays.getFunc.updateToAPI(typicalDayId: elm!, token: "", completion: { (httpcode) in
-                        print("http response code : \(httpcode)")
+                        //
                     })
                 }
                 return true

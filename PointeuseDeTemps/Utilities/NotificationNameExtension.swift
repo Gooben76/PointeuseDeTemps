@@ -14,4 +14,7 @@ extension Notification.Name {
     static let changeRunningStatusInTimeScoreActivity = Notification.Name(rawValue: "changeRunningStatusInTimeScoreActivity")
     static let showErrorMessageInActivitiesController = Notification.Name(rawValue: "showErrorMessageInActivitiesController")
     static let refreshActivitiesController = Notification.Name(rawValue: "refreshActivitiesController")
+    static let loadFriendsUsers = Notification.Name(rawValue: "loadFriendsUsers")
+    static let newMessageForAFriendMessage = Notification.Name(rawValue: "newMessageForAFriendMessage")
+    static let newMessageForAFriendFriend = Notification.Name(rawValue: "newMessageForAFriendFriend")
 }

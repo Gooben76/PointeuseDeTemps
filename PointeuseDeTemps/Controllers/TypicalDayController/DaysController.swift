@@ -21,6 +21,7 @@ class DaysController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        keyboardManagementInTableView()
         
         if let nav = navigationController {
             navigationBar = nav.navigationBar
@@ -29,6 +30,9 @@ class DaysController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let rightAddBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "add-16px"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(addButtonAction))
             rightAddBarButtonItem.tintColor = UIColor.black
             self.navigationItem.setRightBarButtonItems([rightAddBarButtonItem], animated: true)
+            let parameterBarButtonItem = UIBarButtonItem(image: UIImage(named: "user-30"), style: UIBarButtonItemStyle.done, target: self, action: #selector(parameterButtonAction))
+            parameterBarButtonItem.tintColor = UIColor.black
+            self.navigationItem.setLeftBarButtonItems([parameterBarButtonItem], animated: true)
         }
         
         let usr = UserDefaults.standard.object(forKey: "connectedUser")
@@ -101,6 +105,12 @@ class DaysController: UIViewController, UITableViewDelegate, UITableViewDataSour
         controller.userConnected = userConnected!
         controller.typicalDay = nil
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @objc func parameterButtonAction() {
+        if userConnected != nil {
+            self.navigationController?.pushViewController(ParametersController(), animated: true)
+        }
     }
     
 }

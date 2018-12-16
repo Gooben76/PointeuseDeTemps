@@ -21,7 +21,7 @@ class TimeScoresDataHelpers {
         return nil
     }
     
-    func setNewTimeScore(date: Date, typicalDay: TypicalDays?, userConnected: Users) -> Bool {
+    func setNewTimeScore(date: Date, typicalDay: TypicalDays?, userConnected: Users, withoutSynchronization: Bool = false) -> Bool {
         if date.timeIntervalSince1970 != 0 {
             let elm = searchTimeScoreByDate(date: date, userConnected: userConnected)
             guard elm == nil else {return false}
@@ -34,7 +34,7 @@ class TimeScoresDataHelpers {
             newElm.userId = userConnected
             appDelegate.saveContext()
             
-            if userConnected.synchronization {
+            if userConnected.synchronization && !withoutSynchronization {
                 APITimeScores.getFunc.createToAPI(timeScoreId: newElm, token: "") { (newAPI) in
                     if newAPI != nil, newAPI!.id != -1 {
                         newElm.id = Int32(newAPI!.id)
@@ -48,7 +48,7 @@ class TimeScoresDataHelpers {
                 if let allSubData = typicalDay!.typicalDayActivities?.allObjects as? [TypicalDayActivities] {
                     for elm in allSubData {
                         if !TimeScoreActivitiesDataHelpers.getFunc.setNewTimeScoreActivity(timeScore: newElm, activity: elm.activityId!, userConnected: userConnected) {
-                            print("Erreur de sauvegarde de TimeScoreActivities")
+                            //
                         }
                     }
                 }
@@ -68,7 +68,7 @@ class TimeScoresDataHelpers {
                 
                 if userConnected.synchronization {
                     APITimeScores.getFunc.deleteToAPI(id: deleteId, token: "") { (httpcode) in
-                        print("http response code : \(httpcode)")
+                        //
                     }
                 }
                 return true
@@ -123,7 +123,7 @@ class TimeScoresDataHelpers {
         }
     }
     
-    func setTimeScore(timeScore: TimeScores!, userConnected: Users!) -> Bool {
+    func setTimeScore(timeScore: TimeScores!, userConnected: Users!, withoutSynchronization: Bool = false) -> Bool {
         if timeScore != nil {
             let elm = searchTimeScoreByDate(date: timeScore.date!, userConnected: userConnected)
             guard elm != nil else {return false}
@@ -132,9 +132,9 @@ class TimeScoresDataHelpers {
             do {
                 try context.save()
                 
-                if userConnected.synchronization {
+                if userConnected.synchronization && !withoutSynchronization {
                     APITimeScores.getFunc.updateToAPI(timeScoreId: elm!, token: "", completion: { (httpcode) in
-                        print("http response code : \(httpcode)")
+                        //
                     })
                 }
                 return true

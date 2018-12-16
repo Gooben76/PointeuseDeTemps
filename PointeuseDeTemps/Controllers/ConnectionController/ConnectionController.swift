@@ -19,8 +19,11 @@ class ConnectionController: UIViewController {
     @IBOutlet weak var connectFromServerButton: ButtonSmallTS!
     @IBOutlet weak var creationUserFromServerButton: ButtonTS!
     
+    var countTimer: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        keyboardManagement()
         
         titleLabel.text = RSC_IDENTIFICATION
         loginTF.placeholder = RSC_LOGIN
@@ -36,30 +39,25 @@ class ConnectionController: UIViewController {
         
         mailTF.isHidden = true
         creationUserFromServerButton.isHidden = true
-        
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
     }
 
-    @objc func hideKeyboard() {
-        view.endEditing(true)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let usr = UserDefaults.standard.object(forKey: "connectedUser")
         let usrPwd = UserDefaults.standard.object(forKey: "connectedUserPassword")
         if usr != nil, let login = usr as? String {
             if let user = UsersDataHelpers.getFunc.searchUserByLogin(login: login) {
-                let passwordAfterSynchronization = Synchronization.getFunc.userSynchronization(userConnected: user)
-                if usrPwd != nil, let loginPwd = usrPwd as? String {
-                    if loginPwd == passwordAfterSynchronization {
-                        Synchronization.getFunc.generalSynchronization(userConnected: user)
-                        let controller = TabBarController()
-                        self.present(controller, animated: true, completion: nil)
+                Synchronization.getFunc.userSynchronization(userConnected: user) { (passwordAfterSynchronization) in
+                    if usrPwd != nil, let loginPwd = usrPwd as? String {
+                        if loginPwd == passwordAfterSynchronization {
+                            Synchronization.getFunc.generalSynchronization(userConnected: user)
+                            let controller = TabBarController()
+                            self.present(controller, animated: true, completion: nil)
+                        }
+                    } else {
+                        UserDefaults.standard.removeObject(forKey: "connectedUserPassword")
+                        self.loginTF.text = login
                     }
-                } else {
-                    UserDefaults.standard.removeObject(forKey: "connectedUserPassword")
-                    loginTF.text = login
                 }
             } else {
                 UserDefaults.standard.removeObject(forKey: "connectedUser")
@@ -75,19 +73,20 @@ class ConnectionController: UIViewController {
         if loginTF.text != "", let login = loginTF.text {
             let user = UsersDataHelpers.getFunc.searchUserByLogin(login: login)
             if user != nil {
-                let passwordAfterSynchronization = Synchronization.getFunc.userSynchronization(userConnected: user)
-                if passwordTF.text != "", let password = passwordTF.text {
-                    if password == passwordAfterSynchronization {
-                        UserDefaults.standard.set(user!.login, forKey: "connectedUser")
-                        UserDefaults.standard.set(passwordAfterSynchronization, forKey: "connectedUserPassword")
-                        Synchronization.getFunc.generalSynchronization(userConnected: user)
-                        let controller = TabBarController()
-                        self.present(controller, animated: true, completion: nil)
+                Synchronization.getFunc.userSynchronization(userConnected: user) { (passwordAfterSynchronization) in
+                    if self.passwordTF.text != "", let password = self.passwordTF.text {
+                        if password == passwordAfterSynchronization {
+                            UserDefaults.standard.set(user!.login, forKey: "connectedUser")
+                            UserDefaults.standard.set(passwordAfterSynchronization, forKey: "connectedUserPassword")
+                            Synchronization.getFunc.generalSynchronization(userConnected: user)
+                            let controller = TabBarController()
+                            self.present(controller, animated: true, completion: nil)
+                        } else {
+                            Alert.show.error(message: RSC_WRONG_PASSWORD, controller: self)
+                        }
                     } else {
-                        Alert.show.error(message: RSC_WRONG_PASSWORD, controller: self)
+                        Alert.show.error(message: RSC_PASSWORD_REQUIRED, controller: self)
                     }
-                } else {
-                    Alert.show.error(message: RSC_PASSWORD_REQUIRED, controller: self)
                 }
             } else {
                 Alert.show.error(message: RSC_USER_UNKNOWED, controller: self)
@@ -159,5 +158,4 @@ class ConnectionController: UIViewController {
             Alert.show.error(message: RSC_LOGIN_REQUIRED, controller: self)
         }
     }
-    
 }

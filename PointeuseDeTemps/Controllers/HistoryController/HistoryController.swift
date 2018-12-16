@@ -21,10 +21,14 @@ class HistoryController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //keyboardManagementInTableView()
+        
         if let nav = navigationController {
             navigationBar = nav.navigationBar
             navigationBar!.items![0].title = RSC_HISTORY
+            let parameterBarButtonItem = UIBarButtonItem(image: UIImage(named: "user-30"), style: UIBarButtonItemStyle.done, target: self, action: #selector(parameterButtonAction))
+            parameterBarButtonItem.tintColor = UIColor.black
+            self.navigationItem.setLeftBarButtonItems([parameterBarButtonItem], animated: true)
         }
         
         let usr = UserDefaults.standard.object(forKey: "connectedUser")
@@ -71,4 +75,12 @@ class HistoryController: UIViewController, UITableViewDelegate, UITableViewDataS
         controller.userConnected = userConnected!
         self.navigationController?.pushViewController(controller, animated: true)
     }
+    
+    @objc func parameterButtonAction() {
+        if userConnected != nil {
+            self.navigationController?.pushViewController(ParametersController(), animated: true)
+        }
+    }
+    
+    
 }
