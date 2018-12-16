@@ -27,3 +27,5 @@ var timerUsersUpdate: Timer?
 let timerUsersUpdateInterval: Double = 30
 
 var usersForMessages = [UserAPI]()
+
+var textFieldToEdit: UITextField?

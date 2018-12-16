@@ -83,11 +83,13 @@ class FriendsController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func sortFriends() {
-        friends = friends.sorted(by: { $0.user.login! < $1.user.login!})
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            let indexPath = IndexPath(item: 0, section: 0)
-            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        if friends.count > 0 {
+            friends = friends.sorted(by: { $0.user.login! < $1.user.login!})
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                let indexPath = IndexPath(item: 0, section: 0)
+                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            }
         }
     }
     

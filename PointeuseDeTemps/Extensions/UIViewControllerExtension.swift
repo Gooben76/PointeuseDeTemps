@@ -21,10 +21,25 @@ extension UIViewController {
     }
     
     @objc func keyboardShow(notification: Notification) {
-        if let rectKeyboard = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue, view.frame.minY == 0 {
-            UIView.animate(withDuration: 0.25, animations: {
-                self.view.frame.origin.y -= rectKeyboard.height
-                })
+        if let rectKeyboard = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if view.frame.minY == 0 {
+                if textFieldToEdit != nil {
+                    var fieldFrame: CGRect = textFieldToEdit!.bounds
+                    fieldFrame = self.view.convert(fieldFrame, from: textFieldToEdit)
+                    let contentFrame: CGRect = self.view.frame
+                    let fieldBottom = fieldFrame.origin.y + fieldFrame.size.height
+                    
+                    if (contentFrame.size.height - fieldBottom < rectKeyboard.height) {
+                        UIView.animate(withDuration: 0.25, animations: {
+                            self.view.frame.origin.y -= (contentFrame.size.height - fieldBottom)
+                        })
+                    }
+                } else {
+                    UIView.animate(withDuration: 0.25, animations: {
+                        self.view.frame.origin.y -= rectKeyboard.height
+                    })
+                }
+            }
         }
     }
     

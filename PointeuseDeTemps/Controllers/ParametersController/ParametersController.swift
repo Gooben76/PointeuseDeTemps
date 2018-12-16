@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ParametersController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ParametersController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var scroll: UIScrollView!
     @IBOutlet weak var imageView: ImageViewTS!
@@ -63,6 +63,12 @@ class ParametersController: UIViewController, UIImagePickerControllerDelegate, U
         deleteButton.setTitle(RSC_DELETE, for: .normal)
         synchronizationLabel.text = RSC_SYNCHRONIZATION
         allowMessagesLabel.text = RSC_ALLOW_MESSAGES
+        
+        loginTF.delegate = self
+        passwordTF.delegate = self
+        mailTF.delegate = self
+        nameTF.delegate = self
+        firstNameTF.delegate = self
         
         synchronizationSwitch.addTarget(self, action: #selector(self.synchronizationSwitchValueDidChange), for: .valueChanged)
     }

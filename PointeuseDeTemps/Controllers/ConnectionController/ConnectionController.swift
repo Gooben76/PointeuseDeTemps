@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConnectionController: UIViewController {
+class ConnectionController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var titleLabel: LabelH1TS!
     @IBOutlet weak var loginTF: TextFieldTS!
@@ -39,6 +39,10 @@ class ConnectionController: UIViewController {
         
         mailTF.isHidden = true
         creationUserFromServerButton.isHidden = true
+        
+        loginTF.delegate = self
+        passwordTF.delegate = self
+        mailTF.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -157,5 +161,9 @@ class ConnectionController: UIViewController {
         } else {
             Alert.show.error(message: RSC_LOGIN_REQUIRED, controller: self)
         }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textFieldToEdit = textField
     }
 }
