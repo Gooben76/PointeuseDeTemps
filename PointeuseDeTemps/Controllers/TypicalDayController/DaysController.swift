@@ -21,7 +21,7 @@ class DaysController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        keyboardManagementInTableView()
+        //keyboardManagementInTableView()
         
         if let nav = navigationController {
             navigationBar = nav.navigationBar

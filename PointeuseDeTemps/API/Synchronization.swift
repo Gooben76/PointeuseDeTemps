@@ -13,12 +13,14 @@ class Synchronization {
     static let getFunc = Synchronization()
     
     func startTimers(userConnected: Users) {
-        timerMessages = Timer(timeInterval: timerMessagesInterval, target: self, selector: #selector(updateMessages), userInfo: ["userConnected": userConnected], repeats: true)
-        timerUsersUpdate = Timer(timeInterval: timerUsersUpdateInterval, target: self, selector: #selector(updateUsers), userInfo: ["userConnected": userConnected], repeats: true)
-        
-        let mainLoop = RunLoop.main
-        mainLoop.add(timerMessages!, forMode: .defaultRunLoopMode)
-        mainLoop.add(timerUsersUpdate!, forMode: .defaultRunLoopMode)
+        if userConnected.synchronization && userConnected.allowMessages {
+            timerMessages = Timer(timeInterval: timerMessagesInterval, target: self, selector: #selector(updateMessages), userInfo: ["userConnected": userConnected], repeats: true)
+            timerUsersUpdate = Timer(timeInterval: timerUsersUpdateInterval, target: self, selector: #selector(updateUsers), userInfo: ["userConnected": userConnected], repeats: true)
+            
+            let mainLoop = RunLoop.main
+            mainLoop.add(timerMessages!, forMode: .defaultRunLoopMode)
+            mainLoop.add(timerUsersUpdate!, forMode: .defaultRunLoopMode)
+        }
     }
     
     @objc func updateMessages() {
